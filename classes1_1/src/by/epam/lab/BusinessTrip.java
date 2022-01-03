@@ -44,8 +44,8 @@ public class BusinessTrip {
         return expenses + DAILY_RATE * daysNumber;
     }
 
-    private static String fromPennyToByn(int value) {
-        return value / 100 + "." + (value % 100) / 10 + value % 10;
+    private static String fromPennyToByn(int penny) {
+        return String.format("%d.%02d", penny / 100, penny % 100);
     }
 
     public void show() {
@@ -57,6 +57,7 @@ public class BusinessTrip {
     }
 
     public String toString() {
-        return account + ";" + fromPennyToByn(expenses) + ";" + daysNumber + ";" + fromPennyToByn(getTotal());
+        return account + ";" + fromPennyToByn(expenses) + ";" +
+                daysNumber + ";" + fromPennyToByn(getTotal());
     }
 }

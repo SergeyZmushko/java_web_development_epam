@@ -12,37 +12,25 @@ public class Runner {
         };
 
         // 2.
+        BusinessTrip businessTripMax = new BusinessTrip();
         for (BusinessTrip businessTrip : businessTrips) {
-            if (businessTrip != null) {
-                businessTrip.show();
-                System.out.println();
-            } else {
-                System.out.println("empty element \n");
+            if(businessTrip == null){
+                continue;
+            }
+            businessTrip.show();
+            if (businessTrip.getTotal() > businessTripMax.getTotal()){
+                businessTripMax = businessTrip;
             }
         }
-
-        System.out.println("Business trip with maximum cost:");
-        int currentTotal = 0;
-
-        for (BusinessTrip businessTrip : businessTrips) {
-            if (businessTrip != null && businessTrip.getTotal() >= currentTotal) {
-                currentTotal = businessTrip.getTotal();
-            }
-        }
-
-        for (BusinessTrip businessTrip : businessTrips) {
-            if (businessTrip != null && businessTrip.getTotal() == currentTotal) {
-                System.out.println(businessTrip);
-            }
-        }
+        System.out.println("Max total trip: " + businessTripMax);
 
         // 3.
         businessTrips[businessTrips.length - 1].setExpenses(10000);
 
         // 4.
         System.out.println("Total duration of two initial business trips:");
-        int duration = businessTrips[0].getDaysNumber() + businessTrips[1].getDaysNumber();
-        System.out.println("DURATION = " + duration);
+        System.out.println("DURATION = " + (businessTrips[0].getDaysNumber() +
+                businessTrips[1].getDaysNumber()));
 
         // 5.
         System.out.println("Array content to the console");
