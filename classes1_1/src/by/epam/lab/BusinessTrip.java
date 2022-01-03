@@ -1,19 +1,19 @@
 package by.epam.lab;
 
 public class BusinessTrip {
-    private static final int RATE = 900;
+    private static final int DAILY_RATE = 950;
     private String account;
-    private int transport;
-    private int days;
+    private int expenses;
+    private int daysNumber;
 
     public BusinessTrip() {
 
     }
 
-    public BusinessTrip(String account, int transport, int days) {
+    public BusinessTrip(String account, int expenses, int daysNumber) {
         this.account = account;
-        this.transport = transport;
-        this.days = days;
+        this.expenses = expenses;
+        this.daysNumber = daysNumber;
     }
 
     public String getAccount() {
@@ -24,45 +24,39 @@ public class BusinessTrip {
         this.account = account;
     }
 
-    public int getTransport() {
-        return transport;
+    public int getExpenses() {
+        return expenses;
     }
 
-    public void setTransport(int transport) {
-        this.transport = transport;
+    public void setExpenses(int expenses) {
+        this.expenses = expenses;
     }
 
-    public int getDays() {
-        return days;
+    public int getDaysNumber() {
+        return daysNumber;
     }
 
-    public void setDays(int days) {
-        this.days = days;
+    public void setDaysNumber(int daysNumber) {
+        this.daysNumber = daysNumber;
     }
 
     public int getTotal() {
-        return transport + RATE * days;
+        return expenses + DAILY_RATE * daysNumber;
     }
 
-    public String fromPennyToByn(int value) {
-        int rub = value / 100;
-        int kop = value % 100;
-        if (kop == 0)
-            return rub + "." + kop + "0";
-        else {
-            return rub + "." + kop;
-        }
+    private static String fromPennyToByn(int value) {
+        return value / 100 + "." + (value % 100) / 10 + value % 10;
     }
 
     public void show() {
-        System.out.println("rate = " + fromPennyToByn(RATE) + "\n" +
+        System.out.println("rate = " + fromPennyToByn(DAILY_RATE) + "\n" +
                 "account = " + account + "\n" +
-                "transport = " + fromPennyToByn(transport) + "\n" +
-                "days = " + days + "\n" +
+                "expenses = " + fromPennyToByn(expenses) + "\n" +
+                "daysNumber = " + daysNumber + "\n" +
                 "total = " + fromPennyToByn(getTotal()));
     }
 
     public String toString() {
-        return account + ";" + fromPennyToByn(transport) + ";" + days + ";" + fromPennyToByn(getTotal());
+        return account + ";" + fromPennyToByn(expenses) + ";" + daysNumber + ";" + fromPennyToByn(getTotal());
     }
 }
