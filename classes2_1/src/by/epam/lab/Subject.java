@@ -1,22 +1,22 @@
 package by.epam.lab;
 
-public final class Subject {
-    private final String NAME;
+public class Subject {
+    private String name;
     private Material material;
     private double volume;
 
     public Subject() {
-        this(null, null, 0.0);
+
     }
 
-    public Subject(String NAME, Material material, double volume) {
-        this.NAME = NAME;
+    public Subject(String name, Material material, double volume) {
+        this.name = name;
         this.material = material;
         this.volume = volume;
     }
 
-    public String getNAME() {
-        return NAME;
+    public String getName() {
+        return name;
     }
 
     public Material getMaterial() {
@@ -36,10 +36,10 @@ public final class Subject {
     }
 
     public double getMass() {
-        return material.getDENSITY() * volume;
+        return material.getDensity() * volume;
     }
 
     public String toString() {
-        return NAME + ";" + material + ";" + volume + ";" + getMass();
+        return name + ";" + material + ";" + volume + ";" + getMass();
     }
 }
