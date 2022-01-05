@@ -1,27 +1,27 @@
 package by.epam.lab;
 
 public final class Material {
-    private String name;
-    private final double density;
+    private final String NAME;
+    private final double DENSITY;
 
-    private Material(){
-        density = 0;
+    public Material() {
+        this(null, 0);
     }
 
-    public Material(String name, double density) {
-        this.name = name;
-        this.density = density;
+    public Material(String NAME, double DENSITY) {
+        this.NAME = NAME;
+        this.DENSITY = DENSITY;
     }
 
-    public String getName() {
-        return name;
+    public String getNAME() {
+        return NAME;
     }
 
-    public double getDensity() {
-        return density;
+    public double getDENSITY() {
+        return DENSITY;
     }
 
-    public String toString(){
-        return name + ";" + density;
+    public String toString() {
+        return NAME + ";" + DENSITY;
     }
 }
