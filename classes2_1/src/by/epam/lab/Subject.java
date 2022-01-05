@@ -9,7 +9,7 @@ public final class Subject {
         this(null, null, 0.0);
     }
 
-    public Subject(String NAME, Material material, double volume) {
+    public Subject(String NAME, Material material,  double volume) {
         this.NAME = NAME;
         this.material = material;
         this.volume = volume;
