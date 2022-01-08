@@ -8,6 +8,6 @@ public class Runner {
         System.out.println(wire);
         final Material COPPER = new Material("copper", 8500.0);
         wire.setMaterial(COPPER);
-        System.out.println("The wire mass is  " + wire.getMass() + " kg.");
+        System.out.println("The wire mass is " + wire.getMass() + " kg.");
     }
 }
