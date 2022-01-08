@@ -238,7 +238,11 @@ https://habr.com/ru/post/125210/
 Пути к компилятору и JVM открыты, переменная CLASSPATH не установлена.
 Создайте bat-файл для запуска приложения с двумя аргументами командной строки clever и 25007 на выполнение.
 Ответ.
-Источник.
+cd /D e:\javalesson
+javac -d bin src/HelloWorld.java
+java -classpath ./bin HelloWorld clever 25007
+pause
+Источник.-
  
 Имеется корректный файл helloWorld.jar.
 Создайте bat-файл для запуска приложения на выполнение.
