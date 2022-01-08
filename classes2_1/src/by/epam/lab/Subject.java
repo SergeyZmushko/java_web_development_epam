@@ -43,3 +43,4 @@ public class Subject {
         return name + ";" + material + ";" + volume + ";" + getMass();
     }
 }
+
