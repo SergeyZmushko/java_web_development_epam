@@ -25,4 +25,3 @@ public class Material {
         return name + ";" + density;
     }
 }
-
