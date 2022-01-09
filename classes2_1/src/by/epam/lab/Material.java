@@ -1,5 +1,7 @@
 package by.epam.lab;
 
+import java.util.Locale;
+
 public enum Material {
     STEEL( 7850.0),
     COPPER( 8500.0);
@@ -15,10 +17,10 @@ public enum Material {
     }
 
     public String getName(){
-        return name().toLowerCase();
+        return name().toLowerCase(Locale.ROOT);
     }
 
     public String toString() {
-        return getName() + ";" + getDensity();
+        return getName() + ";" + density;
     }
 }
