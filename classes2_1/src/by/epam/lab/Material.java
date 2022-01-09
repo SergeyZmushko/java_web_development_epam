@@ -3,8 +3,8 @@ package by.epam.lab;
 import java.util.Locale;
 
 public enum Material {
-    STEEL( 7850.0),
-    COPPER( 8500.0);
+    STEEL(7850.0),
+    COPPER(8500.0);
 
     private final double density;
 
@@ -16,7 +16,7 @@ public enum Material {
         return density;
     }
 
-    public String getName(){
+    public String getName() {
         return name().toLowerCase(Locale.ROOT);
     }
 
