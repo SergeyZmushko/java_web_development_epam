@@ -1,7 +1,6 @@
 import by.epam.lab.Purchase;
 import by.epam.lab.Utils;
 import by.epam.lab.WeekDay;
-
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.Arrays;
