@@ -41,7 +41,7 @@ public class Runner {
             }
         }
         if (count > 0) {
-            meanCost = meanCost / count;
+            meanCost = meanCost / count / 100;
         } else {
             meanCost = 0.0;
         }
