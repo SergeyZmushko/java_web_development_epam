@@ -64,6 +64,7 @@ public class Runner {
         }
     }
 
+
     private static void printArrayToConsole(Purchase[] purchases) {
         if (purchases.length != 0) {
             System.out.println(Purchase.PRODUCT_NAME + ";" + Utils.fromPennyToByn(Purchase.PRICE));
