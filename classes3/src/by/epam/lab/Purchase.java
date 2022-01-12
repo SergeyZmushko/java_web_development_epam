@@ -4,14 +4,14 @@ public class Purchase implements Comparable<Purchase> {
     public final static String PRODUCT_NAME = "Grape";
     public final static int PRICE = 1500;
     private int number;
-    private int percent;
-    private int day;
+    private double percent;
+    private WeekDay day;
 
     public Purchase() {
 
     }
 
-    public Purchase(int number, int percent, int day) {
+    public Purchase(int number, int percent, WeekDay day) {
         this.number = number;
         this.percent = percent;
         this.day = day;
@@ -25,25 +25,25 @@ public class Purchase implements Comparable<Purchase> {
         this.number = number;
     }
 
-    public int getPercent() {
+    public double getPercent() {
         return percent;
     }
 
-    public void setPercent(int percent) {
+    public void setPercent(double percent) {
         this.percent = percent;
     }
 
-    public int getDay() {
+    public WeekDay getDay() {
         return day;
     }
 
-    public void setDay(int day) {
+    public void setDay(WeekDay day) {
         this.day = day;
     }
 
     public int getCost() {
         int result;
-        result = PRICE * number * (100 - percent) / 100;
+        result = (int) (PRICE * number * (100 - percent) / 100);
         if (result % 100 >= 50) {
             return (result / 100 + 1) * 100;
         } else {
@@ -53,7 +53,7 @@ public class Purchase implements Comparable<Purchase> {
 
     @Override
     public String toString() {
-        return number + ";" + percent + ";" + WeekDay.values()[day] + ";" + Utils.fromPennyToByn(getCost());
+        return number + ";" + percent + ";" + day + ";" + Utils.fromPennyToByn(getCost());
     }
 
     @Override
