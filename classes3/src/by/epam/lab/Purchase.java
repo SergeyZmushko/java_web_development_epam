@@ -1,5 +1,7 @@
 package by.epam.lab;
 
+import java.util.Objects;
+
 public class Purchase implements Comparable<Purchase> {
     public final static String PRODUCT_NAME = "Grape";
     public final static int PRICE = 1500;
@@ -11,10 +13,14 @@ public class Purchase implements Comparable<Purchase> {
 
     }
 
-    public Purchase(int number, int percent, WeekDay day) {
+    public Purchase(int number, double percent, WeekDay day) {
         this.number = number;
         this.percent = percent;
         this.day = day;
+    }
+
+    public Purchase(int number, double percent, int day) {
+        this(number, percent, WeekDay.values()[day]);
     }
 
     public int getNumber() {
@@ -42,13 +48,20 @@ public class Purchase implements Comparable<Purchase> {
     }
 
     public int getCost() {
-        int result;
-        result = (int) (PRICE * number * (100 - percent) / 100);
-        if (result % 100 >= 50) {
-            return (result / 100 + 1) * 100;
-        } else {
-            return (result / 100) * 100;
-        }
+        return (int) Math.round (PRICE * number * (100 - percent) / 10000) * 100;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Purchase purchase = (Purchase) o;
+        return number == purchase.number && Double.compare(purchase.percent, percent) == 0 && day == purchase.day;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(number, percent, day);
     }
 
     @Override
@@ -57,7 +70,7 @@ public class Purchase implements Comparable<Purchase> {
     }
 
     @Override
-    public int compareTo(Purchase o) {
-        return Integer.compare(number, o.number);
+    public int compareTo(Purchase purchase) {
+        return number - purchase.getNumber();
     }
 }

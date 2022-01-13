@@ -8,22 +8,28 @@ public class RunnerTest {
     @Test
     public void testPurchaseInit() {
         Purchase p1 = new Purchase(1, 10, WeekDay.FRIDAY);
-        Purchase p2 = new Purchase(3, 22, WeekDay.SATURDAY);
-        Assert.assertTrue(p1.getNumber() == 1 && p1.getPercent() == 10 && p1.getDay() == WeekDay.FRIDAY);
-        Assert.assertTrue(p2.getNumber() == 3 && p2.getPercent() == 22 && p2.getDay() == WeekDay.SATURDAY);
+        Purchase p2 = new Purchase(1, 10, 5);
+        Assert.assertEquals(p1, p2);
     }
 
     @Test
     public void testGetCost() {
         Purchase p1 = new Purchase(3, 5, WeekDay.FRIDAY);
         Assert.assertEquals(4300, p1.getCost());
-        Purchase p2 = new Purchase(1, 40, WeekDay.MONDAY);
-        Assert.assertEquals(900, p2.getCost());
+        Purchase p2 = new Purchase(3, 6, WeekDay.FRIDAY);
+        Assert.assertEquals(4200, p2.getCost());
+        Purchase p3 = new Purchase(1, 6.7, WeekDay.FRIDAY);
+        Assert.assertEquals(1400, p3.getCost());
+        Purchase p4 = new Purchase(1, 4.1, WeekDay.FRIDAY);
+        Assert.assertEquals(1400, p4.getCost());
     }
 
     @Test
     public void testToByn() {
-        Assert.assertEquals("0.40", Utils.fromPennyToByn(40));
-        Assert.assertEquals("123.00", Utils.fromPennyToByn(12300));
+        Assert.assertEquals("3.50", Utils.fromPennyToByn(350));
+        Assert.assertEquals("3.05", Utils.fromPennyToByn(305));
+        Assert.assertEquals("0.05", Utils.fromPennyToByn(5));
+        Assert.assertEquals("0.00", Utils.fromPennyToByn(0));
+        Assert.assertEquals("1005.00", Utils.fromPennyToByn(100500));
     }
 }
