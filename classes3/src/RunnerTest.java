@@ -36,7 +36,7 @@ public class RunnerTest {
     @Test(expected = ArrayIndexOutOfBoundsException.class)
     public void testThrowingException() {
         Purchase p1 = new Purchase(4, 20.3, 8);
-        p1 = new Purchase(4, 20.3, -2);
+        Purchase p2 = new Purchase(4, 20.3, -2);
     }
 }
 
