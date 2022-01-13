@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class Runner {
     public static void main(String[] args) {
         Purchase[] purchases;
-        try (Scanner sc = new Scanner(new FileReader("src/in.txt"))) {
+        try (Scanner sc = new Scanner(new FileReader("src/in1.txt"))) {
             sc.useLocale(Locale.ENGLISH);
             final int PURCHASES_NUMBER = sc.nextInt();
             purchases = new Purchase[PURCHASES_NUMBER];

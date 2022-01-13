@@ -1,7 +1,5 @@
 package by.epam.lab;
 
-import java.util.Objects;
-
 public class Purchase implements Comparable<Purchase> {
     public final static String PRODUCT_NAME = "Grape";
     public final static int PRICE = 1500;
@@ -48,20 +46,7 @@ public class Purchase implements Comparable<Purchase> {
     }
 
     public int getCost() {
-        return (int) Math.round (PRICE * number * (100 - percent) / 10000) * 100;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Purchase purchase = (Purchase) o;
-        return number == purchase.number && Double.compare(purchase.percent, percent) == 0 && day == purchase.day;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(number, percent, day);
+        return (int) Math.round(PRICE * number * (100 - percent) / 10000) * 100;
     }
 
     @Override

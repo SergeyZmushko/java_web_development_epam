@@ -9,7 +9,7 @@ public class RunnerTest {
     public void testPurchaseInit() {
         Purchase p1 = new Purchase(1, 10, WeekDay.FRIDAY);
         Purchase p2 = new Purchase(1, 10, 5);
-        Assert.assertEquals(p1, p2);
+        Assert.assertEquals(p1.getDay(), p2.getDay());
     }
 
     @Test
@@ -32,4 +32,10 @@ public class RunnerTest {
         Assert.assertEquals("0.00", Utils.fromPennyToByn(0));
         Assert.assertEquals("1005.00", Utils.fromPennyToByn(100500));
     }
+
+    @Test (expected = ArrayIndexOutOfBoundsException.class)
+    public void test(){
+        Purchase p1 = new Purchase(4, 20.3, 8);
+    }
 }
+
