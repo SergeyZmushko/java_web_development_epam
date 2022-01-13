@@ -33,8 +33,8 @@ public class RunnerTest {
         Assert.assertEquals("1005.00", Utils.fromPennyToByn(100500));
     }
 
-    @Test (expected = ArrayIndexOutOfBoundsException.class)
-    public void test(){
+    @Test(expected = ArrayIndexOutOfBoundsException.class)
+    public void test() {
         Purchase p1 = new Purchase(4, 20.3, 8);
     }
 }
