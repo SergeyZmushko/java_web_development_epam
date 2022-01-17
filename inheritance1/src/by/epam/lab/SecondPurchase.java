@@ -27,7 +27,7 @@ public class SecondPurchase extends Purchase {
     @Override
     public Byn getCost() {
         if (getNumber() > COUNT) {
-            return new Byn().sum(getPrice()).multiplication(getNumber()).multiplication(1 - discountPercent / 100);
+            return new Byn().sum(super.getCost()).multiplication(1 - discountPercent / 100);
         } else {
             return super.getCost();
         }
