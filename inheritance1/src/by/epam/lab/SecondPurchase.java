@@ -12,7 +12,7 @@ public class SecondPurchase extends Purchase {
     }
 
     public SecondPurchase(Scanner sc) {
-        super(sc.next(), new Byn(sc.nextInt()), sc.nextInt());
+        super(sc);
         this.discountPercent = sc.nextDouble();
     }
 
@@ -26,9 +26,8 @@ public class SecondPurchase extends Purchase {
 
     @Override
     public Byn getCost() {
-        Byn byn = new Byn(getPrice().value);
         if (getNumber() > COUNT) {
-            return byn.multiplication(getNumber()).multiplication(1 - discountPercent / 100);
+            return new Byn().sum(getPrice()).multiplication(getNumber()).multiplication(1 - discountPercent / 100);
         } else {
             return super.getCost();
         }
@@ -36,7 +35,6 @@ public class SecondPurchase extends Purchase {
 
     @Override
     public String toString() {
-        return "SecondPurchase" + ";" + getName() + ";" + getPrice() + ";" +
-                getNumber() + ";" + discountPercent + ";" + Utils.fromPennyToByn(getCost().value);
+        return "SecondPurchase" + ";" + showInfo() + ";" + discountPercent + ";" + getCost();
     }
 }

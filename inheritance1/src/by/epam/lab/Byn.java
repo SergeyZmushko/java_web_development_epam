@@ -1,7 +1,7 @@
 package by.epam.lab;
 
 public class Byn implements Comparable<Byn> {
-    public int value;
+    private int value;
 
     public Byn() {
 
@@ -11,17 +11,13 @@ public class Byn implements Comparable<Byn> {
         this.value = value;
     }
 
-    public String toString() {
-        return Utils.fromPennyToByn(value);
-    }
-
     public Byn sum(Byn byn) {
         value += byn.value;
         return this;
     }
 
-    public Byn difference(double value) {
-        this.value -= value;
+    public Byn difference(Byn byn) {
+        value -= byn.value;
         return this;
     }
 
@@ -33,6 +29,10 @@ public class Byn implements Comparable<Byn> {
     public Byn multiplication(double value) {
         this.value = (int) Math.round(this.value * value);
         return this;
+    }
+
+    public String toString() {
+        return String.format("%d.%02d", value / 100, value % 100);
     }
 
     @Override

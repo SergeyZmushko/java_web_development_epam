@@ -3,6 +3,11 @@ package by.epam.lab;
 import java.util.Scanner;
 
 public class PurchasesFactory {
+    private enum PurchaseKind {
+        GENERAL_PURCHASE,
+        FIRST_PURCHASE,
+        SECOND_PURCHASE
+    }
 
     public static Purchase getPurchaseFromFactory(Scanner sc) {
         String id = sc.next();

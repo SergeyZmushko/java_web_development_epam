@@ -18,7 +18,9 @@ public class Purchase {
     }
 
     public Purchase(Scanner sc) {
-        this(sc.next(), new Byn(sc.nextInt()), sc.nextInt());
+        this.name = sc.next();
+        this.price = new Byn(sc.nextInt());
+        this.number = sc.nextInt();
     }
 
     public String getName() {
@@ -46,13 +48,16 @@ public class Purchase {
     }
 
     public Byn getCost() {
-        Byn byn = new Byn(price.value);
-        return byn.multiplication(number);
+        return new Byn().sum(price).multiplication(number);
+    }
+
+    protected String showInfo(){
+        return name + ";" + price + ";" + number;
     }
 
     @Override
     public String toString() {
-        return "Purchase" + ";" + name + ";" + price + ";" + number + ";" + Utils.fromPennyToByn(getCost().value);
+        return "Purchase" + ";" + showInfo() + ";" + getCost();
     }
 
     @Override

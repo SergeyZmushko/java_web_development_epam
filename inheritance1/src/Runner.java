@@ -6,14 +6,15 @@ import java.util.Scanner;
 
 public class Runner {
     public static void main(String[] args) {
-        Purchase[] purchases = new Purchase[6];
+        final int PURCHASE_NUMBER = 6;
+        Purchase[] purchases = new Purchase[PURCHASE_NUMBER];
         try (Scanner sc = new Scanner(new FileReader("src/in.txt"))) {
             Purchase purchaseMaxCost = new Purchase(null, new Byn(0), 0);
             int result = 1;
             for (int i = 0; i < purchases.length; i++) {
                 purchases[i] = PurchasesFactory.getPurchaseFromFactory(sc);
                 System.out.println(purchases[i]);
-                if (purchases[i].getCost().value > purchaseMaxCost.getCost().value) {
+                if (purchases[i].getCost().compareTo(purchaseMaxCost.getCost()) > 0) {
                     purchaseMaxCost = purchases[i];
                 }
                 if (i >= 1) {
@@ -22,6 +23,7 @@ public class Runner {
                     }
                 }
             }
+            System.out.println("Purchase with maximum cost is " + purchaseMaxCost);
             if (result == purchases.length) {
                 System.out.println("All purchases are equal");
             } else {
@@ -30,8 +32,5 @@ public class Runner {
         } catch (FileNotFoundException e) {
             System.err.println("Input file is not found");
         }
-        Byn byn = new Byn(500);
-        System.out.println(byn.multiplication(5));
     }
-
 }
