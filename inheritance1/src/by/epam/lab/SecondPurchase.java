@@ -25,8 +25,11 @@ public class SecondPurchase extends Purchase {
     }
 
     @Override
-    public int getCost() {
+    public Byn getCost() {
+      //  return new Byn(120);
+        Byn byn = new Byn(getPrice().value);
         if (getNumber() > COUNT) {
+            return byn.division(100)
             return (int) Math.round(super.getNumber() * super.getPrice().value *
                     (1 - discountPercent / 100));
         } else {
@@ -37,6 +40,6 @@ public class SecondPurchase extends Purchase {
     @Override
     public String toString() {
         return "SecondPurchase" + ";" + getName() + ";" + getPrice() + ";" +
-                getNumber() + ";" + discountPercent + ";" + Utils.fromPennyToByn(getCost());
+                getNumber() + ";" + discountPercent + ";" + Utils.fromPennyToByn(getCost().value);
     }
 }

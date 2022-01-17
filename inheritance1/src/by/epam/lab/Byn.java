@@ -15,16 +15,23 @@ public class Byn implements Comparable<Byn> {
         return Utils.fromPennyToByn(value);
     }
 
-    public int sum (int value){
-        return this.value + value;
+    public int sum (Byn byn){
+       return value += byn.value;
     }
 
-    public int difference(int value){
-        return this.value - value;
+    public Byn difference(double value){
+        this.value -= value;
+        return this;
     }
 
-    public int multiplication (int value){
-        return this.value * value;
+    public Byn multiplication (int value){
+        this.value *= value;
+        return this;
+    }
+
+    public Byn division (int value){
+        this.value /= value;
+        return this;
     }
 
     @Override

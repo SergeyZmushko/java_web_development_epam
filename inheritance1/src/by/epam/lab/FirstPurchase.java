@@ -24,13 +24,15 @@ public class FirstPurchase extends Purchase {
     }
 
     @Override
-    public int getCost() {
-        return (int) Math.round(getNumber() * (getPrice().value - discount));
+    public Byn getCost() {
+        Byn byn = new Byn(getPrice().value);
+        return byn.difference(discount).multiplication(getNumber());
+        //return (int) Math.round(getNumber() * (getPrice().value - discount));
     }
 
     @Override
     public String toString() {
         return "FirstPurchase" + ";" + getName() + ";" + getPrice() + ";" +
-                getNumber() + ";" + discount + ";" + Utils.fromPennyToByn(getCost());
+                getNumber() + ";" + discount + ";" + Utils.fromPennyToByn(getCost().value);
     }
 }

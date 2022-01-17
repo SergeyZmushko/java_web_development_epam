@@ -13,7 +13,7 @@ public class Runner {
             for (int i = 0; i < purchases.length; i++) {
                 purchases[i] = PurchasesFactory.getPurchaseFromFactory(sc);
                 System.out.println(purchases[i]);
-                if (purchases[i].getCost() > purchaseMaxCost.getCost()) {
+                if (purchases[i].getCost().value > purchaseMaxCost.getCost().value) {
                     purchaseMaxCost = purchases[i];
                 }
                 if (i >= 1) {

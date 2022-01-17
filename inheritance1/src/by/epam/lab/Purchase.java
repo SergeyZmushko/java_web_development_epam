@@ -45,14 +45,14 @@ public class Purchase {
         this.number = number;
     }
 
-    public int getCost() {
+    public Byn getCost() {
         Byn byn = new Byn(price.value);
         return byn.multiplication(number);
     }
 
     @Override
     public String toString() {
-        return "Purchase" + ";" + name + ";" + price + ";" + number + ";" + Utils.fromPennyToByn(getCost());
+        return "Purchase" + ";" + name + ";" + price + ";" + number + ";" + Utils.fromPennyToByn(getCost().value);
     }
 
     @Override
