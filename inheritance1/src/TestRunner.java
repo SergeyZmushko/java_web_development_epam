@@ -56,25 +56,25 @@ public class TestRunner {
     }
 
     @Test
-    public void testMultiplicationInt(){
+    public void testMultiplicationInt() {
         Byn byn = new Byn(500);
-        Assert.assertEquals(new Byn(1500),byn.multiplication(3));
+        Assert.assertEquals(new Byn(1500), byn.multiplication(3));
     }
 
     @Test
-    public void testMultiplicationDouble(){
+    public void testMultiplicationDouble() {
         Byn byn = new Byn(500);
-        Assert.assertEquals(new Byn(2913),byn.multiplication(5.825));
+        Assert.assertEquals(new Byn(2913), byn.multiplication(5.825));
     }
 
     @Test
-    public void testDifference(){
+    public void testDifference() {
         Byn byn = new Byn(500);
-        Assert.assertEquals(new Byn(399),byn.difference(100.56));
+        Assert.assertEquals(new Byn(399), byn.difference(100.56));
     }
 
     @Test
-    public void testSum(){
+    public void testSum() {
         Byn byn = new Byn(500);
         Assert.assertEquals(new Byn(600), byn.sum(new Byn(100)));
     }

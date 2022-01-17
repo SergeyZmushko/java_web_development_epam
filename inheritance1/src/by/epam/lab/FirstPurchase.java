@@ -27,7 +27,6 @@ public class FirstPurchase extends Purchase {
     public Byn getCost() {
         Byn byn = new Byn(getPrice().value);
         return byn.difference(discount).multiplication(getNumber());
-        //return (int) Math.round(getNumber() * (getPrice().value - discount));
     }
 
     @Override
