@@ -30,5 +30,8 @@ public class Runner {
         } catch (FileNotFoundException e) {
             System.err.println("Input file is not found");
         }
+        Byn byn = new Byn(500);
+        System.out.println(byn.multiplication(5));
     }
+
 }

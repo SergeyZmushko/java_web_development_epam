@@ -29,17 +29,17 @@ public class TestRunner {
     @Test
     public void testGetCost() {
         Purchase p1 = new Purchase("Milk", new Byn(140), 3);
-        Assert.assertEquals(420, p1.getCost());
+        Assert.assertEquals(new Byn(420), p1.getCost());
         Purchase p2 = new FirstPurchase("Bread", new Byn(300), 2, 50);
-        Assert.assertEquals(500, p2.getCost());
+        Assert.assertEquals(new Byn(500), p2.getCost());
         Purchase p3 = new SecondPurchase("Sausage", new Byn(500), 20, 5.825);
-        Assert.assertEquals(9418, p3.getCost());
+        Assert.assertEquals(new Byn(9418), p3.getCost());
         Purchase p4 = new Purchase("Meat", new Byn(1200), 6);
-        Assert.assertEquals(7200, p4.getCost());
+        Assert.assertEquals(new Byn(7200), p4.getCost());
         Purchase p5 = new FirstPurchase("Pasta", new Byn(210), 10, 25);
-        Assert.assertEquals(1850, p5.getCost());
+        Assert.assertEquals(new Byn(1850), p5.getCost());
         Purchase p6 = new SecondPurchase("Garlic", new Byn(170), 6, 13.6);
-        Assert.assertEquals(1020, p6.getCost());
+        Assert.assertEquals(new Byn(1020), p6.getCost());
     }
 
     @Test
@@ -53,5 +53,29 @@ public class TestRunner {
         Purchase p5 = new SecondPurchase("Sausage", new Byn(500), 20, 5.825);
         Purchase p6 = new SecondPurchase("Sausage", new Byn(500), 20, 5.825);
         Assert.assertEquals(p5, p6);
+    }
+
+    @Test
+    public void testMultiplicationInt(){
+        Byn byn = new Byn(500);
+        Assert.assertEquals(new Byn(1500),byn.multiplication(3));
+    }
+
+    @Test
+    public void testMultiplicationDouble(){
+        Byn byn = new Byn(500);
+        Assert.assertEquals(new Byn(2913),byn.multiplication(5.825));
+    }
+
+    @Test
+    public void testDifference(){
+        Byn byn = new Byn(500);
+        Assert.assertEquals(new Byn(399),byn.difference(100.56));
+    }
+
+    @Test
+    public void testSum(){
+        Byn byn = new Byn(500);
+        Assert.assertEquals(new Byn(600), byn.sum(new Byn(100)));
     }
 }
