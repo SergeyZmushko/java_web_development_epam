@@ -51,7 +51,7 @@ public class Purchase {
         return new Byn().sum(price).multiplication(number);
     }
 
-    protected String showInfo(){
+    protected String showInfo() {
         return name + ";" + price + ";" + number;
     }
 
