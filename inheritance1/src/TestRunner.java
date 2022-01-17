@@ -10,20 +10,15 @@ public class TestRunner {
 
     @Test
     public void testCreatingPurchasesEntities() {
-        Purchase[] purchases = new Purchase[6];
-        try (Scanner sc = new Scanner(new FileReader("src/in.txt"))) {
-            for (int i = 0; i < purchases.length; i++) {
-                purchases[i] = PurchasesFactory.getPurchaseFromFactory(sc);
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        Assert.assertEquals(purchases[0], new Purchase("Milk", new Byn(140), 3));
-        Assert.assertEquals(purchases[1], new SecondPurchase("Bread", new Byn(110), 11, 15));
-        Assert.assertEquals(purchases[2], new FirstPurchase("Sausage", new Byn(490), 4, new Byn(10)));
-        Assert.assertEquals(purchases[3], new Purchase("Meat", new Byn(1200), 6));
-        Assert.assertEquals(purchases[4], new FirstPurchase("Pasta", new Byn(210), 10, new Byn(25)));
-        Assert.assertEquals(purchases[5], new SecondPurchase("Garlic", new Byn(170), 6, 13));
+        Scanner sc1 = new Scanner("GENERAL_PURCHASE Milk 140 3");
+        Purchase purchase1 = PurchasesFactory.getPurchaseFromFactory(sc1);
+        Scanner sc2 = new Scanner("FIRST_PURCHASE Sausage 490 4 10");
+        Purchase purchase2 = PurchasesFactory.getPurchaseFromFactory(sc2);
+        Scanner sc3 = new Scanner("SECOND_PURCHASE Bread 110 11 15");
+        Purchase purchase3 = PurchasesFactory.getPurchaseFromFactory(sc3);
+        Assert.assertEquals(new Purchase("Milk", new Byn(140), 3), purchase1);
+        Assert.assertEquals(new FirstPurchase("Sausage", new Byn(490), 4, new Byn(10)), purchase2);
+        Assert.assertEquals(new SecondPurchase("Bread", new Byn(110), 11, 15), purchase3);
     }
 
     @Test
