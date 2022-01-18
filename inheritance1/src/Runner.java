@@ -12,21 +12,19 @@ public class Runner {
         try (Scanner sc = new Scanner(new FileReader("src/in.txt"))) {
             sc.useLocale(Locale.ENGLISH);
             Purchase purchaseMaxCost = new Purchase(null, new Byn(0), 0);
-            int result = 1;
+            boolean areEqual = true;
             for (int i = 0; i < purchases.length; i++) {
                 purchases[i] = PurchasesFactory.getPurchaseFromFactory(sc);
                 System.out.println(purchases[i]);
                 if (purchases[i].getCost().compareTo(purchaseMaxCost.getCost()) > 0) {
                     purchaseMaxCost = purchases[i];
                 }
-                if (i >= 1) {
-                    if (purchases[i].equals(purchases[i - 1])) {
-                        result++;
+                if (areEqual) {
+                    areEqual = purchases[i].equals(purchases[0]);
                     }
                 }
-            }
             System.out.println("Purchase with maximum cost is " + purchaseMaxCost);
-            if (result == purchases.length) {
+            if (areEqual) {
                 System.out.println("All purchases are equal");
             } else {
                 System.out.println("Purchases are not equal");

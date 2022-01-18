@@ -48,16 +48,16 @@ public class Purchase {
     }
 
     public Byn getCost() {
-        return new Byn().sum(price).multiplication(number);
+        return new Byn().add(price).mul(number);
     }
 
-    protected String showInfo() {
-        return name + ";" + price + ";" + number;
+    protected String fieldToString() {
+        return getClass().getSimpleName() + ";" + name + ";" + price + ";" + number;
     }
 
     @Override
     public String toString() {
-        return "Purchase" + ";" + showInfo() + ";" + getCost();
+        return fieldToString() + ";" + getCost();
     }
 
     @Override

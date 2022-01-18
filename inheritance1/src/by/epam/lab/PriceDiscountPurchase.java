@@ -2,15 +2,19 @@ package by.epam.lab;
 
 import java.util.Scanner;
 
-public class FirstPurchase extends Purchase {
+public class PriceDiscountPurchase extends Purchase {
     private Byn discount;
 
-    public FirstPurchase(String name, Byn price, int number, Byn discount) {
+    public PriceDiscountPurchase(){
+        super();
+    }
+
+    public PriceDiscountPurchase(String name, Byn price, int number, Byn discount) {
         super(name, price, number);
         this.discount = discount;
     }
 
-    public FirstPurchase(Scanner sc) {
+    public PriceDiscountPurchase(Scanner sc) {
         super(sc);
         this.discount = new Byn(sc.nextInt());
     }
@@ -25,11 +29,11 @@ public class FirstPurchase extends Purchase {
 
     @Override
     public Byn getCost() {
-        return new Byn().sum(getPrice()).difference(discount).multiplication(getNumber());
+        return new Byn().add(getPrice()).sub(discount).mul(getNumber());
     }
 
     @Override
-    public String toString() {
-        return "FirstPurchase" + ";" + showInfo() + ";" + discount + ";" + getCost();
+    protected String fieldToString() {
+        return super.fieldToString() + ";" + discount;
     }
 }
