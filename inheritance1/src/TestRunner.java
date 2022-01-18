@@ -23,9 +23,9 @@ public class TestRunner {
     public void testFabricMethod() {
         Scanner sc1 = new Scanner("GENERAL_PURCHASE Milk 140 3");
         Purchase purchase1 = PurchasesFactory.getPurchaseFromFactory(sc1);
-        Scanner sc2 = new Scanner("FIRST_PURCHASE Sausage 490 4 10");
+        Scanner sc2 = new Scanner("PRICE_DISCOUNT_PURCHASE Sausage 490 4 10");
         Purchase purchase2 = PurchasesFactory.getPurchaseFromFactory(sc2);
-        Scanner sc3 = new Scanner("SECOND_PURCHASE Bread 110 11 15");
+        Scanner sc3 = new Scanner("PERCENT_DISCOUNT_PURCHASE Bread 110 11 15");
         Purchase purchase3 = PurchasesFactory.getPurchaseFromFactory(sc3);
         Assert.assertEquals(new Purchase("Milk", new Byn(140), 3), purchase1);
         Assert.assertEquals(new PriceDiscountPurchase("Sausage", new Byn(490), 4, new Byn(10)), purchase2);
