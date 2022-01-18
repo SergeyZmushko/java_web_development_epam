@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class PriceDiscountPurchase extends Purchase {
     private Byn discount;
 
-    public PriceDiscountPurchase(){
+    public PriceDiscountPurchase() {
         super();
     }
 

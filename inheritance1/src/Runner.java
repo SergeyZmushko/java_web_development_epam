@@ -21,8 +21,8 @@ public class Runner {
                 }
                 if (areEqual) {
                     areEqual = purchases[i].equals(purchases[0]);
-                    }
                 }
+            }
             System.out.println("Purchase with maximum cost is " + purchaseMaxCost);
             if (areEqual) {
                 System.out.println("All purchases are equal");

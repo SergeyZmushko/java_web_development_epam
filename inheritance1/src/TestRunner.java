@@ -7,6 +7,19 @@ import java.util.Scanner;
 public class TestRunner {
 
     @Test
+    public void testClassByn(){
+        Byn byn1 = new Byn(200);
+        Byn byn2 = new Byn(100);
+        byn1.add(byn2);
+        Assert.assertEquals(new Byn(300), byn1);
+        Assert.assertEquals("3.00", byn1.toString());
+        byn1.mul(2);
+        Assert.assertEquals(new Byn(600), byn1);
+        byn1.sub(new Byn(300));
+        Assert.assertEquals(new Byn(300), byn1);
+    }
+
+    @Test
     public void testFabricMethod() {
         Scanner sc1 = new Scanner("GENERAL_PURCHASE Milk 140 3");
         Purchase purchase1 = PurchasesFactory.getPurchaseFromFactory(sc1);
@@ -17,34 +30,6 @@ public class TestRunner {
         Assert.assertEquals(new Purchase("Milk", new Byn(140), 3), purchase1);
         Assert.assertEquals(new PriceDiscountPurchase("Sausage", new Byn(490), 4, new Byn(10)), purchase2);
         Assert.assertEquals(new PercentDiscountPurchase("Bread", new Byn(110), 11, 15), purchase3);
-    }
-
-    @Test
-    public void purchaseConstructors(){
-        Purchase p2 = new Purchase("Bread", new Byn(150), 6);
-        Assert.assertEquals(new Purchase("Bread", new Byn(150), 6), p2);
-    }
-
-    @Test
-    public void PriceDiscountConstructors(){
-        PriceDiscountPurchase p2 = new PriceDiscountPurchase("Bread", new Byn(150), 6, new Byn(50));
-        Assert.assertEquals(new PriceDiscountPurchase("Bread", new Byn(150), 6, new Byn(150)), p2);
-    }
-
-    @Test
-    public void PercentDiscountConstructors(){
-        PercentDiscountPurchase p2 = new PercentDiscountPurchase("Bread", new Byn(150), 6, 5.825);
-        Assert.assertEquals(new PercentDiscountPurchase("Bread", new Byn(150), 6, 5.825), p2);
-    }
-
-    @Test
-    public void BynConstructors(){
-        Byn byn1 = new Byn(150);
-        Assert.assertEquals(new Byn(150), byn1);
-        Byn byn2 = new Byn(10, 15);
-        Assert.assertEquals(new Byn(1015), byn2);
-        Byn byn3 = new Byn(new Byn(450));
-        Assert.assertEquals(new Byn(450), byn3);
     }
 
     @Test
@@ -106,8 +91,9 @@ public class TestRunner {
     }
 
     @Test
-    public void testRound(){
+    public void testRound() {
         Byn byn = new Byn(28496);
         Assert.assertEquals(new Byn(28500), byn.round(RoundMethod.ROUND, 2));
     }
+
 }

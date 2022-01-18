@@ -30,11 +30,9 @@ public class PercentDiscountPurchase extends Purchase {
 
     @Override
     public Byn getCost() {
-        Byn byn;
+        Byn byn = new Byn(super.getCost());
         if (getNumber() > COUNT) {
-            byn = new Byn().add(super.getCost()).mul(1 - percent / 100, RoundMethod.ROUND, 1);
-        } else {
-            byn = super.getCost();
+            byn.mul(1 - percent / 100);
         }
         return byn;
     }
