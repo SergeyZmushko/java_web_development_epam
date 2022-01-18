@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class TestRunner {
 
     @Test
-    public void testClassByn(){
+    public void testClassByn() {
         Byn byn1 = new Byn(200);
         Byn byn2 = new Byn(100);
         byn1.add(byn2);
