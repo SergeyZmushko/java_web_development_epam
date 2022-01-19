@@ -19,7 +19,7 @@ public class Purchase {
 
     public Purchase(Scanner sc) {
         this.name = sc.next();
-        this.price = new Byn(sc.nextInt());
+        this.price = new Byn(sc);
         this.number = sc.nextInt();
     }
 
@@ -48,7 +48,7 @@ public class Purchase {
     }
 
     public Byn getCost() {
-        return new Byn().add(price).mul(number);
+        return new Byn(price).mul(number);
     }
 
     protected String fieldToString() {

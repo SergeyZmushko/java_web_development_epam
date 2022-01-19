@@ -30,7 +30,7 @@ public class PercentDiscountPurchase extends Purchase {
 
     @Override
     public Byn getCost() {
-        Byn byn = new Byn(super.getCost());
+        Byn byn = super.getCost();
         if (getNumber() > COUNT) {
             byn.mul(1 - percent / 100);
         }

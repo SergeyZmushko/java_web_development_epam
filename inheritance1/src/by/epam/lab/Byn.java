@@ -1,5 +1,7 @@
 package by.epam.lab;
 
+import java.util.Scanner;
+
 public class Byn implements Comparable<Byn> {
     private int value;
 
@@ -13,6 +15,10 @@ public class Byn implements Comparable<Byn> {
 
     public Byn(int rubs, int coins) {
         this(rubs * 100 + coins);
+    }
+
+    public Byn(Scanner sc) {
+        this(sc.nextInt());
     }
 
     public int getRubs() {
@@ -43,7 +49,7 @@ public class Byn implements Comparable<Byn> {
     }
 
     public Byn mul(double d) {
-        return mul(d, RoundMethod.ROUND, 1);
+        return mul(d, RoundMethod.ROUND, 0);
     }
 
     public Byn mul(double k, RoundMethod roundMethod, int d) {
