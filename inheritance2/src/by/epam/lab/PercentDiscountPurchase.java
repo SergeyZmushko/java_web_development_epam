@@ -25,7 +25,7 @@ public class PercentDiscountPurchase extends AbstractPurchase{
     public Byn getCost() {
         Byn byn = super.getCost();
         if (getNumber() > COUNT) {
-            byn = floorRound(new Byn((int)(getProduct().getPrice().getValue() * getNumber() * (1 - percent / 100))));
+            byn.mul(1 - percent / 100).round(RoundMethod.FLOOR, 2);
         }
         return byn;
     }

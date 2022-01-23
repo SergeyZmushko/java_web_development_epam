@@ -22,7 +22,7 @@ public class TransportExpensesPurchase extends AbstractPurchase{
 
     @Override
     public Byn getCost() {
-        return floorRound(new Byn(super.getCost().getValue() + transportExpenses.getValue()));
+        return new Byn(super.getCost().add(transportExpenses)).round(RoundMethod.FLOOR, 2);
     }
 
     @Override

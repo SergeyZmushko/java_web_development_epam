@@ -42,7 +42,7 @@ public class Byn implements Comparable<Byn> {
     }
 
     public Byn mul(double d){
-        return mul(d, RoundMethod.ROUND, 0);
+        return mul(d, RoundMethod.FLOOR, 0);
     }
 
     public Byn sub(Byn byn){
@@ -50,7 +50,7 @@ public class Byn implements Comparable<Byn> {
     }
 
     public Byn mul(double k, RoundMethod roundMethod, int d){
-        return new Byn(roundMethod.round(value, d));
+        return new Byn(roundMethod.round(value * k, d));
     }
 
     public Byn round(RoundMethod roundMethod, int d){

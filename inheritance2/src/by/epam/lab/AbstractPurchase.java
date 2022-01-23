@@ -26,11 +26,7 @@ public abstract class AbstractPurchase implements Comparable<AbstractPurchase>{
     }
 
     public Byn getCost(){
-        return floorRound(new Byn(product.getPrice().getValue() * number));
-    }
-
-    public static Byn floorRound(Byn byn){
-        return new Byn((int) Math.floor(byn.getValue() / 100.0) * 100);
+        return new Byn(getProduct().getPrice()).mul(number).round(RoundMethod.FLOOR, 2);
     }
 
     public String fieldsToString(){

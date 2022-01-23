@@ -22,7 +22,7 @@ public class PriceDiscountPurchase extends AbstractPurchase{
 
     @Override
     public Byn getCost() {
-        return floorRound(new Byn((getProduct().getPrice().getValue() - discount.getValue()) * getNumber()));
+        return new Byn((getProduct().getPrice()).sub(discount).mul(getNumber())).round(RoundMethod.FLOOR, 2);
     }
 
     @Override
