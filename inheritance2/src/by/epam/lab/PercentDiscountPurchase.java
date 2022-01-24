@@ -1,14 +1,14 @@
 package by.epam.lab;
 
-public class PercentDiscountPurchase extends AbstractPurchase{
+public class PercentDiscountPurchase extends AbstractPurchase {
     private static final int COUNT = 10;
     private double percent;
 
-    public PercentDiscountPurchase(){
+    public PercentDiscountPurchase() {
         super();
     }
 
-    public PercentDiscountPurchase(Product product, int number, double percent){
+    public PercentDiscountPurchase(Product product, int number, double percent) {
         super(product, number);
         this.percent = percent;
     }
@@ -31,7 +31,7 @@ public class PercentDiscountPurchase extends AbstractPurchase{
     }
 
     @Override
-    public String fieldsToString(){
+    public String fieldsToString() {
         return super.fieldsToString() + ";" + percent;
     }
 }

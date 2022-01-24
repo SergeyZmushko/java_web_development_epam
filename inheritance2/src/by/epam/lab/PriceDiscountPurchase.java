@@ -1,13 +1,13 @@
 package by.epam.lab;
 
-public class PriceDiscountPurchase extends AbstractPurchase{
+public class PriceDiscountPurchase extends AbstractPurchase {
     private Byn discount;
 
-    public PriceDiscountPurchase(){
+    public PriceDiscountPurchase() {
         super();
     }
 
-    public PriceDiscountPurchase(Product product, int number, Byn discount){
+    public PriceDiscountPurchase(Product product, int number, Byn discount) {
         super(product, number);
         this.discount = discount;
     }
@@ -26,7 +26,7 @@ public class PriceDiscountPurchase extends AbstractPurchase{
     }
 
     @Override
-    public String fieldsToString(){
+    public String fieldsToString() {
         return super.fieldsToString() + ";" + discount;
     }
 }

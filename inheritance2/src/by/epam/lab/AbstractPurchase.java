@@ -1,14 +1,14 @@
 package by.epam.lab;
 
-public abstract class AbstractPurchase implements Comparable<AbstractPurchase>{
+public abstract class AbstractPurchase implements Comparable<AbstractPurchase> {
     private Product product;
     private int number;
 
-    public AbstractPurchase(){
+    public AbstractPurchase() {
 
     }
 
-    public AbstractPurchase(Product product, int number){
+    public AbstractPurchase(Product product, int number) {
         this.product = product;
         this.number = number;
     }
@@ -25,21 +25,21 @@ public abstract class AbstractPurchase implements Comparable<AbstractPurchase>{
         this.number = number;
     }
 
-    public Byn getCost(){
+    public Byn getCost() {
         return new Byn(getProduct().getPrice()).mul(number).round(RoundMethod.FLOOR, 2);
     }
 
-    public String fieldsToString(){
+    public String fieldsToString() {
         return getClass().getSimpleName() + ";" + product + ";" + number;
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return fieldsToString() + ";" + getCost();
     }
 
     @Override
-    public int compareTo(AbstractPurchase abstractPurchase) {
-        return -getCost().getValue() + (abstractPurchase.getCost().getValue());
+    public int compareTo(AbstractPurchase purchase) {
+        return purchase.getCost().compareTo(getCost());
     }
 }

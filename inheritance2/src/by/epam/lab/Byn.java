@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Byn implements Comparable<Byn> {
     private final int value;
 
-    public Byn(){
+    public Byn() {
         this(0);
     }
 
@@ -13,47 +13,47 @@ public class Byn implements Comparable<Byn> {
         this.value = value;
     }
 
-    public Byn(int rubs, int coins){
+    public Byn(int rubs, int coins) {
         this(rubs * 100 + coins);
     }
 
-    public Byn(Byn byn){
+    public Byn(Byn byn) {
         this(byn.value);
     }
 
-    public Byn(Scanner sc){
+    public Byn(Scanner sc) {
         this(sc.nextInt());
     }
 
-    public int getRubs(){
+    public int getRubs() {
         return value / 100;
     }
 
-    public int getCoins(){
+    public int getCoins() {
         return value % 100;
     }
 
-    public Byn add(Byn byn){
+    public Byn add(Byn byn) {
         return new Byn(value + byn.value);
     }
 
-    public Byn mul(int i){
+    public Byn mul(int i) {
         return new Byn(value * i);
     }
 
-    public Byn mul(double d){
+    public Byn mul(double d) {
         return mul(d, RoundMethod.FLOOR, 0);
     }
 
-    public Byn sub(Byn byn){
+    public Byn sub(Byn byn) {
         return new Byn(value - byn.value);
     }
 
-    public Byn mul(double k, RoundMethod roundMethod, int d){
+    public Byn mul(double k, RoundMethod roundMethod, int d) {
         return new Byn(roundMethod.round(value * k, d));
     }
 
-    public Byn round(RoundMethod roundMethod, int d){
+    public Byn round(RoundMethod roundMethod, int d) {
         return new Byn(roundMethod.round(value, d));
     }
 

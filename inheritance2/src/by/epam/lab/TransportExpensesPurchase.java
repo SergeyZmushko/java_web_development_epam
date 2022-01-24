@@ -1,13 +1,13 @@
 package by.epam.lab;
 
-public class TransportExpensesPurchase extends AbstractPurchase{
+public class TransportExpensesPurchase extends AbstractPurchase {
     private Byn transportExpenses;
 
-    public TransportExpensesPurchase(){
+    public TransportExpensesPurchase() {
         super();
     }
 
-    public TransportExpensesPurchase(Product product, int number, Byn transportExpenses){
+    public TransportExpensesPurchase(Product product, int number, Byn transportExpenses) {
         super(product, number);
         this.transportExpenses = transportExpenses;
     }
@@ -26,7 +26,7 @@ public class TransportExpensesPurchase extends AbstractPurchase{
     }
 
     @Override
-    public String fieldsToString(){
+    public String fieldsToString() {
         return super.fieldsToString() + ";" + transportExpenses;
     }
 }

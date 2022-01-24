@@ -4,16 +4,16 @@ public class Product {
     private String name;
     private Byn price;
 
-    public Product(){
+    public Product() {
 
     }
 
-    public Product(String name, Byn price){
+    public Product(String name, Byn price) {
         this.name = name;
         this.price = price;
     }
 
-    public Product(Product product){
+    public Product(Product product) {
         this(product.name, product.price);
     }
 
@@ -34,7 +34,7 @@ public class Product {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return name + ";" + price;
     }
 }
