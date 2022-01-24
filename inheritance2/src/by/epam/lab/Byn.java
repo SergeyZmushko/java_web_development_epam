@@ -66,6 +66,13 @@ public class Byn implements Comparable<Byn> {
         return String.format("%d.%02d", value / 100, value % 100);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Byn byn = (Byn) o;
+        return value == byn.value;
+    }
 
     @Override
     public int compareTo(Byn byn) {
