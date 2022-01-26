@@ -26,8 +26,10 @@ public abstract class AbstractPurchase implements Comparable<AbstractPurchase> {
     }
 
     public Byn getCost() {
-        return new Byn(getProduct().getPrice()).mul(number).round(RoundMethod.FLOOR, 2);
+        return getCostCalculate().round(RoundMethod.FLOOR, 2);
     }
+
+    protected abstract Byn getCostCalculate();
 
     public String fieldsToString() {
         return getClass().getSimpleName() + ";" + product + ";" + number;

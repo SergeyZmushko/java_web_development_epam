@@ -2,6 +2,8 @@ import by.epam.lab.*;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.Arrays;
+
 public class RunnerTest {
 
     @Test
@@ -21,11 +23,21 @@ public class RunnerTest {
     public void testSearch() {
         Product product = new Product("Bread", new Byn(50));
         AbstractPurchase[] purchases = {
-                new PriceDiscountPurchase(product, 5, new Byn(5)),
-                new TransportExpensesPurchase(product, 9, new Byn(18)),
+                new PriceDiscountPurchase(product, 20, new Byn(2)),
+                new TransportExpensesPurchase(product, 9, new Byn(100)),
                 new PercentDiscountPurchase(product, 7, 12),
+                new PercentDiscountPurchase(product, 15, 20),
+                new TransportExpensesPurchase(product, 9, new Byn(18)),
         };
-        int index1 = 1;
+        Arrays.sort(purchases);
+        int firstInArray = Runner.search(purchases, new PriceDiscountPurchase(product, 20, new Byn(2)));
+        Assert.assertEquals(purchases[0].getCost(), purchases[firstInArray].getCost());
+        int lastInArray = Runner.search(purchases, new PriceDiscountPurchase(product, 6, new Byn(0)));
+        Assert.assertEquals(purchases[purchases.length - 1], purchases[lastInArray]);
+        int moreThanMax = Runner.search(purchases, new PriceDiscountPurchase(product, 50, new Byn(0)));
+        Assert.assertEquals(-1, moreThanMax);
+        int lessThanMin = Runner.search(purchases, new PriceDiscountPurchase(product, 1, new Byn(0)));
+        Assert.assertEquals(-6, lessThanMin);
     }
 
     @Test
