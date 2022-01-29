@@ -22,10 +22,10 @@ public class PercentDiscountPurchase extends AbstractPurchase {
     }
 
     @Override
-    protected Byn getCostCalculate() {
-        Byn byn = new Byn(getProduct().getPrice()).mul(getNumber());
-        if (getNumber() > COUNT) {
-            byn = byn.mul(1 - percent / 100);
+    protected Byn getFinalCost(Byn baseCost) {
+        Byn byn = baseCost;
+        if (getUnitsNumber() > COUNT) {
+            byn = baseCost.mul(1 - percent / 100);
         }
         return byn;
     }

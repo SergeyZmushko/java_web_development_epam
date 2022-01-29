@@ -1,38 +1,40 @@
 package by.epam.lab;
 
 public abstract class AbstractPurchase implements Comparable<AbstractPurchase> {
-    private Product product;
-    private int number;
+    private final Product product;
+    private int unitsNumber;
 
     public AbstractPurchase() {
-
+        this.product = null;
     }
 
-    public AbstractPurchase(Product product, int number) {
+    public AbstractPurchase(Product product, int unitsNumber) {
         this.product = product;
-        this.number = number;
+        this.unitsNumber = unitsNumber;
     }
 
     public Product getProduct() {
         return product;
     }
 
-    public int getNumber() {
-        return number;
+    public int getUnitsNumber() {
+        return unitsNumber;
     }
 
-    public void setNumber(int number) {
-        this.number = number;
+    public void setUnitsNumber(int unitsNumber) {
+        this.unitsNumber = unitsNumber;
     }
 
     public Byn getCost() {
-        return getCostCalculate().round(RoundMethod.FLOOR, 2);
+        Byn baseCost = product.getPrice().mul(unitsNumber);
+        Byn finalCost = getFinalCost(baseCost);
+        return finalCost.round(RoundMethod.FLOOR, 2);
     }
 
-    protected abstract Byn getCostCalculate();
+    protected abstract Byn getFinalCost(Byn baseCost);
 
     public String fieldsToString() {
-        return getClass().getSimpleName() + ";" + product + ";" + number;
+        return getClass().getSimpleName() + ";" + product + ";" + unitsNumber;
     }
 
     @Override

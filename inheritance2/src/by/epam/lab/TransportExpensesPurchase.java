@@ -21,8 +21,8 @@ public class TransportExpensesPurchase extends AbstractPurchase {
     }
 
     @Override
-    protected Byn getCostCalculate() {
-        return new Byn(getProduct().getPrice().mul(getNumber()).add(transportExpenses));
+    protected Byn getFinalCost(Byn baseCost) {
+        return baseCost.add(transportExpenses);
     }
 
     @Override

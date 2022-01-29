@@ -20,24 +20,59 @@ public class RunnerTest {
     }
 
     @Test
-    public void testSearch() {
+    public void testSearchWhereDesiredObjectLast() {
         Product product = new Product("Bread", new Byn(50));
         AbstractPurchase[] purchases = {
                 new PriceDiscountPurchase(product, 20, new Byn(2)),
                 new TransportExpensesPurchase(product, 9, new Byn(100)),
-                new PercentDiscountPurchase(product, 7, 12),
                 new PercentDiscountPurchase(product, 15, 20),
-                new TransportExpensesPurchase(product, 9, new Byn(18)),
+                new PriceDiscountPurchase(product, 30, new Byn(0))
         };
         Arrays.sort(purchases);
-        int firstInArray = Runner.search(purchases, new PriceDiscountPurchase(product, 20, new Byn(2)));
-        Assert.assertEquals(purchases[0].getCost(), purchases[firstInArray].getCost());
-        int lastInArray = Runner.search(purchases, new PriceDiscountPurchase(product, 6, new Byn(0)));
+        int lastInArray = Runner.search(purchases);
         Assert.assertEquals(purchases[purchases.length - 1], purchases[lastInArray]);
-        int moreThanMax = Runner.search(purchases, new PriceDiscountPurchase(product, 50, new Byn(0)));
+    }
+
+    @Test
+    public void testSearchWhereDesiredObjectFirst() {
+        Product product = new Product("Bread", new Byn(50));
+        AbstractPurchase[] purchases = {
+                new PriceDiscountPurchase(product, 1, new Byn(2)),
+                new TransportExpensesPurchase(product, 9, new Byn(100)),
+                new PercentDiscountPurchase(product, 2, 20),
+                new PriceDiscountPurchase(product, 3, new Byn(0))
+        };
+        Arrays.sort(purchases);
+        int firstInArray = Runner.search(purchases);
+        Assert.assertEquals(purchases[0], purchases[firstInArray]);
+    }
+
+    @Test
+    public void testSearchWhereDesiredObjectLessThanMin() {
+        Product product = new Product("Bread", new Byn(50));
+        AbstractPurchase[] purchases = {
+                new PriceDiscountPurchase(product, 20, new Byn(2)),
+                new TransportExpensesPurchase(product, 11, new Byn(100)),
+                new PercentDiscountPurchase(product, 15, 20),
+                new PriceDiscountPurchase(product, 30, new Byn(0))
+        };
+        Arrays.sort(purchases);
+        int lessThanMin = Runner.search(purchases);
+        Assert.assertEquals(-5, lessThanMin);
+    }
+
+    @Test
+    public void testSearchWhereDesiredObjectMoreThanMax() {
+        Product product = new Product("Bread", new Byn(50));
+        AbstractPurchase[] purchases = {
+                new PriceDiscountPurchase(product, 1, new Byn(2)),
+                new TransportExpensesPurchase(product, 6, new Byn(100)),
+                new PercentDiscountPurchase(product, 2, 20),
+                new PriceDiscountPurchase(product, 3, new Byn(0))
+        };
+        Arrays.sort(purchases);
+        int moreThanMax = Runner.search(purchases);
         Assert.assertEquals(-1, moreThanMax);
-        int lessThanMin = Runner.search(purchases, new PriceDiscountPurchase(product, 1, new Byn(0)));
-        Assert.assertEquals(-6, lessThanMin);
     }
 
     @Test
