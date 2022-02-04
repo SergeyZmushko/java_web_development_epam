@@ -51,33 +51,48 @@ public class TestRunner {
     }
 
     @Test
-    public void testMainScenario() throws FileNotFoundException {
-        StringBuilder stringBuilder1 = new StringBuilder();
-        int errorLines = getResult("src/in1.csv", stringBuilder1);
+    public void testMainScenarioIn1() throws FileNotFoundException {
+        StringBuilder result1 = new StringBuilder();
+        int errorLines = getResult("src/in1.csv", result1);
         Assert.assertEquals(3, errorLines);
         String expectedIn1 = "result(5.2 - 3.14 + 0.0) = 2.06\nerror-lines = 3";
-        Assert.assertEquals(expectedIn1, stringBuilder1.toString());
-        StringBuilder stringBuilder2 = new StringBuilder();
-        errorLines = getResult("src/in2.csv", stringBuilder2);
+        Assert.assertEquals(expectedIn1, result1.toString());
+    }
+
+    @Test
+    public void testMainScenarioIn2() throws FileNotFoundException {
+        StringBuilder result2 = new StringBuilder();
+        int errorLines = getResult("src/in2.csv", result2);
         Assert.assertEquals(0, errorLines);
         String expectedIn2 = "result(-3.1 - 1.0) = -4.1\nerror-lines = 0";
-        Assert.assertEquals(expectedIn2, stringBuilder2.toString());
-        StringBuilder stringBuilder3 = new StringBuilder();
-        errorLines = getResult("src/in3.csv", stringBuilder3);
+        Assert.assertEquals(expectedIn2, result2.toString());
+    }
+
+    @Test
+    public void testMainScenarioIn3() throws FileNotFoundException {
+        StringBuilder result3 = new StringBuilder();
+        int errorLines = getResult("src/in3.csv", result3);
         Assert.assertEquals(0, errorLines);
         String expectedIn3 = "result(0.75) = 0.75\nerror-lines = 0";
-        Assert.assertEquals(expectedIn3, stringBuilder3.toString());
-        StringBuilder stringBuilder4 = new StringBuilder();
-        errorLines = getResult("src/in4.csv", stringBuilder4);
+        Assert.assertEquals(expectedIn3, result3.toString());
+    }
+
+    @Test
+    public void testMainScenarioIn4() throws FileNotFoundException {
+        StringBuilder result4 = new StringBuilder();
+        int errorLines = getResult("src/in4.csv", result4);
         Assert.assertEquals(0, errorLines);
         String expectedIn4 = "result(0.0) = 0.0\nerror-lines = 0";
-        Assert.assertEquals(expectedIn4, stringBuilder4.toString());
-        StringBuilder stringBuilder5 = new StringBuilder();
-        errorLines = getResult("src/in5.csv", stringBuilder5);
+        Assert.assertEquals(expectedIn4, result4.toString());
+    }
+
+    @Test
+    public void testMainScenarioIn5() throws FileNotFoundException {
+        StringBuilder result5 = new StringBuilder();
+        int errorLines = getResult("src/in5.csv", result5);
         Assert.assertEquals(1, errorLines);
         String expectedIn5 = "result() = 0.0\nerror-lines = 1";
-        Assert.assertEquals(expectedIn5, stringBuilder5.toString());
-
+        Assert.assertEquals(expectedIn5, result5.toString());
     }
 
     @Test(expected = FileNotFoundException.class)
@@ -85,5 +100,4 @@ public class TestRunner {
         StringBuilder stringBuilder = new StringBuilder();
         getResult("src/int1.csv", stringBuilder);
     }
-
 }
