@@ -7,49 +7,47 @@ import java.util.Scanner;
 
 public class TestRunner {
     private static int getResult(String csvName, StringBuilder strResult) throws FileNotFoundException {
-        int errorLines = 0;
-        double result = 0.0;
-        final String PLUS = " + ";
-        final String MINUS = " - ";
-        final int PLUS_LENGTH = PLUS.length();
-        final String RESULT_HEAD = "result(";
-        final String RESULT_TAIL = ") = ";
-        final String RESULT_ERROR_LINES = "\nerror-lines = ";
-        try (Scanner sc = new Scanner(new FileReader(csvName))) {
-            String[] splittedLine;
-            String line;
-            while (sc.hasNext()) {
-                line = sc.nextLine();
-                splittedLine = line.split(";");
-                int position;
-                double value;
+        try (Scanner scanner = new Scanner(new FileReader(csvName))) {
+            final String BEFORE_SIGN = " ";
+            final String AFTER_SIGN = " ";
+            final String PLUS = BEFORE_SIGN + "+" + AFTER_SIGN;
+            final String MINUS = BEFORE_SIGN + "-" + AFTER_SIGN;
+            final String DELIMETER = ";";
+            final String RESULT_HEAD = "result(";
+            final String RESULT_TAIL = ") = ";
+            final String TABULATION = "\n";
+            final String ERROR_LINES = "error-lines = ";
+            int errorLines = 0;
+            double numResult = 0;
+            while (scanner.hasNextLine()) {
+                String[] words = scanner.nextLine().split(DELIMETER);
                 try {
-                    position = Integer.parseInt(splittedLine[0]);
-                    if (position >= 0) {
-                        value = Double.parseDouble(splittedLine[position]);
-                        result += value;
-                        if (value >= 0 || (value < 0 && strResult.isEmpty())) {
-                            strResult.append(value).append(PLUS);
-                        } else {
-                            value = value * -1;
-                            strResult.delete(strResult.length() - PLUS_LENGTH, strResult.length())
-                                    .append(MINUS).append(value).append(PLUS);
-                        }
-                    } else {
-                        errorLines++;
+                    int index;
+                    double value;
+                    index = Integer.parseInt(words[0]);
+                    if (index >= 0) {
+                        value = Double.parseDouble(words[index]);
+                        numResult += value;
+                        strResult.append(value >= 0 ? PLUS : MINUS).append(Math.abs(value));
                     }
                 } catch (IndexOutOfBoundsException | NumberFormatException e) {
                     errorLines++;
                 }
             }
+            if (strResult.length() > 0) {
+                final int SIGN_LENGTH = MINUS.length();
+                final char CHAR_MINUS = '-';
+                String symbol = strResult.substring(0, SIGN_LENGTH);
+                strResult.delete(0, SIGN_LENGTH);
+                if (symbol.equals(MINUS)) {
+                    strResult.insert(0, CHAR_MINUS);
+                }
+            }
+            strResult.insert(0, RESULT_HEAD).append(RESULT_TAIL).append(numResult)
+                    .append(TABULATION).append(ERROR_LINES).append(errorLines);
+            System.out.println(strResult);
+            return errorLines;
         }
-        if (!strResult.isEmpty()) {
-            strResult.delete(strResult.length() - PLUS_LENGTH, strResult.length());
-        }
-        strResult.insert(0, RESULT_HEAD).append(RESULT_TAIL).append(result);
-        strResult.append(RESULT_ERROR_LINES).append(errorLines);
-        System.out.println(strResult);
-        return errorLines;
     }
 
     @Test
