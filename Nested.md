@@ -8,15 +8,21 @@ https://javarush.ru/groups/posts/2181-vlozhennihe-vnutrennie-klassih
 
 2. Для каких целей они используются?  
 **Ответ.**  
-Non-static nested classes (Внутренние классы) — это классы для выделения в программе некой сущности, которая неразрывно связана с другой сущностью. (например Велосипед и сиденье от велосипеда).
-Static nested classes. Объект статического вложенного класса вполне может существовать сам по себе. В этом плане статические классы более «независимы», чем нестатические. Используются для выделения сущности, которая относится к определенной сущности, но может использоваться и другими сущностями (например Самолет и чертеж от самолета, который может быть использован конструкторами).  
+- Это способ логической группировки классов, которые используются только в одном месте : если класс полезен только для одного другого класса, то логично встроить его в этот класс и хранить их вместе. Вложение таких «вспомогательных классов» делает их хранение более упорядоченным.  
+- Это увеличивает инкапсуляцию : рассмотрим два класса верхнего уровня, A и B, где B требуется доступ к членам A, которые в противном случае были бы объявлены private. Скрывая класс B внутри класса A, члены A могут быть объявлены закрытыми, и B может получить к ним доступ. Кроме того, сам B может быть скрыт от внешнего мира.  
+- Это приводит к более читабельному и поддерживаемому коду: вложение небольших классов в классы верхнего уровня помещает код ближе к тому месту, где он используется.  
 **Источник.**  
-https://javarush.ru/groups/posts/2181-vlozhennihe-vnutrennie-klassih 
+https://docs.oracle.com/javase/tutorial/java/javaOO/nested.html
 
 
 3. Какие уровни доступа применяются к таким классам?  
 **Ответ.**  
 Внутренний класс можно обозначить стандартными модификаторами доступа — public, private, protected и package private.  
+Внутренний класс связан с экземпляром окружающего его класса и имеет прямой доступ к методам и полям этого объекта.  
+Внутренний класс не может сам определять какие-либо статические члены.  
+Чтобы создать экземпляр внутреннего класса, необходими сначала создать экземпляр внешнего класса. Затем создать внутренний объект внутри внешнего объекта.
+Статический вложенный класс связан со своим внешним классом. И подобно статическим методам класса, статический вложенный класс не может напрямую ссылаться на переменные экземпляра или методы, определенные в охватывающем его классе: он может использовать их только через ссылку на объект.
+Статический вложенный класс взаимодействует с членами экземпляра своего внешнего класса точно так же, как и любой другой класс верхнего уровня. 
 **Источник.**  
 https://javarush.ru/groups/posts/2181-vlozhennihe-vnutrennie-klassih 
 
@@ -50,10 +56,11 @@ a)
 ```  
 б)  
 ```java
-public class CallClasses {
-    Outer outer = new Outer();
-    Outer.NestedPublic nestedPublic = new Outer.NestedPublic();
-    Outer.InnerPublic innerPublic = outer.innerPublic;
+public class Runner {
+    public static void main(String[] args) {
+        Outer.InnerPublic innerPublic = new Outer().new InnerPublic();
+        Outer.NestedPublic nestedPublic = new Outer.NestedPublic();
+    }
 }
 ```  
 **Источник.** - 
@@ -84,14 +91,61 @@ public class Outer {
 а) к экземпляру класса Inner,   
 б) к объемлющему экземпляру класса Outer?  
 **Ответ.**  
-а)  
-б)  
+а) к экземпляру класса Inner    
+```java  
+public class Outer {
+    Inner inner = new Inner();
+
+    public class Inner {
+        void print() {
+            System.out.println(inner);
+            System.out.println(this);
+        }
+    }
+}
+```
+б) к объемлющему экземпляру класса Outer   
+```java
+public class Outer {
+    public class Inner {
+        void print() {
+            System.out.println(Outer.this);
+        }
+    }
+}
+```
 **Источник.**  
 
 8. Пусть объявлен класс Outer, а внутри него вложенный класс Nested. Как обратиться внутри класса Nested:   
 а) к экземпляру класса Nested,   
 б) к объемлющему экземпляру класса Outer?  
 **Ответ.**  
+a)  
+```java
+public class Outer {
+    Outer outer = new Outer();
+
+    static class Nested {
+        Nested nested = new Nested();
+        public void print() {
+            System.out.println(nested);
+        }
+    }
+}
+```
+б)  
+```java
+public class Outer {
+    Outer outer = new Outer();
+
+    static class Nested {
+        Nested nested = new Nested();
+        public static void print(Outer outer) {
+            System.out.println(outer);
+        }
+    }
+}
+```
 **Источник.**  
 
 9. Можно ли из вложенного класса обратиться к членам внешнего класса?  
@@ -110,25 +164,94 @@ public class Outer {
     }
 }
 ```  
+Но для доступа к нестатическим членам объемлющего класса обращаться необходимо через объект внешнего класса.  
+```java
+public class Plane  {
+    private String name;
+    private static int maxPassangerCount;
+
+    public static class Drawing{
+        Plane plane = new Plane();
+        public String getName(){
+            return plane.name;
+        }
+    }
+}
+```  
 **Источник.** https://javarush.ru/groups/posts/2183-staticheskie-vlozhennihe-klassih 
 
 10. Можно ли из внутреннего класса обратиться к экземпляру внешнего класса?  
 Если да, то приведите пример.   
 **Ответ.**  
-Нельзя.  
-**Источник.**  http://pr0java.blogspot.com/2015/08/3-inner-classes.html#:~:text=%D0%9E%D0%B1%D1%8A%D0%B5%D0%BA%D1%82%20%D0%B2%D0%BD%D1%83%D1%82%D1%80%D0%B5%D0%BD%D0%BD%D0%B5%D0%B3%D0%BE%20%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%B0%20%D0%BF%D0%BE%D0%BB%D1%83%D1%87%D0%B0%D0%B5%D1%82%20%D1%81%D1%81%D1%8B%D0%BB%D0%BA%D1%83,%D0%B2%D0%BD%D0%B5%D1%88%D0%BD%D0%B5%D0%B3%D0%BE%20%D0%BE%D0%B1%D1%8A%D0%B5%D0%BA%D1%82%D0%B0%20%D0%B1%D0%B5%D0%B7%20%D0%B4%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D1%85%20%D1%83%D1%82%D0%BE%D1%87%D0%BD%D0%B5%D0%BD%D0%B8%D0%B9. 
+Методы внутреннего класса имеют прямой доступ ко всем полям и методам внешнего класса.  
+```java 
+public class Outer {
+    Outer outer = new Outer();
+    
+    class Inner{
+        public void print(){
+            System.out.println(outer);
+        }
+    }
+}  
+```
+**Источник.**  И.Н. Блинов, В. С. Романчик, Java. Методы программирования, стр. 133  
 
 11. Можно ли определить экземпляр вложенного класса, не определяя экземпляры внешнего класса?  
 Если да, то приведите пример.  
 **Ответ.**  
-Нет. При создании такого объекта нужно указывать название внешнего класса.  
-**Источник.**  https://javarush.ru/groups/posts/2183-staticheskie-vlozhennihe-klassih 
+Можно.
+```java
+public class Outer {
+    public static class Nested {
+    }
+}
+
+public class Runner {
+    public static void main(String[] args) {
+        Outer.Nested nested = new Outer.Nested();
+    }
+}
+```
+**Источник.**  https://docs.oracle.com/javase/tutorial/java/javaOO/nested.html
 
 12. Есть ли ограничения на объявление локальных переменных в локальных внутренних классах?  
 Есть ли да, то какие?  
 **Ответ.**  
-В локальных внутренних классах нельзя объявлять статические переменные.  
-**Источник.** https://ru.stackoverflow.com/questions/515940/%D0%9B%D0%BE%D0%BA%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5-%D0%B8-%D0%B2%D0%BD%D1%83%D1%82%D1%80%D0%B5%D0%BD%D0%BD%D0%B8%D0%B5-%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D1%8B 
+Локальный класс может обращаться только к локальным переменным, которые объявлены как final.  
+Начиная с Java SE 8, если мы объявляем локальный класс в методе, он может получить доступ к параметрам метода.
+Если объявление типа (например, переменной-члена или имени параметра) в определенной области (например, во внутреннем классе или определении метода) имеет то же имя, что и другое объявление в охватывающей области, то объявление затеняет объявление. объемлющей области. Вы не можете ссылаться на затененное объявление только по его имени.
+например:  
+```java
+public class ShadowTest {
+
+    public int x = 0;
+
+    class FirstLevel {
+
+        public int x = 1;
+
+        void methodInFirstLevel(int x) {
+            System.out.println("x = " + x);
+            System.out.println("this.x = " + this.x);
+            System.out.println("ShadowTest.this.x = " + ShadowTest.this.x);
+        }
+    }
+
+    public static void main(String... args) {
+        ShadowTest st = new ShadowTest();
+        ShadowTest.FirstLevel fl = st.new FirstLevel();
+        fl.methodInFirstLevel(23);
+    }
+}  
+```  
+Результат:
+``
+x = 23
+this.x = 1
+ShadowTest.this.x = 0
+``  
+**Источник.** https://docs.oracle.com/javase/tutorial/java/javaOO/localclasses.html 
 
 13. Можно ли наследовать вложенные классы?  
 Если да, то приведите пример.  
@@ -153,17 +276,20 @@ a) Любой класс
     }
 }
 ```
+Наследники вложенного класса не имеют доступа к членам внешнего класса(в то же время родитель доступ имеет)
 **Источник.**  https://javarush.ru/groups/posts/2199-primerih-nasledovanija-vnutrennikh-klassov 
 
 14. Можно ли из подкласса обратиться к методу вложенного суперкласса?  
 Если да, то приведите пример.   
 **Ответ.**  
-**Источник.**  
+Да, возможно.
+**Источник.**  https://docs.oracle.com/javase/tutorial/java/javaOO/nested.html 
 
 15. Какие существуют варианты внутренних интерфейсов?  
 **Ответ.**  
-Он может быть объявлен как public, private или protected. Этим он от¬личается от интерфейса верхнего уровня, который должен бьrгь объявлен как pub¬lic или использовать уровень доступа по умолчанию.  
-**Источник.**  http://pr0java.blogspot.com/2015/07/5.html 
+1)интерфейс, вложенный в класс;  
+2)интерфейс, вложенный в интерфейс.  
+**Источник.** 
 
 16. Можно ли объявить класс внутри интерфейса?  
 Если да, то есть ли ограничения? Приведите пример.  
@@ -309,12 +435,12 @@ class Runner {
 }
 
 class Something {
-    void doSomething(Smthable smth) {        //2
-        smth.doSmth();
-    }
     interface Smthable {
         void doSmth();
     }
+    void doSomething(Smthable smth) {        //2
+        smth.doSmth();
+    } 
 }
 ```
 б)  
@@ -331,12 +457,12 @@ class Runner {
     }
 }
 interface Smthable {
-    void doSmth();
-    class Something {
+        class Something {
         void doSomething(Smthable smth) {        //2
             smth.doSmth();
         }
     }
+    void doSmth();
 }
 ```  
 **Источник.**  
@@ -484,16 +610,32 @@ public class Outer {
 
 23. Может ли вложенный класс быть раннер-классом?  
 Если да, то приведите пример, иначе поясните, почему нет.   
-**Ответ.**  
-**Источник.**  
+**Ответ.** 
+Да, может. Нужно только запускать на выполнение сразу вложенный класс. Например, для кода ниже нужна
+команда java A$B.  
+```java
+public class A {
+    static class B {
+        public static void main(String[] args) {
+            System.out.println("Hello");
+        }
+    }
+}
+```
+**Источник.**   
 
 24. Может ли внутренний класс быть раннер-классом?  
 Если да, то приведите пример, иначе поясните, почему нет.  
 **Ответ.**  
-**Источник.**
+Внутренний класс не может быть раннер-классом.  
+Cтатические методы и переменные могут существовать и вызваться даже при отсутствии объекта.  
+Но без объекта «внешнего» класса доступа к внутреннему классу у нас не будет. Поэтому наличие статических переменных и методов во внутренних классах запрещено.  
+**Источник.**  https://docs.oracle.com/javase/tutorial/java/javaOO/nested.html
 
 25. Может ли интерфейс иметь раннер-класс?  
 Если да, то приведите пример, иначе поясните, почему нет.   
-**Ответ.**   
-**Источник.**  
+**Ответ.**  
+Учитывая, что интерфейсы могут содержать вложенные классы(статичные по умолчанию), а вложенные классы в свою очередь могут содержать точку входа в программу, можно смело делать вывод - да, интерфейс может содержать раннер-класс.  
+**Источник.**  https://docs.oracle.com/javase/7/docs/api/java/lang/Runnable.html  
+https://ru.stackoverflow.com/questions/1143619/%D0%9C%D0%BE%D0%B6%D0%B5%D1%82-%D0%BB%D0%B8-%D0%B2%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%BD%D1%8B%D0%B9-%D0%B2%D0%BD%D1%83%D1%82%D1%80%D0%B5%D0%BD%D0%BD%D0%B8%D0%B9-%D0%BA%D0%BB%D0%B0%D1%81%D1%81-%D0%B8%D0%BB%D0%B8-%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D1%84%D0%B5%D0%B9%D1%81-%D0%B1%D1%8B%D1%82%D1%8C-%D1%80%D0%B0%D0%BD%D0%BD%D0%B5%D1%80-%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%BE%D0%BC  
 
