@@ -120,32 +120,9 @@ public class Outer {
 а) к экземпляру класса Nested,   
 б) к объемлющему экземпляру класса Outer?  
 **Ответ.**  
-a)  
-```java
-public class Outer {
-    Outer outer = new Outer();
-
-    static class Nested {
-        Nested nested = new Nested();
-        public void print() {
-            System.out.println(nested);
-        }
-    }
-}
-```
-б)  
-```java
-public class Outer {
-    Outer outer = new Outer();
-
-    static class Nested {
-        Nested nested = new Nested();
-        public static void print(Outer outer) {
-            System.out.println(outer);
-        }
-    }
-}
-```
+а) this.[член Nested класса]
+Если нет перекрытия имен, можно и без this.
+б)new Outer().[член Outer класса]
 **Источник.**  
 
 9. Можно ли из вложенного класса обратиться к членам внешнего класса?  
@@ -283,6 +260,21 @@ a) Любой класс
 Если да, то приведите пример.   
 **Ответ.**  
 Да, возможно.  
+```java
+public class Outer {
+    public static class Nested {
+        public void SomeMethod() {
+            //do something 
+        }
+    }
+}
+
+public class ClassNested extends Outer.Nested {
+    public void Method() {
+        super.SomeMethod();
+    }
+}
+```
 **Источник.**  https://docs.oracle.com/javase/tutorial/java/javaOO/nested.html 
 
 15. Какие существуют варианты внутренних интерфейсов?  
