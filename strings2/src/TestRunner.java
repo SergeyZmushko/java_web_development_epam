@@ -7,7 +7,7 @@ import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class TestRuner {
+public class TestRunner {
     private static final String RESULT = "sum = ";
     private static final String VALUE = "value";
     private static final String INDEX = "index";
@@ -32,20 +32,21 @@ public class TestRuner {
 //                if (m3.find()) {
 //                    resultValueIndex = m3.group() + rb.getString(m1.group());
 //                    String regexValueIndex = VALUE + resultValueIndex;
-                    try {
-                        String keyValue = rb.getString(key);
-                        if(key.matches(REGEX_FOR_INDEX_ROW) && keyValue.matches(REGEX_FOR_INDEX_VALUE)){
-                            String i = key.substring(INDEX.length());
-                            System.out.println(keyValue);
-                            System.out.println(rb.getString(VALUE + i + keyValue));
-                            result += Double.parseDouble(rb.getString(VALUE + i + keyValue));
-                        }else {
-                            errorLines++;
-                        }
-                    } catch (NumberFormatException | MissingResourceException e) {
+                try {
+                    String keyValue = rb.getString(key);
+                    if (key.matches(REGEX_FOR_INDEX_ROW) && keyValue.matches(REGEX_FOR_INDEX_VALUE)) {
+                        String i = key.substring(INDEX.length());
+                        System.out.println(keyValue);
+                        System.out.println("=" + rb.getString(VALUE + i + keyValue));
+                        result += Double.parseDouble(rb.getString(VALUE + i + keyValue));
+                    } else {
                         errorLines++;
                     }
+                } catch (NumberFormatException | MissingResourceException e) {
+                    errorLines++;
+                }
                 //}
+                //   }
             }
         }
         System.out.println(RESULT + result);
