@@ -11,42 +11,40 @@ public class TestRunner {
     private static final String RESULT = "sum = ";
     private static final String VALUE = "value";
     private static final String INDEX = "index";
-    private static final String REGEX_FOR_INDEX_ROW = "(index)(\\s*\\d*\\s*[^0=])";
-    private static final String REGEX_FOR_INDEX_VALUE = "\\d+";
-    private static final String FILE_NAME = "in3";
+    private static final String REGEX_FOR_INDEX_WORD = "(index).*";
+    private static final String REGEX_FOR_INDEX_LINE = "(index)([1-9]\\d*\\s*)";
+    private static final String REGEX_FOR_INDEX_VALUE = "\\s*[1-9]\\d*\\s*";
+    private static final String REGEX_FOR_NUMBER = "\\d+";
+    private static final String FILE_NAME = "in1";
 
     private static int getResult() throws FileNotFoundException {
         ResourceBundle rb = ResourceBundle.getBundle(FILE_NAME);
         Enumeration<String> keys = rb.getKeys();
         String key;
-        double result = 0;
+        double result = 0.0;
         int errorLines = 0;
         while (keys.hasMoreElements()) {
-            String resultValueIndex;
             key = keys.nextElement();
-            Pattern p1 = Pattern.compile(REGEX_FOR_INDEX_ROW);
+            Pattern p1 = Pattern.compile(REGEX_FOR_INDEX_WORD);
             Matcher m1 = p1.matcher(key);
             if (m1.find()) {
-//                Pattern p3 = Pattern.compile(REGEX_FOR_INDEX_VALUE);
-//                Matcher m3 = p3.matcher(m1.group());
-//                if (m3.find()) {
-//                    resultValueIndex = m3.group() + rb.getString(m1.group());
-//                    String regexValueIndex = VALUE + resultValueIndex;
                 try {
-                    String keyValue = rb.getString(key);
-                    if (key.matches(REGEX_FOR_INDEX_ROW) && keyValue.matches(REGEX_FOR_INDEX_VALUE)) {
+                    String j = rb.getString(key);
+                    System.out.println("line=" + key + "=" + rb.getString(key));
+                    if (key.matches(REGEX_FOR_INDEX_LINE) && j.matches(REGEX_FOR_INDEX_VALUE)) {
                         String i = key.substring(INDEX.length());
-                        System.out.println(keyValue);
-                        System.out.println("=" + rb.getString(VALUE + i + keyValue));
-                        result += Double.parseDouble(rb.getString(VALUE + i + keyValue));
+                        String valueIJ = i + j;
+                        System.out.println(valueIJ);
+                        System.out.println("=" + rb.getString(VALUE + valueIJ));
+                        result += Double.parseDouble(rb.getString(VALUE + valueIJ));
                     } else {
                         errorLines++;
+                        System.out.println("Error lines = " + errorLines);
                     }
                 } catch (NumberFormatException | MissingResourceException e) {
                     errorLines++;
+                    System.out.println("Error lines = " + errorLines);
                 }
-                //}
-                //   }
             }
         }
         System.out.println(RESULT + result);
@@ -59,4 +57,3 @@ public class TestRunner {
         int d = getResult();
     }
 }
-
