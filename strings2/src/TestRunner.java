@@ -69,7 +69,7 @@ public class TestRunner {
     @Test
     public void testMainScenarioIn1() throws MissingResourceException {
         class TestCase {
-            private final static  double NUMBER_PRECISION = 0.0001;
+            private final static double NUMBER_PRECISION = 0.0001;
             private final String filename;
             private final Result expectedResult;
 
