@@ -19,9 +19,8 @@ public class TestRunner {
         double sum = 0.0;
         int errorLines = 0;
         while (keys.hasMoreElements()) {
-            String key;
+            String key = keys.nextElement();
             Pattern keyPattern = Pattern.compile(KEY_REG_EXP);
-            key = keys.nextElement();
             Matcher keyMatcher = keyPattern.matcher(key);
             if (keyMatcher.matches()) {
                 String iStr = keyMatcher.group(TAIL_INDEX);
