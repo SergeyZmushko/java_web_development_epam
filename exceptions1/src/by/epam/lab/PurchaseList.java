@@ -18,14 +18,14 @@ public class PurchaseList {
                 String[] element = sc.nextLine().split(SPLITER);
                 try {
                     Purchase purchase = PurchaseFactory.getPurchaseFromFactory(element);
-                    if (purchase.getCost().compareTo(new Byn(0)) > 0){
+                    if (purchase.getCost().compareTo(new Byn(0)) > 0) {
                         purchases.add(PurchaseFactory.getPurchaseFromFactory(element));
-                       // System.out.println(PurchaseFactory.getPurchaseFromFactory(element));
-                    }else {
+                        // System.out.println(PurchaseFactory.getPurchaseFromFactory(element));
+                    } else {
                         System.out.println("Wrong el");
                     }
 
-                }catch (NumberFormatException | NullPointerException e){
+                } catch (NumberFormatException | NullPointerException e) {
                     System.out.println("Wrong el");
                 }
             }
@@ -42,21 +42,21 @@ public class PurchaseList {
         }
     }
 
-    public List<Purchase> deletingSubsequence(List<Purchase> purchases, int from, int to) {
+    public void deletingSubsequence(List<Purchase> purchases, int from, int to) {
         if (from < 0 || from > purchases.size() - 1) {
             from = 0;
         }
         if (to <= 0 || to > purchases.size() - 1) {
             to = purchases.size() - 1;
         }
-        List<Purchase> newPurchaseList = new ArrayList<>();
-        for (Purchase el : purchases) {
-            if (purchases.indexOf(el) <= from && purchases.indexOf(el) > to) {
-                newPurchaseList.add(el);
+        int i = 0;
+        Iterator<Purchase> iterator = purchases.iterator();
+        while (iterator.hasNext()) {
+            if(i >= from && i < to){
+                iterator.remove();
             }
+            i++;
         }
-
-        return newPurchaseList;
     }
 
     public Byn calculateTotalCost(List<Purchase> purchases) {
@@ -67,7 +67,7 @@ public class PurchaseList {
         return totalCost;
     }
 
-    public List<Purchase> getPurchases(){
+    public List<Purchase> getPurchases() {
         return purchases;
     }
 

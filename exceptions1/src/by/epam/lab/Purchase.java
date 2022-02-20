@@ -1,6 +1,6 @@
 package by.epam.lab;
 
-public class Purchase {
+public class Purchase implements Comparable<Purchase> {
     private String name;
     private Byn price;
     private int number;
@@ -55,6 +55,11 @@ public class Purchase {
         if (this == o) return true;
         if (!(o instanceof Purchase purchase)) return false;
         return name.equals(purchase.name) && price.equals(purchase.price);
+    }
+
+    @Override
+    public int compareTo(Purchase o) {
+        return
     }
 }
 
