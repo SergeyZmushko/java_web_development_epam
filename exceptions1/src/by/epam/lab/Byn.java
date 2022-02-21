@@ -1,36 +1,22 @@
 package by.epam.lab;
 
-import java.util.Scanner;
-
 public class Byn implements Comparable<Byn>{
     private int value;
 
-    public Byn() {
-
-    }
 
     public Byn(int value) {
         this.value = value;
     }
 
-    public Byn(int rubs, int coins) {
-        this(rubs * 100 + coins);
-    }
-
-    public Byn(Scanner sc) {
-        this(sc.nextInt());
-    }
-
-    public int getRubs() {
-        return value / 100;
-    }
-
-    public int getCoins() {
-        return value % 100;
-    }
-
     public Byn(Byn byn) {
         this(byn.value);
+    }
+
+    public boolean isPositive(){
+        if (value > 0){
+            return true;
+        }
+        return false;
     }
 
     public Byn add(Byn byn) {
