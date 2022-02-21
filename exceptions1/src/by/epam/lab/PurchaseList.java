@@ -17,16 +17,10 @@ public class PurchaseList {
             while (sc.hasNextLine()) {
                 String[] element = sc.nextLine().split(SPLITER);
                 try {
-                    Purchase purchase = PurchaseFactory.getPurchaseFromFactory(element);
-                    if (purchase.getCost().compareTo(new Byn(0)) > 0) {
-                        purchases.add(PurchaseFactory.getPurchaseFromFactory(element));
-                        // System.out.println(PurchaseFactory.getPurchaseFromFactory(element));
-                    } else {
-                        System.out.println("Wrong el");
-                    }
-
-                } catch (NumberFormatException | NullPointerException e) {
-                    System.out.println("Wrong el");
+                    purchases.add(PurchaseFactory.getPurchaseFromFactory(element));
+                    System.out.println(PurchaseFactory.getPurchaseFromFactory(element));
+                } catch (IllegalArgumentException | NullPointerException e) {
+                    System.out.println();
                 }
             }
         } catch (FileNotFoundException e) {
@@ -42,6 +36,7 @@ public class PurchaseList {
         }
     }
 
+    //todo
     public void deletingSubsequence(List<Purchase> purchases, int from, int to) {
         if (from < 0 || from > purchases.size() - 1) {
             from = 0;
@@ -49,14 +44,7 @@ public class PurchaseList {
         if (to <= 0 || to > purchases.size() - 1) {
             to = purchases.size() - 1;
         }
-        int i = 0;
-        Iterator<Purchase> iterator = purchases.iterator();
-        while (iterator.hasNext()) {
-            if(i >= from && i < to){
-                iterator.remove();
-            }
-            i++;
-        }
+        purchases.subList(from, to).clear();
     }
 
     public Byn calculateTotalCost(List<Purchase> purchases) {
@@ -76,7 +64,7 @@ public class PurchaseList {
             System.out.println(el + ";");
         }
     }
-
+// todo сортировка по итератору
 //    public void sortList(List<Purchase> purchases){
 //        purchases.sort();
 //    }

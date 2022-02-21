@@ -16,12 +16,14 @@ public class PurchaseFactory {
         abstract Purchase getPurchase(String[] elements);
     }
 
-    public static Purchase getPurchaseFromFactory(String[] elements) {
-        Purchase purchase = null;
+    public static Purchase getPurchaseFromFactory(String[] elements) throws IllegalArgumentException{
+        Purchase purchase;
         if (elements.length == 3) {
             purchase =  PurchaseKind.GENERAL_PURCHASE.getPurchase(elements);
         } else if (elements.length == 4) {
             purchase = PurchaseKind.PRICE_DISCOUNT_PURCHASE.getPurchase(elements);
+        }else{
+            throw new IllegalArgumentException();
         }
         return purchase;
     }

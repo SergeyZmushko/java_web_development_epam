@@ -8,10 +8,12 @@ public class PriceDiscountPurchase extends Purchase {
         super();
     }
 
-    public PriceDiscountPurchase(String[] elements) {
+    public PriceDiscountPurchase(String[] elements) throws IllegalArgumentException{
         super(elements[0], new Byn(Integer.parseInt(elements[1])), Integer.parseInt(elements[2]));
         if (elements[3] != null && Integer.parseInt(elements[3]) > 0) {
             discount = new Byn(Integer.parseInt(elements[3]));
+        }else{
+            throw new IllegalArgumentException();
         }
     }
 
@@ -25,8 +27,13 @@ public class PriceDiscountPurchase extends Purchase {
     }
 
     @Override
-    public Byn getCost() {
-        return new Byn(getPrice()).sub(discount).mul(getNumber());
+    public Byn getCost() throws IllegalArgumentException {
+        Byn getCost = new Byn(getPrice()).sub(discount).mul(getNumber());
+        if (getCost.compareTo(new Byn(0)) > 0){
+            return getCost;
+        }else{
+            throw new IllegalArgumentException();
+        }
     }
 
     @Override

@@ -1,6 +1,6 @@
 package by.epam.lab;
 
-public class Purchase implements Comparable<Purchase> {
+public class Purchase {
     private String name;
     private Byn price;
     private int number;
@@ -9,13 +9,14 @@ public class Purchase implements Comparable<Purchase> {
 
     }
 
-    public Purchase(String[] elements){
-        if (elements[0] != null) {
+    public Purchase(String[] elements) throws IllegalArgumentException{
+        if (elements[0] != null && elements[1] != null && elements[2] != null &&
+                Integer.parseInt(elements[1]) > 0 && Integer.parseInt(elements[2]) > 0) {
             name = elements[0];
-        }
-        if (elements[1] != null && elements[2] != null && Integer.parseInt(elements[1]) > 0 && Integer.parseInt(elements[2]) > 0) {
             price = new Byn(Integer.parseInt(elements[1]));
             number = Integer.parseInt(elements[2]);
+        }else{
+            throw new IllegalArgumentException();
         }
     }
 
@@ -37,8 +38,13 @@ public class Purchase implements Comparable<Purchase> {
         return number;
     }
 
-    public Byn getCost() {
-        return new Byn(price).mul(number);
+    public Byn getCost() throws IllegalArgumentException {
+        Byn getCost = new Byn(price).mul(number);
+        if (getCost.compareTo(new Byn(0)) > 0){
+            return getCost;
+        }else{
+            throw new IllegalArgumentException();
+        }
     }
 
     protected String fieldToString() {
@@ -57,9 +63,9 @@ public class Purchase implements Comparable<Purchase> {
         return name.equals(purchase.name) && price.equals(purchase.price);
     }
 
-    @Override
-    public int compareTo(Purchase o) {
-        return
-    }
+//    @Override
+//    public int compareTo(Purchase o) {
+//        return
+//    }
 }
 
