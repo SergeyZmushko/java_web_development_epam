@@ -1,6 +1,6 @@
 package by.epam.lab;
 
-public class Byn implements Comparable<Byn>{
+public class Byn implements Comparable<Byn> {
     private int value;
 
 
@@ -12,11 +12,8 @@ public class Byn implements Comparable<Byn>{
         this(byn.value);
     }
 
-    public boolean isPositive(){
-        if (value > 0){
-            return true;
-        }
-        return false;
+    public boolean isPositive() {
+        return value > 0;
     }
 
     public Byn add(Byn byn) {

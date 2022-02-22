@@ -5,9 +5,10 @@ public class PriceDiscountPurchase extends Purchase {
 
     public PriceDiscountPurchase(String[] elements) throws IllegalArgumentException{
         super(elements);
-        if (elements[3] != null && Integer.parseInt(elements[3]) > 0) {
-            discount = new Byn(Integer.parseInt(elements[3]));
-            setTotalCost(calculate());
+        String stringDiscount = elements[3];
+        if (stringDiscount != null && Integer.parseInt(stringDiscount) > 0) {
+            discount = new Byn(Integer.parseInt(stringDiscount));
+            setTotalCost(calculatePriceDiscountCost());
         }else{
             throw new IllegalArgumentException();
         }
@@ -22,8 +23,7 @@ public class PriceDiscountPurchase extends Purchase {
         return discount;
     }
 
-
-    public Byn calculate(){
+    public Byn calculatePriceDiscountCost(){
         return getPrice().sub(discount).mul(getNumber());
     }
 

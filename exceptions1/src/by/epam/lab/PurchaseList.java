@@ -2,7 +2,6 @@ package by.epam.lab;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.lang.reflect.Array;
 import java.util.*;
 
 public class PurchaseList {
@@ -16,7 +15,7 @@ public class PurchaseList {
                 String[] element = str.split(SPLITER);
                 try {
                     purchases.add(PurchaseFactory.getPurchaseFromFactory(element));
-                } catch (IllegalArgumentException | NullPointerException e) {
+                } catch (IllegalArgumentException e) {
                     System.err.println(str);
                 }
             }
@@ -33,12 +32,8 @@ public class PurchaseList {
         }
     }
 
-    //если from и to за пределами массива, как обработать?
-    public void deletingSubsequence(List<Purchase> purchases, int from, int to) throws IllegalArgumentException {
-        if (from < 0 || from > purchases.size() - 1) {
-            throw new IllegalArgumentException();
-        }
-        if (to <= 0 || to > purchases.size() - 1) {
+    public void deleteSubsequence(List<Purchase> purchases, int from, int to) throws IllegalArgumentException {
+        if (from < 0 || to < 0 || from > purchases.size() - 1 || to > purchases.size() - 1 || from > to) {
             throw new IllegalArgumentException();
         }
         purchases.subList(from, to).clear();
@@ -62,17 +57,15 @@ public class PurchaseList {
         }
     }
 
-    public void listSort (List<Purchase> purchases){
+    public void listSort(List<Purchase> purchases) {
         Collections.sort(purchases);
     }
 
-    public Purchase searchElement(List<Purchase> purchases, Purchase purchase) throws IllegalArgumentException{
+    public Purchase searchElement(List<Purchase> purchases, Purchase purchase) throws ClassNotFoundException {
         int index = Collections.binarySearch(purchases, purchase);
-        if (!purchases.isEmpty() && index >=0 && index < purchases.size()){
+        if (!purchases.isEmpty() && index >= 0 && index < purchases.size()) {
             return purchases.get(index);
         }
-        throw new IllegalArgumentException();
+        throw new ClassNotFoundException("Element is not found.");
     }
-
-
 }

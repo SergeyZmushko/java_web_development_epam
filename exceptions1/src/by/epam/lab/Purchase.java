@@ -1,12 +1,10 @@
 package by.epam.lab;
 
 public class Purchase implements Comparable<Purchase> {
-    //final делать??????
     private String name;
     private Byn price;
     private int number;
     private Byn totalCost;
-
 
     public Purchase(String[] elements) throws IllegalArgumentException {
         if (!isValid(elements)) {
@@ -22,6 +20,7 @@ public class Purchase implements Comparable<Purchase> {
         this.name = name;
         this.price = price;
         this.number = number;
+        setTotalCost(calculateCost());
     }
 
     private boolean isValid(String[] elements) {
