@@ -15,7 +15,7 @@ public class PurchaseFactory {
 
         abstract Purchase getPurchase(String[] elements);
     }
-
+    //todo переписать как левчук показывал
     public static Purchase getPurchaseFromFactory(String[] elements) throws IllegalArgumentException{
         Purchase purchase;
         if (elements.length == 3) {

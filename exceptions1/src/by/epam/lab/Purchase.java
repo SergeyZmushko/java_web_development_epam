@@ -1,10 +1,11 @@
 package by.epam.lab;
 
 public class Purchase implements Comparable<Purchase> {
-    private String name;
-    private Byn price;
-    private int number;
+    private final String name;
+    private final Byn price;
+    private final int number;
     private Byn totalCost;
+    private final String semicolon = ";";
 
     public Purchase(String[] elements) throws IllegalArgumentException {
         if (!isValid(elements)) {
@@ -24,19 +25,19 @@ public class Purchase implements Comparable<Purchase> {
     }
 
     private boolean isValid(String[] elements) {
-        if (elements[0] != null && !elements[0].isEmpty() && elements[1] != null && elements[2] != null &&
-                Integer.parseInt(elements[1]) > 0 && Integer.parseInt(elements[2]) > 0) {
-            return true;
-        }
-        return false;
-    }
-
-    public String getName() {
-        return name;
+        String element_0 = elements[0];
+        String element_1 = elements[1];
+        String element_2 = elements[2];
+        return element_0 != null && !element_0.isEmpty() && element_1 != null && element_2 != null &&
+                Integer.parseInt(element_1) > 0 && Integer.parseInt(element_2) > 0;
     }
 
     public Byn getPrice() {
-        return new Byn(price);
+        return price;
+    }
+
+    public String getSemicolon() {
+        return semicolon;
     }
 
     public int getNumber() {
@@ -50,12 +51,12 @@ public class Purchase implements Comparable<Purchase> {
         this.totalCost = totalCost;
     }
 
-    public Byn calculateCost() throws IllegalArgumentException {
-        return new Byn(price).mul(number);
+    private Byn calculateCost() throws IllegalArgumentException {
+        return price.mul(number);
     }
 
     protected String fieldToString() {
-        return getClass().getSimpleName() + ";" + name + ";" + price + ";" + number;
+        return getClass().getSimpleName() + semicolon + name + semicolon + price + semicolon + number;
     }
 
     public Byn getTotalCost() {
@@ -64,7 +65,7 @@ public class Purchase implements Comparable<Purchase> {
 
     @Override
     public String toString() {
-        return fieldToString() + ";" + totalCost;
+        return fieldToString() + semicolon + totalCost;
     }
 
     @Override

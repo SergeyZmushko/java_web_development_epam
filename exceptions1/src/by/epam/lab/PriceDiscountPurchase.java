@@ -1,7 +1,7 @@
 package by.epam.lab;
 
 public class PriceDiscountPurchase extends Purchase {
-    private Byn discount;
+    private final Byn discount;
 
     public PriceDiscountPurchase(String[] elements) throws IllegalArgumentException{
         super(elements);
@@ -29,6 +29,6 @@ public class PriceDiscountPurchase extends Purchase {
 
     @Override
     protected String fieldToString() {
-        return super.fieldToString() + ";" + discount;
+        return super.fieldToString() + getSemicolon() + discount;
     }
 }

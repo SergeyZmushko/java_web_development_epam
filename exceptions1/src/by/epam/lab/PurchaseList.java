@@ -5,14 +5,16 @@ import java.io.FileReader;
 import java.util.*;
 
 public class PurchaseList {
-    private List<Purchase> purchases = new ArrayList<>();
-    private static final String SPLITER = ";";
+    private final List<Purchase> purchases = new ArrayList<>();
+    private static final String SPLITTER = ";";
+    private static final String TABULATION = "\n";
+    private static final String COMMA = ",";
 
     public PurchaseList(String filename) {
         try (Scanner sc = new Scanner(new FileReader(filename))) {
             while (sc.hasNextLine()) {
                 String str = sc.nextLine();
-                String[] element = str.split(SPLITER);
+                String[] element = str.split(SPLITTER);
                 try {
                     purchases.add(PurchaseFactory.getPurchaseFromFactory(element));
                 } catch (IllegalArgumentException e) {
@@ -24,48 +26,59 @@ public class PurchaseList {
         }
     }
 
-    public void addElementIntoPos(int position, Purchase purchase, List<Purchase> purchases) {
+    public void addElementIntoPos(int position, Purchase purchase) {
         if (position <= purchases.size() - 1) {
             purchases.add(position, purchase);
+        } else if (position < 0) {
+            purchases.add(0, purchase);
         } else {
             purchases.add(purchase);
         }
     }
 
-    public void deleteSubsequence(List<Purchase> purchases, int from, int to) throws IllegalArgumentException {
-        if (from < 0 || to < 0 || from > purchases.size() - 1 || to > purchases.size() - 1 || from > to) {
-            throw new IllegalArgumentException();
+    public void deleteSubsequence(int from, int to) {
+        if (from < 0) {
+            from = 0;
+        } else if (from >= purchases.size() - 1) {
+            from = purchases.size() - 2;
+        }
+        if (to < 0 || to >= purchases.size() - 1) {
+            to = from + 1;
+        }
+        if (to < from) {
+            int tmp = to;
+            to = from;
+            from = tmp;
         }
         purchases.subList(from, to).clear();
     }
 
-    public Byn calculateTotalCost(List<Purchase> purchases) {
+    public Byn calculateTotalCost() {
         Byn totalCost = new Byn(0);
         for (Purchase el : purchases) {
-            totalCost.add(el.getTotalCost());
+            totalCost = totalCost.add(el.getTotalCost());
         }
-        return totalCost;
+        return new Byn(totalCost);
     }
 
     public List<Purchase> getPurchases() {
         return purchases;
     }
 
-    public void stringRepresentationOfList(List<Purchase> purchases) {
+    public String stringRepresentationOfList() {
+        StringBuilder result = new StringBuilder();
         for (Purchase el : purchases) {
-            System.out.println(el);
+            result.append(el);
         }
+        return result.toString();
     }
 
-    public void listSort(List<Purchase> purchases) {
+    public void listSort() {
         Collections.sort(purchases);
     }
 
-    public Purchase searchElement(List<Purchase> purchases, Purchase purchase) throws ClassNotFoundException {
-        int index = Collections.binarySearch(purchases, purchase);
-        if (!purchases.isEmpty() && index >= 0 && index < purchases.size()) {
-            return purchases.get(index);
-        }
-        throw new ClassNotFoundException("Element is not found.");
+    public int searchElement(Purchase purchase) {
+        Collections.sort(purchases);
+        return Collections.binarySearch(purchases, purchase);
     }
 }

@@ -1,8 +1,8 @@
 package by.epam.lab;
 
 public class Byn implements Comparable<Byn> {
-    private int value;
-
+    private final int value;
+    private final static String VALUE_FORMAT = "%d.%02d";
 
     public Byn(int value) {
         this.value = value;
@@ -17,22 +17,19 @@ public class Byn implements Comparable<Byn> {
     }
 
     public Byn add(Byn byn) {
-        value += byn.value;
-        return this;
+       return new Byn(value + byn.value);
     }
 
     public Byn sub(Byn byn) {
-        value -= byn.value;
-        return this;
+       return new Byn(value - byn.value);
     }
 
     public Byn mul(int k) {
-        value *= k;
-        return this;
+        return new Byn(value * k);
     }
 
     public String toString() {
-        return String.format("%d.%02d", value / 100, value % 100);
+        return String.format(VALUE_FORMAT, value / 100, value % 100);
     }
 
     @Override
