@@ -7,8 +7,6 @@ import java.util.*;
 public class PurchaseList {
     private final List<Purchase> purchases = new ArrayList<>();
     private static final String SPLITTER = ";";
-    private static final String TABULATION = "\n";
-    private static final String COMMA = ",";
 
     public PurchaseList(String filename) {
         try (Scanner sc = new Scanner(new FileReader(filename))) {

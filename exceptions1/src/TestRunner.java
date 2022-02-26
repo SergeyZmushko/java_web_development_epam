@@ -14,21 +14,21 @@ public class TestRunner {
         String[] priceDiscountPurchase = {"potato", "180", "2", "10"};
         Purchase purchaseObj = PurchaseFactory.getPurchaseFromFactory(purchase);
         Purchase priceDiscountPurchaseObj = PurchaseFactory.getPurchaseFromFactory(priceDiscountPurchase);
-        Assert.assertEquals(new Purchase("bread", new Byn(155), 1), purchaseObj);
-        Assert.assertEquals(new PriceDiscountPurchase("potato", new Byn(180), 2, new Byn(10)), priceDiscountPurchaseObj);
+        Assert.assertEquals(new Purchase("bread", "155", "1"), purchaseObj);
+        Assert.assertEquals(new PriceDiscountPurchase("potato", "180", "2", "10"), priceDiscountPurchaseObj);
     }
 
     @Test
     public void testPurchaseListConstructor() {
         List<Purchase> purchasesTest = new ArrayList<>();
-        purchasesTest.add(new PriceDiscountPurchase("bread", new Byn(155), 1, new Byn(2)));
-        purchasesTest.add(new Purchase("milk", new Byn(131), 2));
-        purchasesTest.add(new Purchase("bread", new Byn(154), 3));
-        purchasesTest.add(new Purchase("bread", new Byn(145), 5));
-        purchasesTest.add(new PriceDiscountPurchase("potato", new Byn(180), 2, new Byn(10)));
-        purchasesTest.add(new Purchase("butter", new Byn(370), 1));
-        purchasesTest.add(new PriceDiscountPurchase("butter", new Byn(341), 1, new Byn(1)));
-        purchasesTest.add(new PriceDiscountPurchase("meat", new Byn(1100), 2, new Byn(80)));
+        purchasesTest.add(new PriceDiscountPurchase("bread", "155", "1", "2"));
+        purchasesTest.add(new Purchase("milk", "131", "2"));
+        purchasesTest.add(new Purchase("bread", "154", "3"));
+        purchasesTest.add(new Purchase("bread", "145", "5"));
+        purchasesTest.add(new PriceDiscountPurchase("potato", "180", "2", "10"));
+        purchasesTest.add(new Purchase("butter", "370", "1"));
+        purchasesTest.add(new PriceDiscountPurchase("butter", "341", "1", "1"));
+        purchasesTest.add(new PriceDiscountPurchase("meat", "1100", "2", "80"));
         PurchaseList purchaseList = new PurchaseList(FILENAME);
         List<Purchase> purchases1 = purchaseList.getPurchases();
         Assert.assertEquals(purchasesTest, purchases1);
@@ -37,18 +37,18 @@ public class TestRunner {
     @Test
     public void testAddElIntoPos() {
         List<Purchase> purchasesTest = new ArrayList<>();
-        purchasesTest.add(new PriceDiscountPurchase("bread", new Byn(155), 1, new Byn(2)));
-        purchasesTest.add(new Purchase("milk", new Byn(131), 2));
-        purchasesTest.add(new Purchase("butter", new Byn(370), 1));
-        purchasesTest.add(new Purchase("bread", new Byn(154), 3));
-        purchasesTest.add(new Purchase("bread", new Byn(145), 5));
-        purchasesTest.add(new PriceDiscountPurchase("potato", new Byn(180), 2, new Byn(10)));
-        purchasesTest.add(new Purchase("butter", new Byn(370), 1));
-        purchasesTest.add(new PriceDiscountPurchase("butter", new Byn(341), 1, new Byn(1)));
-        purchasesTest.add(new PriceDiscountPurchase("meat", new Byn(1100), 2, new Byn(80)));
+        purchasesTest.add(new PriceDiscountPurchase("bread", "155", "1", "2"));
+        purchasesTest.add(new Purchase("milk", "131", "2"));
+        purchasesTest.add(new Purchase("butter", "370", "1"));
+        purchasesTest.add(new Purchase("bread", "154", "3"));
+        purchasesTest.add(new Purchase("bread", "145", "5"));
+        purchasesTest.add(new PriceDiscountPurchase("potato", "180", "2", "10"));
+        purchasesTest.add(new Purchase("butter", "370", "1"));
+        purchasesTest.add(new PriceDiscountPurchase("butter", "341", "1", "1"));
+        purchasesTest.add(new PriceDiscountPurchase("meat", "1100", "2", "80"));
         PurchaseList purchaseList = new PurchaseList(FILENAME);
         List<Purchase> purchases = purchaseList.getPurchases();
-        purchaseList.addElementIntoPos(2, new Purchase("butter", new Byn(370), 1));
+        purchaseList.addElementIntoPos(2, new Purchase("butter", "370", "1"));
         Assert.assertEquals(purchasesTest, purchases);
     }
 
@@ -65,26 +65,26 @@ public class TestRunner {
         List<Purchase> purchases = purchaseList.getPurchases();
         purchaseList.deleteSubsequence(0, 2);
         List<Purchase> purchasesTest = new ArrayList<>();
-        purchasesTest.add(new Purchase("bread", new Byn(154), 3));
-        purchasesTest.add(new Purchase("bread", new Byn(145), 5));
-        purchasesTest.add(new PriceDiscountPurchase("potato", new Byn(180), 2, new Byn(10)));
-        purchasesTest.add(new Purchase("butter", new Byn(370), 1));
-        purchasesTest.add(new PriceDiscountPurchase("butter", new Byn(341), 1, new Byn(1)));
-        purchasesTest.add(new PriceDiscountPurchase("meat", new Byn(1100), 2, new Byn(80)));
+        purchasesTest.add(new Purchase("bread", "154", "3"));
+        purchasesTest.add(new Purchase("bread", "145", "5"));
+        purchasesTest.add(new PriceDiscountPurchase("potato", "180", "2", "10"));
+        purchasesTest.add(new Purchase("butter", "370", "1"));
+        purchasesTest.add(new PriceDiscountPurchase("butter", "341", "1", "1"));
+        purchasesTest.add(new PriceDiscountPurchase("meat", "1100", "2", "80"));
         Assert.assertEquals(purchasesTest, purchases);
     }
 
     @Test
     public void testGetPurchases() {
         List<Purchase> purchasesTest = new ArrayList<>();
-        purchasesTest.add(new PriceDiscountPurchase("bread", new Byn(155), 1, new Byn(2)));
-        purchasesTest.add(new Purchase("milk", new Byn(131), 2));
-        purchasesTest.add(new Purchase("bread", new Byn(154), 3));
-        purchasesTest.add(new Purchase("bread", new Byn(145), 5));
-        purchasesTest.add(new PriceDiscountPurchase("potato", new Byn(180), 2, new Byn(10)));
-        purchasesTest.add(new Purchase("butter", new Byn(370), 1));
-        purchasesTest.add(new PriceDiscountPurchase("butter", new Byn(341), 1, new Byn(1)));
-        purchasesTest.add(new PriceDiscountPurchase("meat", new Byn(1100), 2, new Byn(80)));
+        purchasesTest.add(new PriceDiscountPurchase("bread", "155", "1", "2"));
+        purchasesTest.add(new Purchase("milk", "131", "2"));
+        purchasesTest.add(new Purchase("bread", "154", "3"));
+        purchasesTest.add(new Purchase("bread", "145", "5"));
+        purchasesTest.add(new PriceDiscountPurchase("potato", "180", "2", "10"));
+        purchasesTest.add(new Purchase("butter", "370", "1"));
+        purchasesTest.add(new PriceDiscountPurchase("butter", "341", "1", "1"));
+        purchasesTest.add(new PriceDiscountPurchase("meat", "1100", "2", "80"));
         PurchaseList purchaseList = new PurchaseList(FILENAME);
         List<Purchase> purchases = purchaseList.getPurchases();
         Assert.assertEquals(purchasesTest, purchases);
@@ -93,14 +93,14 @@ public class TestRunner {
     @Test
     public void testListSort() {
         List<Purchase> purchasesTest = new ArrayList<>();
-        purchasesTest.add(new PriceDiscountPurchase("bread", new Byn(155), 1, new Byn(2)));
-        purchasesTest.add(new Purchase("milk", new Byn(131), 2));
-        purchasesTest.add(new PriceDiscountPurchase("potato", new Byn(180), 2, new Byn(10)));
-        purchasesTest.add(new PriceDiscountPurchase("butter", new Byn(341), 1, new Byn(1)));
-        purchasesTest.add(new Purchase("butter", new Byn(370), 1));
-        purchasesTest.add(new Purchase("bread", new Byn(154), 3));
-        purchasesTest.add(new Purchase("bread", new Byn(145), 5));
-        purchasesTest.add(new PriceDiscountPurchase("meat", new Byn(1100), 2, new Byn(80)));
+        purchasesTest.add(new PriceDiscountPurchase("bread", "155", "1", "2"));
+        purchasesTest.add(new Purchase("milk", "131", "2"));
+        purchasesTest.add(new PriceDiscountPurchase("potato", "180", "2", "10"));
+        purchasesTest.add(new PriceDiscountPurchase("butter", "341", "1", "1"));
+        purchasesTest.add(new Purchase("butter", "370", "1"));
+        purchasesTest.add(new Purchase("bread", "154", "3"));
+        purchasesTest.add(new Purchase("bread", "145", "5"));
+        purchasesTest.add(new PriceDiscountPurchase("meat", "1100", "2", "80"));
         PurchaseList purchaseList = new PurchaseList(FILENAME);
         List<Purchase> purchases = purchaseList.getPurchases();
         purchaseList.listSort();
@@ -122,7 +122,7 @@ public class TestRunner {
     @Test
     public void testSearchElement() {
         PurchaseList purchaseList = new PurchaseList(FILENAME);
-        int i = purchaseList.searchElement(new Purchase("milk", new Byn(131), 2));
+        int i = purchaseList.searchElement(new Purchase("milk", "131", "2"));
         Assert.assertEquals(1, i);
     }
 

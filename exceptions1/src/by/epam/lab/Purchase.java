@@ -7,20 +7,18 @@ public class Purchase implements Comparable<Purchase> {
     private Byn totalCost;
     private final String semicolon = ";";
 
-    public Purchase(String[] elements) throws IllegalArgumentException {
+    public Purchase(String[] elements) {
+        this(elements[0], elements[1], elements[2]);
+    }
+
+    public Purchase(String name, String price, String number) {
+        String[] elements = {name, price, number};
         if (!isValid(elements)) {
             throw new IllegalArgumentException();
         }
-        name = elements[0];
-        price = new Byn(Integer.parseInt(elements[1]));
-        number = Integer.parseInt(elements[2]);
-        setTotalCost(calculateCost());
-    }
-
-    public Purchase(String name, Byn price, int number) {
-        this.name = name;
-        this.price = price;
-        this.number = number;
+        this.name = elements[0];
+        this.price = new Byn(Integer.parseInt(elements[1]));
+        this.number = Integer.parseInt(elements[2]);
         setTotalCost(calculateCost());
     }
 
@@ -51,7 +49,7 @@ public class Purchase implements Comparable<Purchase> {
         this.totalCost = totalCost;
     }
 
-    private Byn calculateCost() throws IllegalArgumentException {
+    private Byn calculateCost() {
         return price.mul(number);
     }
 
