@@ -1,14 +1,18 @@
 package by.epam.lab;
 
 public class Purchase implements Comparable<Purchase> {
+    protected final static int INDEX_NAME = 0;
+    protected final static int INDEX_PRICE = 1;
+    protected final static int INDEX_NUMBER = 2;
+    protected final static int INDEX_DISCOUNT = 3;
+    protected final String semicolon = ";";
     private final String name;
     private final Byn price;
     private final int number;
     private Byn totalCost;
-    private final String semicolon = ";";
 
     public Purchase(String[] elements) {
-        this(elements[0], elements[1], elements[2]);
+        this(elements[INDEX_NAME], elements[INDEX_PRICE], elements[INDEX_NUMBER]);
     }
 
     public Purchase(String name, String price, String number) {
@@ -16,26 +20,23 @@ public class Purchase implements Comparable<Purchase> {
         if (!isValid(elements)) {
             throw new IllegalArgumentException();
         }
-        this.name = elements[0];
-        this.price = new Byn(Integer.parseInt(elements[1]));
-        this.number = Integer.parseInt(elements[2]);
+        this.name = elements[INDEX_NAME];
+        this.price = new Byn(Integer.parseInt(elements[INDEX_PRICE]));
+        this.number = Integer.parseInt(elements[INDEX_NUMBER]);
         setTotalCost(calculateCost());
     }
 
     private boolean isValid(String[] elements) {
-        String element_0 = elements[0];
-        String element_1 = elements[1];
-        String element_2 = elements[2];
-        return element_0 != null && !element_0.isEmpty() && element_1 != null && element_2 != null &&
+        String element_0 = elements[INDEX_NAME];
+        String element_1 = elements[INDEX_PRICE];
+        String element_2 = elements[INDEX_NUMBER];
+        return element_0 != null && !element_0.trim().isEmpty() && !element_0.isEmpty() && element_1 != null &&
+                !element_1.trim().isEmpty() && element_2 != null && !element_2.trim().isEmpty() &&
                 Integer.parseInt(element_1) > 0 && Integer.parseInt(element_2) > 0;
     }
 
     public Byn getPrice() {
         return price;
-    }
-
-    public String getSemicolon() {
-        return semicolon;
     }
 
     public int getNumber() {

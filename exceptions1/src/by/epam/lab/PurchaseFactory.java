@@ -17,14 +17,12 @@ public class PurchaseFactory {
     }
 
     public static Purchase getPurchaseFromFactory(String[] elements) {
-        Purchase purchase;
-        if (elements.length == 3) {
-            purchase = PurchaseKind.GENERAL_PURCHASE.getPurchase(elements);
-        } else if (elements.length == 4) {
-            purchase = PurchaseKind.PRICE_DISCOUNT_PURCHASE.getPurchase(elements);
+        PurchaseKind purchaseKind;
+        if (elements.length == 3 || elements.length == 4) {
+            purchaseKind = PurchaseKind.values()[elements.length - 3];
         } else {
             throw new IllegalArgumentException();
         }
-        return purchase;
+        return purchaseKind.getPurchase(elements);
     }
 }
