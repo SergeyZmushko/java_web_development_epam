@@ -6,7 +6,7 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class RunnerTest {
+public class TestRunner {
 
     private final static String FILENAME = "src/in.csv";
 
