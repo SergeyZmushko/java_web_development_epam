@@ -68,13 +68,13 @@ public class PurchaseList {
     }
 
     public String stringRepresentationOfList() {
-        int lengthForDelete = 2;
+        final int LENGTH_FOR_DELETING = 2;
         StringBuilder result = new StringBuilder();
         result.append(SQUARE_BRACKET_HEAD);
         for (Purchase el : purchases) {
             result.append(el).append(COMMON);
         }
-        result.delete(result.length() - lengthForDelete, result.length()).append(SQUARE_BRACKET_TAIL);
+        result.delete(result.length() - LENGTH_FOR_DELETING, result.length()).append(SQUARE_BRACKET_TAIL);
         return result.toString();
     }
 
