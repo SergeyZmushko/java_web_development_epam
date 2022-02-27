@@ -43,7 +43,7 @@ public class Purchase implements Comparable<Purchase> {
         return new Purchase(fields[INDEX_NAME], new Byn(fields[INDEX_PRICE]), Integer.parseInt(fields[INDEX_NUMBER]));
     }
 
-    public Purchase(Purchase purchase){
+    public Purchase(Purchase purchase) {
         this(purchase.name, purchase.price, purchase.number);
     }
 

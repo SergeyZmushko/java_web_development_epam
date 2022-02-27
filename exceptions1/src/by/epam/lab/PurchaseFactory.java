@@ -8,6 +8,7 @@ import by.epam.lab.exceptions.NonPositiveArgumentException;
 
 public class PurchaseFactory {
     private static final String SEMICOLON = ";";
+
     private enum PurchaseKind {
         GENERAL_PURCHASE {
             public Purchase getPurchase(String[] fields) {
@@ -22,16 +23,17 @@ public class PurchaseFactory {
 
         abstract protected Purchase getPurchase(String[] fields);
     }
-    private static PurchaseKind getPurchaseKind(int length){
+
+    private static PurchaseKind getPurchaseKind(int length) {
         return PurchaseKind.values()[length - 3];
     }
 
     public static Purchase getPurchaseFromFactory(String csvLine) throws CsvLineException {
         String[] fields = csvLine.split(SEMICOLON);
-        try{
+        try {
             return getPurchaseKind(fields.length).getPurchase(fields);
         } catch (IndexOutOfBoundsException | NonPositiveArgumentException |
-                NegativeArgumentException | NumberFormatException e){
+                NegativeArgumentException | NumberFormatException e) {
             throw new CsvLineException(csvLine, e);
         }
     }

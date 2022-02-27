@@ -18,7 +18,7 @@ public class PriceDiscountPurchase extends Purchase {
         this(getValidPurchaseDiscount(fields));
     }
 
-    public PriceDiscountPurchase(PriceDiscountPurchase purchase){
+    public PriceDiscountPurchase(PriceDiscountPurchase purchase) {
         this(purchase.getName(), purchase.getPrice(), purchase.getNumber(), purchase.discount);
     }
 
@@ -34,7 +34,7 @@ public class PriceDiscountPurchase extends Purchase {
         return discount;
     }
 
-    public Byn getCost(){
+    public Byn getCost() {
         return getPrice().sub(discount).mul(getNumber());
     }
 

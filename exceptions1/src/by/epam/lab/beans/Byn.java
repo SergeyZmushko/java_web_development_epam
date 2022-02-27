@@ -10,13 +10,13 @@ public class Byn implements Comparable<Byn> {
     private final static String WRONG_VALUE_COINS = "wrong value coins: ";
 
     public Byn(int value) {
-        if (value < 0){
+        if (value < 0) {
             throw new NegativeArgumentException(WRONG_VALUE_BYN + value);
         }
         this.value = value;
     }
 
-    public Byn(){
+    public Byn() {
         this(0);
     }
 
@@ -24,19 +24,19 @@ public class Byn implements Comparable<Byn> {
         this(byn.value);
     }
 
-    public Byn(int rubs, int kops){
+    public Byn(int rubs, int kops) {
         this(getValidValue(rubs, kops));
     }
 
-    public Byn(String strKops){
+    public Byn(String strKops) {
         this(Integer.parseInt(strKops));
     }
 
-    private static int getValidValue(int rubs, int coins){
-        if (rubs < 0){
+    private static int getValidValue(int rubs, int coins) {
+        if (rubs < 0) {
             throw new IllegalArgumentException(WRONG_VALUE_RUBS + rubs);
         }
-        if (coins < 0 || coins >= 100){
+        if (coins < 0 || coins >= 100) {
             throw new IllegalArgumentException(WRONG_VALUE_COINS + coins);
         }
         return 100 * rubs + coins;
@@ -51,11 +51,11 @@ public class Byn implements Comparable<Byn> {
     }
 
     public Byn add(Byn byn) {
-       return new Byn(value + byn.value);
+        return new Byn(value + byn.value);
     }
 
     public Byn sub(Byn byn) {
-       return new Byn(value - byn.value);
+        return new Byn(value - byn.value);
     }
 
     public Byn mul(int k) {

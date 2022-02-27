@@ -13,7 +13,7 @@ import static org.junit.Assert.*;
 
 public class TestRunner {
     private final static String FILENAME = "src/in.csv";
-    private final Comparator<Purchase> comparator = new Comparator<Purchase>() {
+    private final Comparator<Purchase> comparator = new Comparator<>() {
         @Override
         public int compare(Purchase o1, Purchase o2) {
             return o1.getCost().compareTo(o2.getCost());
@@ -22,10 +22,10 @@ public class TestRunner {
 
     @Test
     public void testFabricMethod() throws CsvLineException {
-        String purchase = "bread;155;1";
-        String priceDiscountPurchase = "potato;180;2;10";
-        Purchase purchaseObj = PurchaseFactory.getPurchaseFromFactory(purchase);
-        Purchase priceDiscountPurchaseObj = PurchaseFactory.getPurchaseFromFactory(priceDiscountPurchase);
+        String purchaseString = "bread;155;1";
+        String priceDiscountPurchaseString = "potato;180;2;10";
+        Purchase purchaseObj = PurchaseFactory.getPurchaseFromFactory(purchaseString);
+        Purchase priceDiscountPurchaseObj = PurchaseFactory.getPurchaseFromFactory(priceDiscountPurchaseString);
         assertEquals(new Purchase("bread", new Byn(155), 1), purchaseObj);
         assertEquals(new PriceDiscountPurchase("potato", new Byn(180), 2, new Byn(10)), priceDiscountPurchaseObj);
     }
@@ -54,8 +54,8 @@ public class TestRunner {
         purchasesTest.add(new PriceDiscountPurchase("butter", new Byn(341), 1, new Byn(1)));
         purchasesTest.add(new PriceDiscountPurchase("meat", new Byn(1100), 2, new Byn(80)));
         PurchaseList purchaseList = new PurchaseList(FILENAME, comparator);
-        List<Purchase> purchases1 = purchaseList.getPurchases();
-        assertEquals(purchasesTest, purchases1);
+        String purchasesActual = purchaseList.stringRepresentationOfList();
+        assertEquals(purchasesTest.toString(), purchasesActual);
         assertFalse(purchaseList.isSorted());
     }
 
@@ -72,9 +72,9 @@ public class TestRunner {
         purchasesTest.add(new PriceDiscountPurchase("butter", new Byn(341), 1, new Byn(1)));
         purchasesTest.add(new PriceDiscountPurchase("meat", new Byn(1100), 2, new Byn(80)));
         PurchaseList purchaseList = new PurchaseList(FILENAME, comparator);
-        List<Purchase> purchases = purchaseList.getPurchases();
         purchaseList.addElementIntoPos(2, new Purchase("butter", new Byn(370), 1));
-        assertEquals(purchasesTest, purchases);
+        String purchasesActual = purchaseList.stringRepresentationOfList();
+        assertEquals(purchasesTest.toString(), purchasesActual);
         assertFalse(purchaseList.isSorted());
     }
 
@@ -91,9 +91,9 @@ public class TestRunner {
         purchasesTest.add(new PriceDiscountPurchase("butter", new Byn(341), 1, new Byn(1)));
         purchasesTest.add(new PriceDiscountPurchase("meat", new Byn(1100), 2, new Byn(80)));
         PurchaseList purchaseList = new PurchaseList(FILENAME, comparator);
-        List<Purchase> purchases = purchaseList.getPurchases();
         purchaseList.addElementIntoPos(-2, new Purchase("butter", new Byn(370), 1));
-        assertEquals(purchasesTest, purchases);
+        String purchasesActual = purchaseList.stringRepresentationOfList();
+        assertEquals(purchasesTest.toString(), purchasesActual);
         assertFalse(purchaseList.isSorted());
     }
 
@@ -110,9 +110,9 @@ public class TestRunner {
         purchasesTest.add(new PriceDiscountPurchase("meat", new Byn(1100), 2, new Byn(80)));
         purchasesTest.add(new Purchase("butter", new Byn(370), 1));
         PurchaseList purchaseList = new PurchaseList(FILENAME, comparator);
-        List<Purchase> purchases = purchaseList.getPurchases();
         purchaseList.addElementIntoPos(60, new Purchase("butter", new Byn(370), 1));
-        assertEquals(purchasesTest, purchases);
+        String purchasesActual = purchaseList.stringRepresentationOfList();
+        assertEquals(purchasesTest.toString(), purchasesActual);
         assertFalse(purchaseList.isSorted());
     }
 
@@ -126,7 +126,6 @@ public class TestRunner {
     @Test
     public void testDeleteSubsequenceWithCorrectIndexes() {
         PurchaseList purchaseList = new PurchaseList(FILENAME, comparator);
-        List<Purchase> purchases = purchaseList.getPurchases();
         int deletedElements = purchaseList.deleteSubsequence(0, 2);
         List<Purchase> purchasesTest = new ArrayList<>();
         purchasesTest.add(new Purchase("bread", new Byn(154), 3));
@@ -135,7 +134,8 @@ public class TestRunner {
         purchasesTest.add(new Purchase("butter", new Byn(370), 1));
         purchasesTest.add(new PriceDiscountPurchase("butter", new Byn(341), 1, new Byn(1)));
         purchasesTest.add(new PriceDiscountPurchase("meat", new Byn(1100), 2, new Byn(80)));
-        assertEquals(purchasesTest, purchases);
+        String purchasesActual = purchaseList.stringRepresentationOfList();
+        assertEquals(purchasesTest.toString(), purchasesActual);
         assertEquals(2, deletedElements);
         assertFalse(purchaseList.isSorted());
     }
@@ -143,7 +143,6 @@ public class TestRunner {
     @Test
     public void testDeleteSubsequenceWithIncorrectIndexes() {
         PurchaseList purchaseList = new PurchaseList(FILENAME, comparator);
-        List<Purchase> purchases = purchaseList.getPurchases();
         int deletedElements = purchaseList.deleteSubsequence(-2, 22);
         List<Purchase> purchasesTest = new ArrayList<>();
         purchasesTest.add(new PriceDiscountPurchase("bread", new Byn(155), 1, new Byn(2)));
@@ -154,15 +153,15 @@ public class TestRunner {
         purchasesTest.add(new Purchase("butter", new Byn(370), 1));
         purchasesTest.add(new PriceDiscountPurchase("butter", new Byn(341), 1, new Byn(1)));
         purchasesTest.add(new PriceDiscountPurchase("meat", new Byn(1100), 2, new Byn(80)));
+        String purchasesActual = purchaseList.stringRepresentationOfList();
         assertEquals(0, deletedElements);
-        assertEquals(purchasesTest, purchases);
+        assertEquals(purchasesTest.toString(), purchasesActual);
         assertFalse(purchaseList.isSorted());
     }
 
     @Test
     public void testDeleteSubsequenceWithIncorrectIndexesFromMoreThanTo() {
         PurchaseList purchaseList = new PurchaseList(FILENAME, comparator);
-        List<Purchase> purchases = purchaseList.getPurchases();
         int deletedElements = purchaseList.deleteSubsequence(5, 2);
         List<Purchase> purchasesTest = new ArrayList<>();
         purchasesTest.add(new PriceDiscountPurchase("bread", new Byn(155), 1, new Byn(2)));
@@ -173,8 +172,9 @@ public class TestRunner {
         purchasesTest.add(new Purchase("butter", new Byn(370), 1));
         purchasesTest.add(new PriceDiscountPurchase("butter", new Byn(341), 1, new Byn(1)));
         purchasesTest.add(new PriceDiscountPurchase("meat", new Byn(1100), 2, new Byn(80)));
+        String purchasesActual = purchaseList.stringRepresentationOfList();
         assertEquals(0, deletedElements);
-        assertEquals(purchasesTest, purchases);
+        assertEquals(purchasesTest.toString(), purchasesActual);
         assertFalse(purchaseList.isSorted());
     }
 
@@ -190,8 +190,8 @@ public class TestRunner {
         purchasesTest.add(new PriceDiscountPurchase("butter", new Byn(341), 1, new Byn(1)));
         purchasesTest.add(new PriceDiscountPurchase("meat", new Byn(1100), 2, new Byn(80)));
         PurchaseList purchaseList = new PurchaseList(FILENAME, comparator);
-        List<Purchase> purchases = purchaseList.getPurchases();
-        assertEquals(purchasesTest, purchases);
+        String purchasesActual = purchaseList.stringRepresentationOfList();
+        assertEquals(purchasesTest.toString(), purchasesActual);
     }
 
     @Test
@@ -206,9 +206,9 @@ public class TestRunner {
         purchasesTest.add(new Purchase("bread", new Byn(145), 5));
         purchasesTest.add(new PriceDiscountPurchase("meat", new Byn(1100), 2, new Byn(80)));
         PurchaseList purchaseList = new PurchaseList(FILENAME, comparator);
-        List<Purchase> purchases = purchaseList.getPurchases();
         purchaseList.listSort();
-        assertEquals(purchasesTest, purchases);
+        String purchasesActual = purchaseList.stringRepresentationOfList();
+        assertEquals(purchasesTest.toString(), purchasesActual);
         assertTrue(purchaseList.isSorted());
     }
 
@@ -217,10 +217,10 @@ public class TestRunner {
         PurchaseList purchaseList = new PurchaseList(FILENAME, comparator);
         String listToString = purchaseList.stringRepresentationOfList();
         final String resultString =
-                "PriceDiscountPurchase;bread;1.55;1;0.02;1.53" + "Purchase;milk;1.31;2;2.62" +
-                        "Purchase;bread;1.54;3;4.62" + "Purchase;bread;1.45;5;7.25" +
-                        "PriceDiscountPurchase;potato;1.80;2;0.10;3.40" + "Purchase;butter;3.70;1;3.70" +
-                        "PriceDiscountPurchase;butter;3.41;1;0.01;3.40" + "PriceDiscountPurchase;meat;11.00;2;0.80;20.40";
+                "[PriceDiscountPurchase;bread;1.55;1;0.02;1.53, " + "Purchase;milk;1.31;2;2.62, " +
+                        "Purchase;bread;1.54;3;4.62, " + "Purchase;bread;1.45;5;7.25, " +
+                        "PriceDiscountPurchase;potato;1.80;2;0.10;3.40, " + "Purchase;butter;3.70;1;3.70, " +
+                        "PriceDiscountPurchase;butter;3.41;1;0.01;3.40, " + "PriceDiscountPurchase;meat;11.00;2;0.80;20.40]";
         assertEquals(resultString, listToString);
     }
 

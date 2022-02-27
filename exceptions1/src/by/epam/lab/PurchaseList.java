@@ -10,7 +10,11 @@ import java.io.FileReader;
 import java.util.*;
 
 public class PurchaseList {
-    private static final String NOT_FOUND_TEXT = "File is not found";
+    private final static String NOT_FOUND_TEXT = "File is not found";
+    private final static String COMMON = ",";
+    private final static String SPACE = " ";
+    private final static String SQUARE_BRACKET_HEAD = "[";
+    private final static String SQUARE_BRACKET_TAIL = "]";
     private final List<Purchase> purchases = new ArrayList<>();
     private final Comparator<Purchase> comparator;
     private boolean isSorted = false;
@@ -68,27 +72,13 @@ public class PurchaseList {
         return totalCost;
     }
 
-//    public List<Purchase> getPurchases() {
-//        List<Purchase> purchases = new ArrayList<>();
-//        for (Purchase purchase : this.purchases){
-//            if (purchase != null){
-//                purchases.add(new Purchase(purchase.getName(), new Byn(purchase.getPrice()), purchase.getNumber()));
-//            }else{
-//                purchases.add(new PriceDiscountPurchase(purchase.getName(), new Byn(purchase.getPrice()), purchase.getNumber(), purchase.));
-//            }
-//        }
-//        return purchases;
-//    }
-
-    public List<Purchase> getPurchases() {
-        return purchases;
-    }
-
     public String stringRepresentationOfList() {
         StringBuilder result = new StringBuilder();
+        result.append(SQUARE_BRACKET_HEAD);
         for (Purchase el : purchases) {
-            result.append(el);
+            result.append(el).append(COMMON).append(SPACE);
         }
+        result.delete(result.length() - 2, result.length()).append(SQUARE_BRACKET_TAIL);
         return result.toString();
     }
 
