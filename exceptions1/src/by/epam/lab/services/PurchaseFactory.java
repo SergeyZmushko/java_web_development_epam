@@ -1,4 +1,4 @@
-package by.epam.lab;
+package by.epam.lab.services;
 
 import by.epam.lab.beans.PriceDiscountPurchase;
 import by.epam.lab.beans.Purchase;
@@ -25,15 +25,15 @@ public class PurchaseFactory {
     }
 
     private static PurchaseKind getPurchaseKind(int length) {
-        return PurchaseKind.values()[length - 3];
+        int indexDifference = 3;
+        return PurchaseKind.values()[length - indexDifference];
     }
 
     public static Purchase getPurchaseFromFactory(String csvLine) throws CsvLineException {
         String[] fields = csvLine.split(SEMICOLON);
         try {
             return getPurchaseKind(fields.length).getPurchase(fields);
-        } catch (IndexOutOfBoundsException | NonPositiveArgumentException |
-                NegativeArgumentException | NumberFormatException e) {
+        } catch (IndexOutOfBoundsException | IllegalArgumentException e) {
             throw new CsvLineException(csvLine, e);
         }
     }

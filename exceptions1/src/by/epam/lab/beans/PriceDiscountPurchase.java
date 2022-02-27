@@ -2,13 +2,15 @@ package by.epam.lab.beans;
 
 import by.epam.lab.exceptions.NonPositiveArgumentException;
 
+import java.util.Objects;
+
 public class PriceDiscountPurchase extends Purchase {
     protected final static int PURCHASE_DISCOUNT_FIELD_NUMBER = 4;
     private final Byn discount;
 
     public PriceDiscountPurchase(String name, Byn price, int number, Byn discount) {
         super(name, price, number);
-        if (discount.getValue() <= 0 || discount.getValue() >= price.getValue()) {
+        if (discount.compareTo(new Byn()) < 1 || price.compareTo(discount) <= 0) {
             throw new NonPositiveArgumentException("wrong field discount: " + discount);
         }
         this.discount = discount;
@@ -42,4 +44,14 @@ public class PriceDiscountPurchase extends Purchase {
     protected String fieldToString() {
         return super.fieldToString() + semicolon + discount;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        PriceDiscountPurchase that = (PriceDiscountPurchase) o;
+        return Objects.equals(discount, that.discount);
+    }
+
 }

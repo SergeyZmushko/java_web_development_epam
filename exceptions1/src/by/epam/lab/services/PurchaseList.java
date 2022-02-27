@@ -1,7 +1,6 @@
-package by.epam.lab;
+package by.epam.lab.services;
 
 import by.epam.lab.beans.Byn;
-import by.epam.lab.beans.PriceDiscountPurchase;
 import by.epam.lab.beans.Purchase;
 import by.epam.lab.exceptions.CsvLineException;
 
@@ -11,8 +10,7 @@ import java.util.*;
 
 public class PurchaseList {
     private final static String NOT_FOUND_TEXT = "File is not found";
-    private final static String COMMON = ",";
-    private final static String SPACE = " ";
+    private final static String COMMON = ", ";
     private final static String SQUARE_BRACKET_HEAD = "[";
     private final static String SQUARE_BRACKET_TAIL = "]";
     private final List<Purchase> purchases = new ArrayList<>();
@@ -23,15 +21,15 @@ public class PurchaseList {
         this.comparator = comparator;
         try (Scanner sc = new Scanner(new FileReader(filename))) {
             while (sc.hasNextLine()) {
-                String str = sc.nextLine();
                 try {
-                    purchases.add(PurchaseFactory.getPurchaseFromFactory(str));
+                    purchases.add(PurchaseFactory.getPurchaseFromFactory(sc.nextLine()));
                 } catch (CsvLineException e) {
-                    System.err.println(str);
+                    System.err.println(e.getMessage());
                 }
             }
         } catch (FileNotFoundException e) {
             System.err.println(NOT_FOUND_TEXT);
+            isSorted = true;
         }
     }
 
@@ -51,17 +49,14 @@ public class PurchaseList {
     }
 
     public int deleteSubsequence(int from, int to) {
-        if (from < 0 || from > purchases.size() - 1) {
-            from = purchases.size() - 1;
+        int startSize = purchases.size();
+        if (from > to) {
+            return 0;
         }
-        if (to < 0 || to >= purchases.size() - 1) {
-            to = 0;
-        }
-        if (from < to) {
-            purchases.subList(from, to).clear();
-            return to - from;
-        }
-        return 0;
+        from = Math.max(from, 0);
+        to = Math.min(to, purchases.size() - 1);
+        purchases.subList(from, to).clear();
+        return startSize - purchases.size();
     }
 
     public Byn calculateTotalCost() {
@@ -73,25 +68,28 @@ public class PurchaseList {
     }
 
     public String stringRepresentationOfList() {
+        int lengthForDelete = 2;
         StringBuilder result = new StringBuilder();
         result.append(SQUARE_BRACKET_HEAD);
         for (Purchase el : purchases) {
-            result.append(el).append(COMMON).append(SPACE);
+            result.append(el).append(COMMON);
         }
-        result.delete(result.length() - 2, result.length()).append(SQUARE_BRACKET_TAIL);
+        result.delete(result.length() - lengthForDelete, result.length()).append(SQUARE_BRACKET_TAIL);
         return result.toString();
     }
 
     public void listSort() {
         if (!isSorted) {
-            Collections.sort(purchases);
+            purchases.sort(comparator);
         }
         isSorted = true;
     }
 
     public int searchElement(Purchase purchase) {
-        Collections.sort(purchases);
+        if (!isSorted) {
+            purchases.sort(comparator);
+        }
         isSorted = true;
-        return Collections.binarySearch(purchases, purchase);
+        return Collections.binarySearch(purchases, purchase, comparator);
     }
 }

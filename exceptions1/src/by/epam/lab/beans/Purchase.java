@@ -2,7 +2,7 @@ package by.epam.lab.beans;
 
 import by.epam.lab.exceptions.NonPositiveArgumentException;
 
-public class Purchase implements Comparable<Purchase> {
+public class Purchase {
     protected final static int INDEX_NAME = 0;
     protected final static int INDEX_PRICE = 1;
     protected final static int INDEX_NUMBER = 2;
@@ -18,10 +18,10 @@ public class Purchase implements Comparable<Purchase> {
     private final int number;
 
     public Purchase(String name, Byn price, int number) {
-        if (name.trim().isEmpty() || name.isEmpty()) {
+        if (name.trim().isEmpty()) {
             throw new NonPositiveArgumentException(WRONG_FIELD_NAME + name);
         }
-        if (price.getValue() <= 0) {
+        if (price.compareTo(new Byn()) < 1) {
             throw new NonPositiveArgumentException(WRONG_FIELD_PRICE + price);
         }
         if (number <= 0) {
@@ -80,9 +80,5 @@ public class Purchase implements Comparable<Purchase> {
         return name.equals(purchase.name) && price.equals(purchase.price);
     }
 
-    @Override
-    public int compareTo(Purchase o) {
-        return getCost().compareTo(o.getCost());
-    }
 }
 

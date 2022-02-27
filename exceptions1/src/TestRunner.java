@@ -1,8 +1,9 @@
-import by.epam.lab.*;
 import by.epam.lab.beans.Byn;
 import by.epam.lab.beans.PriceDiscountPurchase;
 import by.epam.lab.beans.Purchase;
 import by.epam.lab.exceptions.CsvLineException;
+import by.epam.lab.services.PurchaseFactory;
+import by.epam.lab.services.PurchaseList;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -145,16 +146,9 @@ public class TestRunner {
         PurchaseList purchaseList = new PurchaseList(FILENAME, comparator);
         int deletedElements = purchaseList.deleteSubsequence(-2, 22);
         List<Purchase> purchasesTest = new ArrayList<>();
-        purchasesTest.add(new PriceDiscountPurchase("bread", new Byn(155), 1, new Byn(2)));
-        purchasesTest.add(new Purchase("milk", new Byn(131), 2));
-        purchasesTest.add(new Purchase("bread", new Byn(154), 3));
-        purchasesTest.add(new Purchase("bread", new Byn(145), 5));
-        purchasesTest.add(new PriceDiscountPurchase("potato", new Byn(180), 2, new Byn(10)));
-        purchasesTest.add(new Purchase("butter", new Byn(370), 1));
-        purchasesTest.add(new PriceDiscountPurchase("butter", new Byn(341), 1, new Byn(1)));
         purchasesTest.add(new PriceDiscountPurchase("meat", new Byn(1100), 2, new Byn(80)));
         String purchasesActual = purchaseList.stringRepresentationOfList();
-        assertEquals(0, deletedElements);
+        assertEquals(7, deletedElements);
         assertEquals(purchasesTest.toString(), purchasesActual);
         assertFalse(purchaseList.isSorted());
     }
