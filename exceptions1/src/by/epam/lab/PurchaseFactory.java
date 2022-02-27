@@ -1,28 +1,38 @@
 package by.epam.lab;
 
+import by.epam.lab.beans.PriceDiscountPurchase;
+import by.epam.lab.beans.Purchase;
+import by.epam.lab.exceptions.CsvLineException;
+import by.epam.lab.exceptions.NegativeArgumentException;
+import by.epam.lab.exceptions.NonPositiveArgumentException;
+
 public class PurchaseFactory {
+    private static final String SEMICOLON = ";";
     private enum PurchaseKind {
         GENERAL_PURCHASE {
-            Purchase getPurchase(String[] elements) {
-                return new Purchase(elements);
+            public Purchase getPurchase(String[] fields) {
+                return new Purchase(fields);
             }
         },
         PRICE_DISCOUNT_PURCHASE {
-            Purchase getPurchase(String[] elements) {
-                return new PriceDiscountPurchase(elements);
+            public Purchase getPurchase(String[] fields) {
+                return new PriceDiscountPurchase(fields);
             }
         };
 
-        abstract Purchase getPurchase(String[] elements);
+        abstract protected Purchase getPurchase(String[] fields);
+    }
+    private static PurchaseKind getPurchaseKind(int length){
+        return PurchaseKind.values()[length - 3];
     }
 
-    public static Purchase getPurchaseFromFactory(String[] elements) {
-        PurchaseKind purchaseKind;
-        if (elements.length == 3 || elements.length == 4) {
-            purchaseKind = PurchaseKind.values()[elements.length - 3];
-        } else {
-            throw new IllegalArgumentException();
+    public static Purchase getPurchaseFromFactory(String csvLine) throws CsvLineException {
+        String[] fields = csvLine.split(SEMICOLON);
+        try{
+            return getPurchaseKind(fields.length).getPurchase(fields);
+        } catch (IndexOutOfBoundsException | NonPositiveArgumentException |
+                NegativeArgumentException | NumberFormatException e){
+            throw new CsvLineException(csvLine, e);
         }
-        return purchaseKind.getPurchase(elements);
     }
 }

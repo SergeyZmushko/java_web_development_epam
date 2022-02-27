@@ -1,28 +1,38 @@
 package by.epam.lab;
 
+import by.epam.lab.beans.Byn;
+import by.epam.lab.beans.PriceDiscountPurchase;
+import by.epam.lab.beans.Purchase;
+import by.epam.lab.exceptions.CsvLineException;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.*;
 
 public class PurchaseList {
-    private final List<Purchase> purchases = new ArrayList<>();
-    private static final String SPLITTER = ";";
     private static final String NOT_FOUND_TEXT = "File is not found";
+    private final List<Purchase> purchases = new ArrayList<>();
+    private final Comparator<Purchase> comparator;
+    private boolean isSorted = false;
 
-    public PurchaseList(String filename) {
+    public PurchaseList(String filename, Comparator<Purchase> comparator) {
+        this.comparator = comparator;
         try (Scanner sc = new Scanner(new FileReader(filename))) {
             while (sc.hasNextLine()) {
                 String str = sc.nextLine();
-                String[] element = str.split(SPLITTER);
                 try {
-                    purchases.add(PurchaseFactory.getPurchaseFromFactory(element));
-                } catch (IllegalArgumentException e) {
+                    purchases.add(PurchaseFactory.getPurchaseFromFactory(str));
+                } catch (CsvLineException e) {
                     System.err.println(str);
                 }
             }
         } catch (FileNotFoundException e) {
             System.err.println(NOT_FOUND_TEXT);
         }
+    }
+
+    public boolean isSorted() {
+        return isSorted;
     }
 
     public void addElementIntoPos(int position, Purchase purchase) {
@@ -33,9 +43,10 @@ public class PurchaseList {
         } else {
             purchases.add(purchase);
         }
+        isSorted = false;
     }
 
-    public void deleteSubsequence(int from, int to) {
+    public int deleteSubsequence(int from, int to) {
         if (from < 0 || from > purchases.size() - 1) {
             from = purchases.size() - 1;
         }
@@ -44,16 +55,30 @@ public class PurchaseList {
         }
         if (from < to) {
             purchases.subList(from, to).clear();
+            return to - from;
         }
+        return 0;
     }
 
     public Byn calculateTotalCost() {
         Byn totalCost = new Byn(0);
         for (Purchase el : purchases) {
-            totalCost = totalCost.add(el.getTotalCost());
+            totalCost = totalCost.add(el.getCost());
         }
         return totalCost;
     }
+
+//    public List<Purchase> getPurchases() {
+//        List<Purchase> purchases = new ArrayList<>();
+//        for (Purchase purchase : this.purchases){
+//            if (purchase != null){
+//                purchases.add(new Purchase(purchase.getName(), new Byn(purchase.getPrice()), purchase.getNumber()));
+//            }else{
+//                purchases.add(new PriceDiscountPurchase(purchase.getName(), new Byn(purchase.getPrice()), purchase.getNumber(), purchase.));
+//            }
+//        }
+//        return purchases;
+//    }
 
     public List<Purchase> getPurchases() {
         return purchases;
@@ -68,11 +93,15 @@ public class PurchaseList {
     }
 
     public void listSort() {
-        Collections.sort(purchases);
+        if (!isSorted) {
+            Collections.sort(purchases);
+        }
+        isSorted = true;
     }
 
     public int searchElement(Purchase purchase) {
         Collections.sort(purchases);
+        isSorted = true;
         return Collections.binarySearch(purchases, purchase);
     }
 }
