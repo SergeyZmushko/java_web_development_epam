@@ -34,10 +34,10 @@ public class Byn implements Comparable<Byn> {
 
     private static int getValidValue(int rubs, int coins) {
         if (rubs < 0) {
-            throw new IllegalArgumentException(WRONG_VALUE_RUBS + rubs);
+            throw new NegativeArgumentException(WRONG_VALUE_RUBS + rubs);
         }
         if (coins < 0 || coins >= 100) {
-            throw new IllegalArgumentException(WRONG_VALUE_COINS + coins);
+            throw new NegativeArgumentException(WRONG_VALUE_COINS + coins);
         }
         return 100 * rubs + coins;
     }
