@@ -1,10 +1,10 @@
 package by.epam.lab;
 
 public class Purchase {
-    private Item item;
-    private double count;
+    private final Item item;
+    private final Number count;
 
-    public Purchase(Item item, double count){
+    public Purchase(Item item, double count) {
         this.item = item;
         this.count = count;
     }
@@ -13,15 +13,15 @@ public class Purchase {
         return item;
     }
 
-    public double getCount() {
+    public Number getCount() {
         return count;
     }
 
-    public Byn getPurchaseCost(){
-        return item.getCost().mul(count, RoundMethod.ROUND, 2);
+    public Byn getPurchaseCost() {
+        return item.getCost().mul(count.doubleValue(), RoundMethod.ROUND, 2);
     }
 
-    public String toString(){
+    public String toString() {
         return item + ";" + count;
     }
 }

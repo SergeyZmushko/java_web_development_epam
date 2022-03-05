@@ -1,27 +1,23 @@
 package by.epam.lab;
 
 public abstract class Item {
-    private String name;
+    private final String name;
 
-    public Item(){
-        this.name = null;
-    }
-
-    public Item(String name){
+    public Item(String name) {
         this.name = name;
     }
 
-    public String getName(){
+    public String getName() {
         return name;
     }
 
     protected abstract Byn getCost();
 
-    public String fieldsToString(){
+    public String fieldsToString() {
         return name;
     }
 
-    public String toString(){
+    public String toString() {
         return fieldsToString();
     }
 }

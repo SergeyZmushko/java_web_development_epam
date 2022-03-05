@@ -15,13 +15,17 @@ public class Runner {
         pu2.printCost();
         pu2.printCostDiff(p1);
         //5
-        Purchase p3 = new Purchase(new DiscountProduct("Sugar", new Byn(280), new Byn(1)), 60);
+        Purchase p3 = new Purchase(new DiscountProduct("Sugar", new Byn(280), new Byn(10)), 60);
         //6
-        PurchaseUtils pu4 = new PurchaseUtils(new Purchase(new Service("Gym workout", new Byn(7560), 5), 2.25));
+        PurchaseUtils pu4 = new PurchaseUtils(new Purchase(new Service("Gym workout", new Byn(7560),
+                5), 2.25));
         //7
-        Service s1 = new Service(pu4.getPurchase().getItem().getName(), pu4.getPurchase().getPurchaseCost(), pu4.getPurchase().getCount());
-        System.out.println(s1);
+        Service s4 = (Service) pu4.getPurchase().getItem();
+        System.out.println(s4);
         //8
         pu4.printCost();
+        //9
+        Purchase p4 = new Purchase(s4, (Double) pu4.getPurchase().getCount());
+        pu2.printlsSameCost(p1, p3, p4);
     }
 }

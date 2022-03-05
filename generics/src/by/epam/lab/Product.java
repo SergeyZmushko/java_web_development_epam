@@ -1,13 +1,9 @@
 package by.epam.lab;
 
 public class Product extends Item {
-    private Byn price;
+    private final Byn price;
 
-    public Product(){
-        super(null);
-    }
-
-    public Product(String name, Byn price){
+    public Product(String name, Byn price) {
         super(name);
         this.price = price;
     }
@@ -21,7 +17,7 @@ public class Product extends Item {
         return price;
     }
 
-    public String fieldsToString(){
+    public String fieldsToString() {
         return super.fieldsToString() + ";" + price;
     }
 }

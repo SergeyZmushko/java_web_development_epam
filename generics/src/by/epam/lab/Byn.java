@@ -1,14 +1,14 @@
 package by.epam.lab;
 
 public class Byn implements Comparable<Byn> {
-    private int value;
+    private final int value;
     private final static String VALUE_FORMAT = "%d.%02d";
 
-    public Byn(int value){
+    public Byn(int value) {
         this.value = value;
     }
 
-    public Byn(){
+    public Byn() {
         this(0);
     }
 

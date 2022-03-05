@@ -7,43 +7,42 @@ public class PurchaseUtils {
     private final static String BYN = "BYN";
     private Purchase purchase;
 
-    public PurchaseUtils(){
-
+    public PurchaseUtils() {
     }
 
-    public PurchaseUtils(Purchase purchase){
+    public PurchaseUtils(Purchase purchase) {
         this.purchase = purchase;
     }
 
-    public Purchase getPurchase(){
+    public Purchase getPurchase() {
         return purchase;
     }
 
-    public void printPurchase(){
+    public void printPurchase() {
         System.out.println(purchase);
     }
 
-    public void printCost(){
+    public void printCost() {
         System.out.println("cost = " + purchase.getPurchaseCost() + " BYN");
     }
 
-    public void printCostDiff(Purchase purchase){
+    public void printCostDiff(Purchase purchase) {
         Byn difference;
-        if(this.purchase.getPurchaseCost().compareTo(purchase.getPurchaseCost()) == 0){
+        if (this.purchase.getPurchaseCost().compareTo(purchase.getPurchaseCost()) == 0) {
             difference = this.purchase.getPurchaseCost().sub(purchase.getPurchaseCost());
             System.out.println(DIFFERENCE + difference);
-        }else if (this.purchase.getPurchaseCost().compareTo(purchase.getPurchaseCost()) > 0){
+        } else if (this.purchase.getPurchaseCost().compareTo(purchase.getPurchaseCost()) > 0) {
             difference = this.purchase.getPurchaseCost().sub(purchase.getPurchaseCost());
             System.out.println(POSITIVE + DIFFERENCE + difference);
-        }else if (this.purchase.getPurchaseCost().compareTo(purchase.getPurchaseCost()) < 0){
+        } else if (this.purchase.getPurchaseCost().compareTo(purchase.getPurchaseCost()) < 0) {
             difference = this.purchase.getPurchaseCost().sub(purchase.getPurchaseCost());
             System.out.println(NEGATIVE + DIFFERENCE + difference);
         }
     }
 
-    public void printlsSameCost(Purchase ... purchase){
-        for(Purchase purchase1 : purchase){
-            if (purchase1.getPurchaseCost().compareTo(this.purchase.getPurchaseCost()) == 0){
+    public void printlsSameCost(Purchase... purchases) {
+        for (Purchase purchase1 : purchases) {
+            if (purchase1.getPurchaseCost().compareTo(this.purchase.getPurchaseCost()) == 0) {
                 System.out.println("True");
                 System.out.println(purchase1);
             }
