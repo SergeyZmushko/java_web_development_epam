@@ -1,4 +1,6 @@
-package by.epam.lab;
+package by.epam.lab.beans;
+
+import by.epam.lab.utills.Constant;
 
 public class DiscountProduct extends Product {
     private final Byn discount;
@@ -9,12 +11,12 @@ public class DiscountProduct extends Product {
     }
 
     @Override
-    protected Byn getCost() {
+    public Byn getCost() {
         return getPrice().sub(discount);
     }
 
     @Override
-    public String fieldsToString() {
-        return super.fieldsToString() + Constant.SEPARATOR + discount;
+    public String toString() {
+        return super.toString() + Constant.SEPARATOR + discount;
     }
 }

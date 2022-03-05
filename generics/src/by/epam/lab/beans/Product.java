@@ -1,10 +1,13 @@
-package by.epam.lab;
+package by.epam.lab.beans;
+
+import by.epam.lab.utills.Constant;
 
 public class Product extends Item {
+    private final String name;
     private final Byn price;
 
     public Product(String name, Byn price) {
-        super(name);
+        this.name = name;
         this.price = price;
     }
 
@@ -13,11 +16,11 @@ public class Product extends Item {
     }
 
     @Override
-    protected Byn getCost() {
+    public Byn getCost() {
         return price;
     }
 
-    public String fieldsToString() {
-        return super.fieldsToString() + Constant.SEPARATOR + price;
+    public String toString() {
+        return name + Constant.SEPARATOR + price;
     }
 }

@@ -1,4 +1,7 @@
-package by.epam.lab;
+package by.epam.lab.beans;
+
+import by.epam.lab.enums.RoundMethod;
+import by.epam.lab.utills.Constant;
 
 public class Purchase {
     private final Item item;
@@ -18,10 +21,11 @@ public class Purchase {
     }
 
     public Byn getPurchaseCost() {
-        return item.getCost().mul(count.doubleValue(), RoundMethod.ROUND, 2);
+        return item.getCost().mul(count.doubleValue(), RoundMethod.ROUND, 0);
     }
 
     public String toString() {
-        return item + Constant.SEPARATOR + count;
+        return getClass().getSimpleName() + Constant.SEPARATOR + item + Constant.SEPARATOR + count + Constant.SEPARATOR
+                + getPurchaseCost();
     }
 }

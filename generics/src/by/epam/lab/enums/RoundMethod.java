@@ -1,4 +1,4 @@
-package by.epam.lab;
+package by.epam.lab.enums;
 
 public enum RoundMethod {
     FLOOR {
@@ -19,7 +19,7 @@ public enum RoundMethod {
 
     abstract double roundFunction(double value);
 
-    protected int round(double roundedValue, int d) {
+    public int round(double roundedValue, int d) {
         int tenPow = pow10(d);
         return (int) roundFunction(roundedValue / tenPow) * tenPow;
     }

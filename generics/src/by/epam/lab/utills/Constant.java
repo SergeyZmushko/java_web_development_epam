@@ -1,4 +1,4 @@
-package by.epam.lab;
+package by.epam.lab.utills;
 
 public class Constant {
     public final static String SEPARATOR = ";";
@@ -8,5 +8,5 @@ public class Constant {
     public final static String BYN = " BYN";
     public final static String TRUE = "True";
     public final static String COST = "cost = ";
-    public final static String VALUE_FORMAT = "%d.%02d";;
+    public final static String VALUE_FORMAT = "%d.%02d";
 }

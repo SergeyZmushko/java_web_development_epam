@@ -1,26 +1,13 @@
-package by.epam.lab;
+package by.epam.lab.beans;
+
+import by.epam.lab.utills.Constant;
+import by.epam.lab.enums.RoundMethod;
 
 public class Byn implements Comparable<Byn> {
     private final int value;
 
     public Byn(int value) {
         this.value = value;
-    }
-
-    public Byn() {
-        this(0);
-    }
-
-    public Byn add(Byn byn) {
-        return new Byn(value + byn.value);
-    }
-
-    public Byn mul(int i) {
-        return new Byn(value * i);
-    }
-
-    public Byn mul(double d) {
-        return mul(d, RoundMethod.ROUND, 0);
     }
 
     public Byn sub(Byn byn) {
@@ -33,10 +20,6 @@ public class Byn implements Comparable<Byn> {
 
     public Byn mul(double k, RoundMethod roundMethod, int d) {
         return new Byn(roundMethod.round(value * k, d));
-    }
-
-    public Byn round(RoundMethod roundMethod, int d) {
-        return new Byn(roundMethod.round(value, d));
     }
 
     public String toString() {

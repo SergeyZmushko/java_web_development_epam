@@ -1,6 +1,9 @@
-package by.epam.lab;
+package by.epam.lab.utills;
 
-import static by.epam.lab.Constant.*;
+import by.epam.lab.beans.Byn;
+import by.epam.lab.beans.Purchase;
+
+import static by.epam.lab.utills.Constant.*;
 
 public class PurchaseUtils {
     private Purchase purchase;
@@ -39,11 +42,16 @@ public class PurchaseUtils {
     }
 
     public void printlsSameCost(Purchase... purchases) {
+        int i = 0;
         for (Purchase purchase1 : purchases) {
             if (purchase1.getPurchaseCost().compareTo(this.purchase.getPurchaseCost()) == 0) {
                 System.out.println(TRUE);
                 System.out.println(purchase1);
+                i++;
             }
+        }
+        if (i == 0){
+            System.out.println("Purchase is not found");
         }
     }
 }
