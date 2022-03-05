@@ -20,6 +20,6 @@ public class Service extends Item {
     }
 
     public String fieldsToString() {
-        return super.fieldsToString() + ";" + totalCost + ";" + numberUsers;
+        return super.fieldsToString() + Constant.SEPARATOR + totalCost + Constant.SEPARATOR + numberUsers;
     }
 }

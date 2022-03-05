@@ -18,6 +18,6 @@ public class Product extends Item {
     }
 
     public String fieldsToString() {
-        return super.fieldsToString() + ";" + price;
+        return super.fieldsToString() + Constant.SEPARATOR + price;
     }
 }

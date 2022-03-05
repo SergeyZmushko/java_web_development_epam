@@ -1,10 +1,8 @@
 package by.epam.lab;
 
+import static by.epam.lab.Constant.*;
+
 public class PurchaseUtils {
-    private final static String POSITIVE = "positive ";
-    private final static String NEGATIVE = "negative ";
-    private final static String DIFFERENCE = "diff = ";
-    private final static String BYN = "BYN";
     private Purchase purchase;
 
     public PurchaseUtils() {
@@ -23,7 +21,7 @@ public class PurchaseUtils {
     }
 
     public void printCost() {
-        System.out.println("cost = " + purchase.getPurchaseCost() + " BYN");
+        System.out.println(COST + purchase.getPurchaseCost() + BYN);
     }
 
     public void printCostDiff(Purchase purchase) {
@@ -43,7 +41,7 @@ public class PurchaseUtils {
     public void printlsSameCost(Purchase... purchases) {
         for (Purchase purchase1 : purchases) {
             if (purchase1.getPurchaseCost().compareTo(this.purchase.getPurchaseCost()) == 0) {
-                System.out.println("True");
+                System.out.println(TRUE);
                 System.out.println(purchase1);
             }
         }

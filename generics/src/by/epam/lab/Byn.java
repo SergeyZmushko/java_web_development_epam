@@ -2,7 +2,6 @@ package by.epam.lab;
 
 public class Byn implements Comparable<Byn> {
     private final int value;
-    private final static String VALUE_FORMAT = "%d.%02d";
 
     public Byn(int value) {
         this.value = value;
@@ -41,7 +40,7 @@ public class Byn implements Comparable<Byn> {
     }
 
     public String toString() {
-        return String.format(VALUE_FORMAT, value / 100, value % 100);
+        return String.format(Constant.VALUE_FORMAT, value / 100, value % 100);
     }
 
     @Override

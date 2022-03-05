@@ -4,7 +4,7 @@ public class Purchase {
     private final Item item;
     private final Number count;
 
-    public Purchase(Item item, double count) {
+    public Purchase(Item item, Number count) {
         this.item = item;
         this.count = count;
     }
@@ -22,6 +22,6 @@ public class Purchase {
     }
 
     public String toString() {
-        return item + ";" + count;
+        return item + Constant.SEPARATOR + count;
     }
 }

@@ -25,7 +25,7 @@ public class Runner {
         //8
         pu4.printCost();
         //9
-        Purchase p4 = new Purchase(s4, (Double) pu4.getPurchase().getCount());
+        Purchase p4 = new Purchase(s4, pu4.getPurchase().getCount());
         pu2.printlsSameCost(p1, p3, p4);
     }
 }

@@ -15,6 +15,6 @@ public class DiscountProduct extends Product {
 
     @Override
     public String fieldsToString() {
-        return super.fieldsToString() + ";" + discount;
+        return super.fieldsToString() + Constant.SEPARATOR + discount;
     }
 }
