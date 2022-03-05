@@ -1,6 +1,6 @@
 package by.epam.lab.beans;
 
-import by.epam.lab.utills.Constant;
+import by.epam.lab.utils.Constant;
 import by.epam.lab.enums.RoundMethod;
 
 public class Byn implements Comparable<Byn> {

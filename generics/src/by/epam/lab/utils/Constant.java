@@ -1,4 +1,4 @@
-package by.epam.lab.utills;
+package by.epam.lab.utils;
 
 public class Constant {
     public final static String SEPARATOR = ";";

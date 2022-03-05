@@ -1,9 +1,9 @@
-package by.epam.lab.utills;
+package by.epam.lab.utils;
 
 import by.epam.lab.beans.Byn;
 import by.epam.lab.beans.Purchase;
 
-import static by.epam.lab.utills.Constant.*;
+import static by.epam.lab.utils.Constant.*;
 
 public class PurchaseUtils {
     private Purchase purchase;

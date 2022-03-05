@@ -1,6 +1,6 @@
 package by.epam.lab.beans;
 
-import by.epam.lab.utills.Constant;
+import by.epam.lab.utils.Constant;
 
 public class DiscountProduct extends Product {
     private final Byn discount;

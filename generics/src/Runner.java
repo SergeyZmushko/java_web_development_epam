@@ -1,5 +1,5 @@
 import by.epam.lab.beans.*;
-import by.epam.lab.utills.PurchaseUtils;
+import by.epam.lab.utils.PurchaseUtils;
 
 public class Runner {
     public static void main(String[] args) {

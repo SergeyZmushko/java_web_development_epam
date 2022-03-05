@@ -1,7 +1,7 @@
 package by.epam.lab.beans;
 
 import by.epam.lab.enums.RoundMethod;
-import by.epam.lab.utills.Constant;
+import by.epam.lab.utils.Constant;
 
 public class Purchase {
     private final Item item;
