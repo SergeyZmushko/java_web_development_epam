@@ -4,7 +4,7 @@ import by.epam.lab.enums.RoundMethod;
 import by.epam.lab.implement.Priceable;
 import by.epam.lab.utils.Constant;
 
-public class Purchase implements Comparable<Purchase> {
+public class Purchase {
     private Priceable item;
     private final Number quantity;
 
@@ -24,10 +24,5 @@ public class Purchase implements Comparable<Purchase> {
     public String toString() {
         return getClass().getSimpleName() + Constant.SEPARATOR + item + Constant.SEPARATOR + quantity
                 + Constant.SEPARATOR + getCost();
-    }
-
-    @Override
-    public int compareTo(Purchase o) {
-        return getCost().compareTo(o.getCost());
     }
 }

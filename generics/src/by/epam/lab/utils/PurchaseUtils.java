@@ -25,33 +25,32 @@ public class PurchaseUtils {
     }
 
     public void printCostDiff(Purchase p) {
-        Byn costDiff;
-        int result = purchase.compareTo(p);
+        String difPurchase = EMPTY_STRING;
+        Byn costDiff = new Byn(0);
+        Byn cost1 = purchase.getCost();
+        Byn cost2 = p.getCost();
+        int result = cost1.compareTo(cost2);
         if (result > 0) {
-            costDiff = purchase.getCost().sub(p.getCost());
-            System.out.println(POSITIVE + DIFF + costDiff);
+            costDiff = cost1.sub(cost2);
+            difPurchase = POSITIVE;
         }
         if (result < 0) {
-            costDiff = p.getCost().sub(purchase.getCost());
-            System.out.println(NEGATIVE + DIFF + costDiff);
+            costDiff = cost2.sub(cost1);
+            difPurchase = NEGATIVE;
 
         }
-        if (result == 0) {
-            costDiff = p.getCost().sub(purchase.getCost());
-            System.out.println(EMPTY_STRING + DIFF + costDiff);
-        }
+        System.out.println(difPurchase + DIFF + costDiff);
+
     }
 
     public void printSameCost(Purchase... purchases) {
         boolean result = false;
         for (Purchase purchase : purchases) {
-            if (purchase.compareTo(this.purchase) == 0) {
+            if (purchase.getCost().compareTo(this.purchase.getCost()) == 0) {
                 result = true;
-                System.out.println(purchase);
+                break;
             }
         }
-        if (!result) {
-            System.out.println("Purchase is not found");
-        }
+        System.out.println(result ? PURCHASE_WITH_SAME_COST : PURCHASE_IS_NOT_FOUND);
     }
 }
