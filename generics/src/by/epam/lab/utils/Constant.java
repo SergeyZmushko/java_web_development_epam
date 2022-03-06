@@ -7,5 +7,6 @@ public class Constant {
     public final static String DIFF = "diff = ";
     public final static String BYN = " BYN";
     public final static String COST = "cost = ";
+    public final static String EMPTY_STRING = "";
     public final static String VALUE_FORMAT = "%d.%02d";
 }

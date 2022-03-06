@@ -24,27 +24,30 @@ public class PurchaseUtils {
         System.out.println(COST + purchase.getCost() + BYN);
     }
 
-    public void printCostDiff(Purchase purchase) {
-        Byn difference;
-        if (this.purchase.getCost().compareTo(purchase.getCost()) == 0) {
-            difference = this.purchase.getCost().sub(purchase.getCost());
-            System.out.println(DIFF + difference);
-        } else if (this.purchase.getCost().compareTo(purchase.getCost()) > 0) {
-            difference = this.purchase.getCost().sub(purchase.getCost());
-            System.out.println(POSITIVE + DIFF + difference);
-        } else if (this.purchase.getCost().compareTo(purchase.getCost()) < 0) {
-            difference = this.purchase.getCost().sub(purchase.getCost());
-            System.out.println(NEGATIVE + DIFF + difference);
+    public void printCostDiff(Purchase p) {
+        Byn costDiff;
+        int result = purchase.compareTo(p);
+        if (result > 0){
+            costDiff = purchase.getCost().sub(p.getCost());
+            System.out.println(POSITIVE + DIFF + costDiff);
+        }
+        if(result < 0){
+            costDiff = p.getCost().sub(purchase.getCost());
+            System.out.println(NEGATIVE + DIFF + costDiff);
+
+        }
+        if (result == 0){
+            costDiff = p.getCost().sub(purchase.getCost());
+            System.out.println(EMPTY_STRING + DIFF + costDiff);
         }
     }
 
-    public void printlsSameCost(Purchase... purchases) {
+    public void printSameCost(Purchase ... p) {
         boolean result = false;
-        for (Purchase purchase1 : purchases) {
-            if (purchase1.getCost().compareTo(this.purchase.getCost()) == 0) {
+        for (Purchase purchase : p) {
+            if (purchase.compareTo(this.purchase) == 0) {
                 result = true;
-                System.out.println(true);
-                System.out.println(purchase1);
+                System.out.println(purchase);
             }
         }
         if (!result){

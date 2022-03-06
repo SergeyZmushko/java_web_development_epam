@@ -27,6 +27,6 @@ public class Runner {
         //8
         pu4.printCost();
         //9
-        pu2.printlsSameCost(p1, p3, pu4.getPurchase());
+        pu2.printSameCost(p1, p3, pu4.getPurchase());
     }
 }
