@@ -27,22 +27,22 @@ public class PurchaseUtils {
     public void printCostDiff(Purchase p) {
         Byn costDiff;
         int result = purchase.compareTo(p);
-        if (result > 0){
+        if (result > 0) {
             costDiff = purchase.getCost().sub(p.getCost());
             System.out.println(POSITIVE + DIFF + costDiff);
         }
-        if(result < 0){
+        if (result < 0) {
             costDiff = p.getCost().sub(purchase.getCost());
             System.out.println(NEGATIVE + DIFF + costDiff);
 
         }
-        if (result == 0){
+        if (result == 0) {
             costDiff = p.getCost().sub(purchase.getCost());
             System.out.println(EMPTY_STRING + DIFF + costDiff);
         }
     }
 
-    public void printSameCost(Purchase ... p) {
+    public void printSameCost(Purchase... p) {
         boolean result = false;
         for (Purchase purchase : p) {
             if (purchase.compareTo(this.purchase) == 0) {
@@ -50,7 +50,7 @@ public class PurchaseUtils {
                 System.out.println(purchase);
             }
         }
-        if (!result){
+        if (!result) {
             System.out.println("Purchase is not found");
         }
     }

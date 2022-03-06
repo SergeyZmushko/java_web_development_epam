@@ -10,7 +10,7 @@ public class DiscountProduct extends Product {
         this.discount = discount;
     }
 
-    public Byn getPrice(){
+    public Byn getPrice() {
         return super.getPrice().sub(discount);
     }
 

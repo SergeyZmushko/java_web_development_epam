@@ -15,7 +15,7 @@ public class Service implements Priceable {
         this.numberOfUsers = numberOfUsers;
     }
 
-    public Byn getPrice(){
+    public Byn getPrice() {
         return totalCost.mul(1.0 / numberOfUsers, RoundMethod.CEIL, 0);
     }
 
