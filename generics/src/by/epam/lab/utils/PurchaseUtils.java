@@ -42,9 +42,9 @@ public class PurchaseUtils {
         }
     }
 
-    public void printSameCost(Purchase... p) {
+    public void printSameCost(Purchase... purchases) {
         boolean result = false;
-        for (Purchase purchase : p) {
+        for (Purchase purchase : purchases) {
             if (purchase.compareTo(this.purchase) == 0) {
                 result = true;
                 System.out.println(purchase);
