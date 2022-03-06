@@ -11,4 +11,5 @@ public class Constant {
     public final static String VALUE_FORMAT = "%d.%02d";
     public final static String PURCHASE_IS_NOT_FOUND = "Purchase is not found";
     public final static String PURCHASE_WITH_SAME_COST = "Purchase is found";
+    public final static int ONE_HUNDRED = 100;
 }
