@@ -1,10 +1,11 @@
 package by.epam.lab.beans;
 
+import by.epam.lab.implement.Priceable;
 import by.epam.lab.utils.Constant;
 
-public class Product extends Item {
-    private final String name;
-    private final Byn price;
+public class Product implements Priceable {
+    private String name;
+    private Byn price;
 
     public Product(String name, Byn price) {
         this.name = name;
@@ -15,12 +16,7 @@ public class Product extends Item {
         return price;
     }
 
-    @Override
-    public Byn getCost() {
-        return price;
-    }
-
     public String toString() {
-        return name + Constant.SEPARATOR + price;
+        return name + Constant.SEPARATOR + price + Constant.SEPARATOR + getPrice();
     }
 }

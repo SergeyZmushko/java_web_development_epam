@@ -4,7 +4,7 @@ import by.epam.lab.utils.Constant;
 import by.epam.lab.enums.RoundMethod;
 
 public class Byn implements Comparable<Byn> {
-    private final int value;
+    private int value;
 
     public Byn(int value) {
         this.value = value;
@@ -12,10 +12,6 @@ public class Byn implements Comparable<Byn> {
 
     public Byn sub(Byn byn) {
         return new Byn(value - byn.value);
-    }
-
-    public Byn divide(double k, RoundMethod roundMethod, int d) {
-        return new Byn(roundMethod.round(value / k, d));
     }
 
     public Byn mul(double k, RoundMethod roundMethod, int d) {

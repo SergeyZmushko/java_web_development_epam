@@ -1,4 +1,5 @@
 import by.epam.lab.beans.*;
+import by.epam.lab.implement.Priceable;
 import by.epam.lab.utils.PurchaseUtils;
 
 public class Runner {
@@ -21,12 +22,11 @@ public class Runner {
         PurchaseUtils pu4 = new PurchaseUtils(new Purchase(new Service("Gym workout", new Byn(7560),
                 5), 2.25));
         //7
-        Service s4 = (Service) pu4.getPurchase().getItem();
+        Priceable s4 = pu4.getPurchase().getItem();
         System.out.println(s4);
         //8
         pu4.printCost();
         //9
-        Purchase p4 = new Purchase(s4, pu4.getPurchase().getCount());
-        pu2.printlsSameCost(p1, p3, p4);
+        pu2.printlsSameCost(p1, p3, pu4.getPurchase());
     }
 }

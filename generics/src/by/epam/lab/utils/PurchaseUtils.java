@@ -8,9 +8,6 @@ import static by.epam.lab.utils.Constant.*;
 public class PurchaseUtils {
     private Purchase purchase;
 
-    public PurchaseUtils() {
-    }
-
     public PurchaseUtils(Purchase purchase) {
         this.purchase = purchase;
     }
@@ -24,33 +21,33 @@ public class PurchaseUtils {
     }
 
     public void printCost() {
-        System.out.println(COST + purchase.getPurchaseCost() + BYN);
+        System.out.println(COST + purchase.getCost() + BYN);
     }
 
     public void printCostDiff(Purchase purchase) {
         Byn difference;
-        if (this.purchase.getPurchaseCost().compareTo(purchase.getPurchaseCost()) == 0) {
-            difference = this.purchase.getPurchaseCost().sub(purchase.getPurchaseCost());
-            System.out.println(DIFFERENCE + difference);
-        } else if (this.purchase.getPurchaseCost().compareTo(purchase.getPurchaseCost()) > 0) {
-            difference = this.purchase.getPurchaseCost().sub(purchase.getPurchaseCost());
-            System.out.println(POSITIVE + DIFFERENCE + difference);
-        } else if (this.purchase.getPurchaseCost().compareTo(purchase.getPurchaseCost()) < 0) {
-            difference = this.purchase.getPurchaseCost().sub(purchase.getPurchaseCost());
-            System.out.println(NEGATIVE + DIFFERENCE + difference);
+        if (this.purchase.getCost().compareTo(purchase.getCost()) == 0) {
+            difference = this.purchase.getCost().sub(purchase.getCost());
+            System.out.println(DIFF + difference);
+        } else if (this.purchase.getCost().compareTo(purchase.getCost()) > 0) {
+            difference = this.purchase.getCost().sub(purchase.getCost());
+            System.out.println(POSITIVE + DIFF + difference);
+        } else if (this.purchase.getCost().compareTo(purchase.getCost()) < 0) {
+            difference = this.purchase.getCost().sub(purchase.getCost());
+            System.out.println(NEGATIVE + DIFF + difference);
         }
     }
 
     public void printlsSameCost(Purchase... purchases) {
-        int i = 0;
+        boolean result = false;
         for (Purchase purchase1 : purchases) {
-            if (purchase1.getPurchaseCost().compareTo(this.purchase.getPurchaseCost()) == 0) {
-                System.out.println(TRUE);
+            if (purchase1.getCost().compareTo(this.purchase.getCost()) == 0) {
+                result = true;
+                System.out.println(true);
                 System.out.println(purchase1);
-                i++;
             }
         }
-        if (i == 0){
+        if (!result){
             System.out.println("Purchase is not found");
         }
     }

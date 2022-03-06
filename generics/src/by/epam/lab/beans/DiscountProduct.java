@@ -10,9 +10,8 @@ public class DiscountProduct extends Product {
         this.discount = discount;
     }
 
-    @Override
-    public Byn getCost() {
-        return getPrice().sub(discount);
+    public Byn getPrice(){
+        return super.getPrice().sub(discount);
     }
 
     @Override

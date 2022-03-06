@@ -1,31 +1,33 @@
 package by.epam.lab.beans;
 
 import by.epam.lab.enums.RoundMethod;
+import by.epam.lab.implement.Priceable;
 import by.epam.lab.utils.Constant;
 
-public class Purchase {
-    private final Item item;
-    private final Number count;
+public class Purchase implements Comparable<Purchase> {
+    private Priceable item;
+    private final Number quantity;
 
-    public Purchase(Item item, Number count) {
+    public Purchase(Priceable item, Number quantity) {
         this.item = item;
-        this.count = count;
+        this.quantity = quantity;
     }
 
-    public Item getItem() {
+    public Priceable getItem() {
         return item;
     }
 
-    public Number getCount() {
-        return count;
-    }
-
-    public Byn getPurchaseCost() {
-        return item.getCost().mul(count.doubleValue(), RoundMethod.ROUND, 0);
+    public Byn getCost(){
+        return item.getPrice().mul(quantity.doubleValue(), RoundMethod.ROUND, 0);
     }
 
     public String toString() {
-        return getClass().getSimpleName() + Constant.SEPARATOR + item + Constant.SEPARATOR + count + Constant.SEPARATOR
-                + getPurchaseCost();
+        return getClass().getSimpleName() + Constant.SEPARATOR + item + Constant.SEPARATOR + quantity
+                + Constant.SEPARATOR + getCost();
+    }
+
+    @Override
+    public int compareTo(Purchase o) {
+        return getCost().compareTo(o.getCost());
     }
 }
