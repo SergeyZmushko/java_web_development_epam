@@ -6,14 +6,14 @@ import by.epam.lab.implement.Priceable;
 
 import static by.epam.lab.utils.Constant.*;
 
-public class PurchaseUtils<T1 extends Purchase<? extends Priceable, ? extends Number>> {
-    private T1 purchase;
+public class PurchaseUtils<T extends Priceable, N extends Number> {
+    private Purchase<T, N> purchase;
 
-    public PurchaseUtils(T1 purchase) {
+    public PurchaseUtils(Purchase<T, N> purchase) {
         this.purchase = purchase;
     }
 
-    public T1 getPurchase() {
+    public Purchase<T, N> getPurchase() {
         return purchase;
     }
 
@@ -25,36 +25,33 @@ public class PurchaseUtils<T1 extends Purchase<? extends Priceable, ? extends Nu
         System.out.println(COST + purchase.getCost() + BYN);
     }
 
-    public <T5 extends Purchase<? extends Priceable, ? extends Number>> void printCostDiff(T5 p) {
-        Byn costDiff;
-        int result = purchase.compareTo(p);
+    public <E extends Purchase<? extends Priceable, ? extends Number>> void printCostDiff(E p) {
+        String difPurchase = EMPTY_STRING;
+        Byn costDiff = new Byn(0);
+        Byn cost1 = purchase.getCost();
+        Byn cost2 = p.getCost();
+        int result = cost1.compareTo(cost2);
         if (result > 0) {
-            costDiff = purchase.getCost().sub(p.getCost());
-            System.out.println(POSITIVE + DIFF + costDiff);
+            costDiff = cost1.sub(cost2);
+            difPurchase = POSITIVE;
         }
         if (result < 0) {
-            costDiff = p.getCost().sub(purchase.getCost());
-            System.out.println(NEGATIVE + DIFF + costDiff);
+            costDiff = cost2.sub(cost1);
+            difPurchase = NEGATIVE;
 
         }
-        if (result == 0) {
-            costDiff = p.getCost().sub(purchase.getCost());
-            System.out.println(EMPTY_STRING + DIFF + costDiff);
-        }
+        System.out.println(difPurchase + DIFF + costDiff);
     }
 
-
     @SafeVarargs
-    public final <T4 extends Purchase<? extends Priceable, ? extends Number>> void printSameCost(T4... purchases) {
+    public final <E extends Purchase<? extends Priceable, ? extends Number>> void printSameCost(E... purchases) {
         boolean result = false;
-        for (T4 purchase : purchases) {
-            if (purchase.compareTo(this.purchase) == 0) {
+        for (E purchase : purchases) {
+            if (purchase.getCost().compareTo(this.purchase.getCost()) == 0) {
                 result = true;
-                System.out.println(purchase);
+                break;
             }
         }
-        if (!result) {
-            System.out.println("Purchase is not found");
-        }
+        System.out.println(result ? PURCHASE_WITH_SAME_COST : PURCHASE_IS_NOT_FOUND);
     }
 }

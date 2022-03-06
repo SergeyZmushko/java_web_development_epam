@@ -4,16 +4,16 @@ import by.epam.lab.enums.RoundMethod;
 import by.epam.lab.implement.Priceable;
 import by.epam.lab.utils.Constant;
 
-public class Purchase<T1 extends Priceable, T2 extends Number> implements Comparable<Purchase<Priceable, Number>> {
-    private T1 item;
-    private T2 quantity;
+public class Purchase<T extends Priceable, N extends Number> {
+    private T item;
+    private N quantity;
 
-    public Purchase(T1 item, T2 quantity) {
+    public Purchase(T item, N quantity) {
         this.item = item;
         this.quantity = quantity;
     }
 
-    public T1 getItem() {
+    public T getItem() {
         return item;
     }
 
@@ -24,10 +24,5 @@ public class Purchase<T1 extends Priceable, T2 extends Number> implements Compar
     public String toString() {
         return getClass().getSimpleName() + Constant.SEPARATOR + item + Constant.SEPARATOR + quantity
                 + Constant.SEPARATOR + getCost();
-    }
-
-    @Override
-    public int compareTo(Purchase o) {
-        return getCost().compareTo(o.getCost());
     }
 }

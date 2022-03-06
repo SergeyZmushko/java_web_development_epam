@@ -19,7 +19,7 @@ public class Byn implements Comparable<Byn> {
     }
 
     public String toString() {
-        return String.format(Constant.VALUE_FORMAT, value / 100, value % 100);
+        return String.format(Constant.VALUE_FORMAT, value / Constant.ONE_HUNDRED, value % Constant.ONE_HUNDRED);
     }
 
     @Override
