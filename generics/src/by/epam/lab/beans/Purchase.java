@@ -4,16 +4,16 @@ import by.epam.lab.enums.RoundMethod;
 import by.epam.lab.implement.Priceable;
 import by.epam.lab.utils.Constant;
 
-public class Purchase implements Comparable<Purchase> {
-    private Priceable item;
-    private final Number quantity;
+public class Purchase<T1 extends Priceable, T2 extends Number> implements Comparable<Purchase<Priceable, Number>> {
+    private T1 item;
+    private T2 quantity;
 
-    public Purchase(Priceable item, Number quantity) {
+    public Purchase(T1 item, T2 quantity) {
         this.item = item;
         this.quantity = quantity;
     }
 
-    public Priceable getItem() {
+    public T1 getItem() {
         return item;
     }
 

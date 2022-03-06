@@ -2,17 +2,18 @@ package by.epam.lab.utils;
 
 import by.epam.lab.beans.Byn;
 import by.epam.lab.beans.Purchase;
+import by.epam.lab.implement.Priceable;
 
 import static by.epam.lab.utils.Constant.*;
 
-public class PurchaseUtils {
-    private Purchase purchase;
+public class PurchaseUtils<T1 extends Purchase<? extends Priceable, ? extends Number>> {
+    private T1 purchase;
 
-    public PurchaseUtils(Purchase purchase) {
+    public PurchaseUtils(T1 purchase) {
         this.purchase = purchase;
     }
 
-    public Purchase getPurchase() {
+    public T1 getPurchase() {
         return purchase;
     }
 
@@ -24,7 +25,7 @@ public class PurchaseUtils {
         System.out.println(COST + purchase.getCost() + BYN);
     }
 
-    public void printCostDiff(Purchase p) {
+    public <T5 extends Purchase<? extends Priceable, ? extends Number>> void printCostDiff(T5 p) {
         Byn costDiff;
         int result = purchase.compareTo(p);
         if (result > 0) {
@@ -42,9 +43,11 @@ public class PurchaseUtils {
         }
     }
 
-    public void printSameCost(Purchase... purchases) {
+
+    @SafeVarargs
+    public final <T4 extends Purchase<? extends Priceable, ? extends Number>> void printSameCost(T4... purchases) {
         boolean result = false;
-        for (Purchase purchase : purchases) {
+        for (T4 purchase : purchases) {
             if (purchase.compareTo(this.purchase) == 0) {
                 result = true;
                 System.out.println(purchase);
