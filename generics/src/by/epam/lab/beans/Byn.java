@@ -4,7 +4,7 @@ import by.epam.lab.utils.Constant;
 import by.epam.lab.enums.RoundMethod;
 
 public class Byn implements Comparable<Byn> {
-    private int value;
+    private final int value;
 
     public Byn(int value) {
         this.value = value;

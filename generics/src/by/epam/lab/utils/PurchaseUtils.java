@@ -7,7 +7,7 @@ import by.epam.lab.implement.Priceable;
 import static by.epam.lab.utils.Constant.*;
 
 public class PurchaseUtils<T extends Priceable, N extends Number> {
-    private Purchase<T, N> purchase;
+    private final Purchase<T, N> purchase;
 
     public PurchaseUtils(Purchase<T, N> purchase) {
         this.purchase = purchase;

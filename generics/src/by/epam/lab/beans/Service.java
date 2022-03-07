@@ -19,8 +19,9 @@ public class Service implements Priceable {
         return totalCost.mul(1.0 / numberOfUsers, RoundMethod.CEIL, 0);
     }
 
+    @Override
     public String toString() {
-        return name + Constant.SEPARATOR + totalCost + Constant.SEPARATOR + numberOfUsers
-                + Constant.SEPARATOR + getPrice();
+        return getClass().getSimpleName() + Constant.SEPARATOR + name + Constant.SEPARATOR + totalCost +
+                Constant.SEPARATOR + numberOfUsers + Constant.SEPARATOR + getPrice();
     }
 }

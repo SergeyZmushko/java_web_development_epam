@@ -10,12 +10,13 @@ public class DiscountProduct extends Product {
         this.discount = discount;
     }
 
+    @Override
     public Byn getPrice() {
         return super.getPrice().sub(discount);
     }
 
     @Override
-    public String toString() {
-        return super.toString() + Constant.SEPARATOR + discount;
+    public String fieldsToString() {
+        return super.fieldsToString() + Constant.SEPARATOR + discount;
     }
 }

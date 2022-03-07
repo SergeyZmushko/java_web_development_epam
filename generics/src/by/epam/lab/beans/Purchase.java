@@ -5,8 +5,8 @@ import by.epam.lab.implement.Priceable;
 import by.epam.lab.utils.Constant;
 
 public class Purchase<T extends Priceable, N extends Number> {
-    private T item;
-    private N quantity;
+    private final T item;
+    private final N quantity;
 
     public Purchase(T item, N quantity) {
         this.item = item;
@@ -21,8 +21,8 @@ public class Purchase<T extends Priceable, N extends Number> {
         return item.getPrice().mul(quantity.doubleValue(), RoundMethod.ROUND, 0);
     }
 
+    @Override
     public String toString() {
-        return getClass().getSimpleName() + Constant.SEPARATOR + item + Constant.SEPARATOR + quantity
-                + Constant.SEPARATOR + getCost();
+        return item + Constant.SEPARATOR + quantity + Constant.SEPARATOR + getCost();
     }
 }

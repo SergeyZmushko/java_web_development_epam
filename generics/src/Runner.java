@@ -1,5 +1,4 @@
 import by.epam.lab.beans.*;
-import by.epam.lab.implement.Priceable;
 import by.epam.lab.utils.PurchaseUtils;
 
 public class Runner {
@@ -28,6 +27,6 @@ public class Runner {
         //8
         pu4.printCost();
         //9
-        pu2.<Purchase<? extends Priceable, ? extends Number>>printSameCost(p1, p3, pu4.getPurchase());
+        pu2.printSameCost(p1, p3, pu4.getPurchase());
     }
 }

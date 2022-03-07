@@ -4,8 +4,8 @@ import by.epam.lab.implement.Priceable;
 import by.epam.lab.utils.Constant;
 
 public class Product implements Priceable {
-    private String name;
-    private Byn price;
+    private final String name;
+    private final Byn price;
 
     public Product(String name, Byn price) {
         this.name = name;
@@ -16,7 +16,12 @@ public class Product implements Priceable {
         return price;
     }
 
+    public String fieldsToString(){
+        return getClass().getSimpleName() + Constant.SEPARATOR + name + Constant.SEPARATOR + price;
+    }
+
+    @Override
     public String toString() {
-        return name + Constant.SEPARATOR + price + Constant.SEPARATOR + getPrice();
+        return fieldsToString() + Constant.SEPARATOR + getPrice();
     }
 }
