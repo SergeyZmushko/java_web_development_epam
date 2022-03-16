@@ -38,53 +38,53 @@ public class Runner {
                     enumDayMap.get(day).add(purchase);
                 }
             }
+            //2
+            System.out.println(FIRST_DAY_MAP);
+            printMap(firstDayMap);
+            //4
+            System.out.println(LAST_DAY_MAP);
+            printMap(lastDayMap);
+            //5
+            System.out.println(FIND_BREAD_155);
+            Purchase purchase = new Purchase("bread", new Byn(155), 6);
+            findDayPurchase(firstDayMap, purchase);
+            findDayPurchase(lastDayMap, purchase);
+            //6
+            System.out.println(FIND_BREAD_170);
+            purchase = new Purchase("bread", new Byn(170), 6);
+            findDayPurchase(firstDayMap, purchase);
+            //7
+            System.out.println(DELETE_MEAT_PURCHASE);
+            deleteEntries(lastDayMap, "meat");
+            printMap(lastDayMap);
+            //8
+            System.out.println(DELETE_FRIDAY_PURCHASE);
+            deleteEntries(firstDayMap, FRIDAY);
+            printMap(firstDayMap);
+            //9
+            System.out.println(FIRST_DAY_MAP);
+            for (Map.Entry<Purchase, WeekDay> entry : firstDayMap.entrySet()) {
+                System.out.println(entry);
+            }
+            System.out.println(LAST_DAY_MAP);
+            for (Map.Entry<Purchase, WeekDay> entry : lastDayMap.entrySet()) {
+                System.out.println(entry);
+            }
+            //11
+            System.out.println(getCost(purchases));
+            //13
+            System.out.println(ENUM_DAY_MAP);
+            printMap(enumDayMap);
+            //14
+            for (WeekDay entry : enumDayMap.keySet()) {
+                System.out.println(entry + ARROW + getCost(enumDayMap.get(entry)));
+            }
+            //15
+            System.out.println(FIND_MONDAY_PURCHASE);
+            findDayPurchase(enumDayMap, WeekDay.MONDAY);
         } catch (FileNotFoundException e) {
             System.out.println(FILE_NOT_FOUND);
         }
-        //2
-        System.out.println(FIRST_DAY_MAP);
-        printMap(firstDayMap);
-        //4
-        System.out.println(LAST_DAY_MAP);
-        printMap(lastDayMap);
-        //5
-        System.out.println(FIND_BREAD_155);
-        Purchase purchase = new Purchase("bread", new Byn(155), 6);
-        findDayPurchase(firstDayMap, purchase);
-        findDayPurchase(lastDayMap, purchase);
-        //6
-        System.out.println(FIND_BREAD_170);
-        purchase = new Purchase("bread", new Byn(170), 6);
-        findDayPurchase(firstDayMap, purchase);
-        //7
-        System.out.println(DELETE_MEAT_PURCHASE);
-        deleteEntries(lastDayMap, "meat");
-        printMap(lastDayMap);
-        //8
-        System.out.println(DELETE_FRIDAY_PURCHASE);
-        deleteEntries(firstDayMap, FRIDAY);
-        printMap(firstDayMap);
-        //9
-        System.out.println(FIRST_DAY_MAP);
-        for (Map.Entry<Purchase, WeekDay> entry : firstDayMap.entrySet()) {
-            System.out.println(entry);
-        }
-        System.out.println(LAST_DAY_MAP);
-        for (Map.Entry<Purchase, WeekDay> entry : lastDayMap.entrySet()) {
-            System.out.println(entry);
-        }
-        //11
-        System.out.println(getCost(purchases));
-        //13
-        System.out.println(ENUM_DAY_MAP);
-        printMap(enumDayMap);
-        //14
-        for (WeekDay entry : enumDayMap.keySet()) {
-            System.out.println(entry + ARROW + getCost(enumDayMap.get(entry)));
-        }
-        //15
-        System.out.println(FIND_MONDAY_PURCHASE);
-        findDayPurchase(enumDayMap, WeekDay.MONDAY);
     }
 
     private static <K, V> void printMap(Map<K, V> elements) {
