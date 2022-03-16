@@ -13,11 +13,11 @@ public enum WeekDay {
 
     private final String day;
 
-    WeekDay(String day){
+    WeekDay(String day) {
         this.day = day;
     }
 
-    public String getDay(){
+    public String getDay() {
         return day;
     }
 }

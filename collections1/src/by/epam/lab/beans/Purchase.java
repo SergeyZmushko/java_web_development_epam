@@ -1,5 +1,7 @@
 package by.epam.lab.beans;
 
+import by.epam.lab.utils.Constant;
+
 import java.util.Scanner;
 
 public class Purchase {
@@ -17,7 +19,8 @@ public class Purchase {
     }
 
     public Purchase(String[] fields) {
-        this(fields[0], new Byn(Integer.parseInt(fields[1])), Integer.parseInt(fields[2]));
+        this(fields[Constant.NAME_INDEX], new Byn(Integer.parseInt(fields[Constant.PRICE_INDEX])),
+                Integer.parseInt(fields[Constant.NUMBER_INDEX]));
     }
 
     public Purchase(Scanner sc) {
@@ -55,12 +58,13 @@ public class Purchase {
     }
 
     protected String fieldToString() {
-        return getClass().getSimpleName() + ";" + name + ";" + price + ";" + number;
+        return getClass().getSimpleName() + Constant.SEPARATOR + name + Constant.SEPARATOR + price +
+                Constant.SEPARATOR + number;
     }
 
     @Override
     public String toString() {
-        return fieldToString() + ";" + getCost();
+        return fieldToString() + Constant.SEPARATOR + getCost();
     }
 
     @Override
@@ -73,8 +77,6 @@ public class Purchase {
 
     @Override
     public int hashCode() {
-        int result = name.hashCode();
-        result = 31 * result + price.hashCode();
-        return result;
+        return Constant.PRIME_NUMBER_31 * name.hashCode() + price.hashCode();
     }
 }

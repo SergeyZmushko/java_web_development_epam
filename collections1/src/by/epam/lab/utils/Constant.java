@@ -4,6 +4,12 @@ import by.epam.lab.beans.Purchase;
 
 public class Constant {
     public final static int INDEX_DIFFERENCE = Purchase.class.getDeclaredFields().length;
+    public final static int NAME_INDEX = 0;
+    public final static int PRICE_INDEX = 1;
+    public final static int NUMBER_INDEX = 2;
+    public final static int DISCOUNT_INDEX = 3;
+    public final static int PRIME_NUMBER_31 = 31;
+    public final static int ONE_HUNDRED = 100;
     public final static String ARROW = "=>";
     public final static String SEPARATOR = ";";
     public final static String FORMAT_STRING_TO_BYN = "%d.%02d";

@@ -16,25 +16,25 @@ public class Runner {
         Map<Purchase, WeekDay> firstDayMap = new HashMap<>();
         Map<Purchase, WeekDay> lastDayMap = new HashMap<>();
         Map<WeekDay, List<Purchase>> enumDayMap = new HashMap<>();
-        try(Scanner sc = new Scanner(new FileReader(FILE_NAME))){
-            while (sc.hasNextLine()){
+        try (Scanner sc = new Scanner(new FileReader(FILE_NAME))) {
+            while (sc.hasNextLine()) {
                 Purchase purchase = PurchaseFactory.getPurchaseFromFactory(sc.nextLine());
                 WeekDay day = WeekDay.valueOf(sc.nextLine());
-                if (purchase instanceof PricePurchase){
+                if (purchase instanceof PricePurchase) {
                     purchases.add((PricePurchase) purchase);
                 }
-                if (!lastDayMap.containsKey(purchase)){
-                    lastDayMap.put(purchase, day);
-                    if (lastDayMap.containsKey(purchase) && !firstDayMap.containsKey(purchase)){
-                        firstDayMap.put(purchase, day);
-                    }
-                }else{
+                if (!firstDayMap.containsKey(purchase)) {
                     firstDayMap.put(purchase, day);
+                    if (firstDayMap.containsKey(purchase) && !lastDayMap.containsKey(purchase)) {
+                        lastDayMap.put(purchase, day);
+                    }
+                } else {
+                    lastDayMap.put(purchase, day);
                 }
-                if (!enumDayMap.containsKey(day)){
+                if (!enumDayMap.containsKey(day)) {
                     enumDayMap.put(day, new ArrayList<>());
                     enumDayMap.get(day).add(purchase);
-                }else{
+                } else {
                     enumDayMap.get(day).add(purchase);
                 }
             }
@@ -43,10 +43,10 @@ public class Runner {
         }
         //2
         System.out.println(FIRST_DAY_MAP);
-        printMap(lastDayMap);
+        printMap(firstDayMap);
         //4
         System.out.println(LAST_DAY_MAP);
-        printMap(firstDayMap);
+        printMap(lastDayMap);
         //5
         System.out.println(FIND_BREAD_155);
         Purchase purchase = new Purchase("bread", new Byn(155), 6);
@@ -58,19 +58,19 @@ public class Runner {
         findDayPurchase(firstDayMap, purchase);
         //7
         System.out.println(DELETE_MEAT_PURCHASE);
-        deleteEntries(firstDayMap, "meat");
-        printMap(firstDayMap);
+        deleteEntries(lastDayMap, "meat");
+        printMap(lastDayMap);
         //8
         System.out.println(DELETE_FRIDAY_PURCHASE);
-        deleteEntries(lastDayMap, FRIDAY);
-        printMap(lastDayMap);
+        deleteEntries(firstDayMap, FRIDAY);
+        printMap(firstDayMap);
         //9
         System.out.println(FIRST_DAY_MAP);
-        for (Map.Entry<Purchase, WeekDay> entry : firstDayMap.entrySet()){
+        for (Map.Entry<Purchase, WeekDay> entry : firstDayMap.entrySet()) {
             System.out.println(entry);
         }
         System.out.println(LAST_DAY_MAP);
-        for (Map.Entry<Purchase, WeekDay> entry : lastDayMap.entrySet()){
+        for (Map.Entry<Purchase, WeekDay> entry : lastDayMap.entrySet()) {
             System.out.println(entry);
         }
         //11
@@ -79,7 +79,7 @@ public class Runner {
         System.out.println(ENUM_DAY_MAP);
         printMap(enumDayMap);
         //14
-        for (WeekDay entry : enumDayMap.keySet()){
+        for (WeekDay entry : enumDayMap.keySet()) {
             System.out.println(entry + ARROW + getCost(enumDayMap.get(entry)));
         }
         //15
@@ -87,35 +87,35 @@ public class Runner {
         findDayPurchase(enumDayMap, WeekDay.MONDAY);
     }
 
-    private static <K, V> void printMap(Map<K , V> elements){
-        for (Map.Entry<K, V> entry : elements.entrySet()){
+    private static <K, V> void printMap(Map<K, V> elements) {
+        for (Map.Entry<K, V> entry : elements.entrySet()) {
             System.out.println(entry.getKey() + ARROW + entry.getValue());
         }
     }
 
-    private static <T> void findDayPurchase(Map<? extends T, ? extends T> purchaseWeekDayHashMap, T purchase){
-        for (Map.Entry<? extends T, ? extends T> entry : purchaseWeekDayHashMap.entrySet()){
-            if (entry.getKey().equals(purchase) || entry.getValue().equals(purchase)){
+    private static <T> void findDayPurchase(Map<? extends T, ? extends T> purchaseWeekDayHashMap, T purchase) {
+        for (Map.Entry<? extends T, ? extends T> entry : purchaseWeekDayHashMap.entrySet()) {
+            if (entry.getKey().equals(purchase) || entry.getValue().equals(purchase)) {
                 System.out.println(entry.getKey() + ARROW + entry.getValue());
             }
         }
     }
 
-    private static void deleteEntries(Map<Purchase, WeekDay> purchaseWeekDayHashMap, String name){
+    private static void deleteEntries(Map<Purchase, WeekDay> purchaseWeekDayHashMap, String name) {
         Set<Purchase> keysToRemove = new HashSet<>();
-        for (Map.Entry<Purchase, WeekDay> entry : purchaseWeekDayHashMap.entrySet()){
+        for (Map.Entry<Purchase, WeekDay> entry : purchaseWeekDayHashMap.entrySet()) {
             Purchase purchase = entry.getKey();
             WeekDay weekDay = entry.getValue();
-            if (purchase.toString().contains(name) || weekDay.getDay().toUpperCase(Locale.ROOT).contains(name)){
+            if (purchase.toString().contains(name) || weekDay.getDay().toUpperCase(Locale.ROOT).contains(name)) {
                 keysToRemove.add(purchase);
             }
         }
         purchaseWeekDayHashMap.keySet().removeAll(keysToRemove);
     }
 
-    private static <T extends Purchase> Byn getCost(List<T> purchaseList){
+    private static <T extends Purchase> Byn getCost(List<T> purchaseList) {
         Byn result = new Byn();
-        for (Purchase purchases : purchaseList){
+        for (Purchase purchases : purchaseList) {
             result.add(purchases.getCost());
         }
         return result;
