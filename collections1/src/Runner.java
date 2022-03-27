@@ -39,17 +39,17 @@ public class Runner {
             //4
             printMap(firstPurchasesMap, FIRST_DAY_MAP);
             //5
-            Purchase purchase1 = new Purchase("bread", new Byn(155), 6);
+            Purchase purchase1 = new Purchase(BREAD, new Byn(155), 6);
             findAndShow(firstPurchasesMap, purchase1, FIND_BREAD_155_FIRST);
             findAndShow(lastPurchasesMap, purchase1, FIND_BREAD_155_LAST);
             //6
-            Purchase purchase2 = new Purchase("bread", new Byn(170), 6);
+            Purchase purchase2 = new Purchase(BREAD, new Byn(170), 6);
             findAndShow(firstPurchasesMap, purchase2, FIND_BREAD_170);
             //7
             removeEntries(lastPurchasesMap, new EntryChecker<Purchase, WeekDay>() {
                 @Override
                 public boolean check(Map.Entry<Purchase, WeekDay> entry) {
-                    return entry.getKey().getName().equals("meat");
+                    return entry.getKey().getName().equals(MEAT);
                 }
             });
             //8
@@ -85,7 +85,7 @@ public class Runner {
                     boolean contains = false;
                     List<Purchase> purchases = entry.getValue();
                     for (Purchase purchase : purchases) {
-                        if (purchase.getName().equals("milk")) {
+                        if (purchase.getName().equals(MILK)) {
                             contains = true;
                             break;
                         }
