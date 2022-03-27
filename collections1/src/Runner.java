@@ -104,8 +104,8 @@ public class Runner {
     }
 
     private static <K, V> void removeEntries(Map<K, V> map, EntryChecker<K, V> checker) {
-        for (Iterator it = map.entrySet().iterator(); it.hasNext(); ) {
-            if (checker.check((Map.Entry) it.next())) {
+        for (Iterator<Map.Entry<K, V>> it = map.entrySet().iterator(); it.hasNext(); ) {
+            if (checker.check(it.next())) {
                 it.remove();
             }
         }
