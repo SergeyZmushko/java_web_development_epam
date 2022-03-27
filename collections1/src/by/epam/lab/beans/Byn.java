@@ -60,11 +60,6 @@ public class Byn implements Comparable<Byn> {
         return this;
     }
 
-    public Byn round(RoundMethod roundMethod, int d) {
-        value = roundMethod.round(value, d);
-        return this;
-    }
-
     @Override
     public String toString() {
         return String.format(Constant.FORMAT_STRING_TO_BYN, value / Constant.ONE_HUNDRED, value % Constant.ONE_HUNDRED);

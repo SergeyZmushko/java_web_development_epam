@@ -1,6 +1,6 @@
 package by.epam.lab.beans;
 
-import by.epam.lab.utils.Constant;
+import static by.epam.lab.utils.Constant.*;
 
 import java.util.Scanner;
 
@@ -17,8 +17,8 @@ public class PricePurchase extends Purchase {
     }
 
     public PricePurchase(String[] fields) {
-        this(fields[Constant.NAME_INDEX], new Byn(Integer.parseInt(fields[Constant.PRICE_INDEX])),
-                Integer.parseInt(fields[Constant.NUMBER_INDEX]), new Byn(Integer.parseInt(fields[Constant.DISCOUNT_INDEX])));
+        super(fields);
+        this.discount = new Byn(Integer.parseInt(fields[DISCOUNT_INDEX]));
     }
 
     public PricePurchase(Scanner sc) {
@@ -41,7 +41,7 @@ public class PricePurchase extends Purchase {
 
     @Override
     protected String fieldToString() {
-        return super.fieldToString() + Constant.SEPARATOR + discount;
+        return super.fieldToString() + SEPARATOR + discount;
     }
 
 }

@@ -3,6 +3,7 @@ import by.epam.lab.beans.PricePurchase;
 import by.epam.lab.beans.Purchase;
 import by.epam.lab.enums.PurchaseFactory;
 import by.epam.lab.enums.WeekDay;
+import by.epam.lab.impl.EntryChecker;
 
 import static by.epam.lab.utils.Constant.*;
 
@@ -12,7 +13,6 @@ import java.util.*;
 
 public class Runner {
     public static void main(String[] args) {
-        final String FILE_NAME = "src/in.csv";
         try (Scanner sc = new Scanner(new FileReader(FILE_NAME))) {
             List<PricePurchase> priceDiscountPurchases = new ArrayList<>();
             Map<Purchase, WeekDay> firstPurchasesMap = new HashMap<>();
@@ -71,13 +71,30 @@ public class Runner {
             //11
             System.out.println(getCost(priceDiscountPurchases));
             //13
-            printMap(dayPurchasesMap, ENUM_DAY_MAP);
+            printMap(dayPurchasesMap, DAY_PURCHASE_MAP);
             //14
             for (Map.Entry<WeekDay, List<Purchase>> entry : dayPurchasesMap.entrySet()) {
                 System.out.println(entry.getKey() + ARROW + getCost(entry.getValue()));
             }
             //15
             findAndShow(dayPurchasesMap, WeekDay.MONDAY, FIND_MONDAY_PURCHASE);
+            //16
+            removeEntries(dayPurchasesMap, new EntryChecker<WeekDay, List<Purchase>>() {
+                @Override
+                public boolean check(Map.Entry<WeekDay, List<Purchase>> entry) {
+                    boolean contains = false;
+                    List<Purchase> purchases = entry.getValue();
+                    for (Purchase purchase : purchases) {
+                        if (purchase.getName().equals("milk")) {
+                            contains = true;
+                            break;
+                        }
+                    }
+                    return contains;
+                }
+            });
+            //17
+            printMap(dayPurchasesMap, DAY_PURCHASE_MAP_AFTER_REMOVE);
         } catch (FileNotFoundException e) {
             System.out.println(FILE_NOT_FOUND);
         }
@@ -97,10 +114,6 @@ public class Runner {
         } else {
             System.out.println(PURCHASE_IS_NOT_FOUND);
         }
-    }
-
-    public interface EntryChecker<K, V> {
-        boolean check(Map.Entry<K, V> entry);
     }
 
     private static <K, V> void removeEntries(Map<K, V> map, EntryChecker<K, V> checker) {
