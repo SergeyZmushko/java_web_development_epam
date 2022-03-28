@@ -23,7 +23,7 @@ public class Runner {
                 WeekDay day = WeekDay.valueOf(sc.nextLine());
                 lastPurchasesMap.put(purchase, day);
                 if (!firstPurchasesMap.containsKey(purchase)) {
-                    firstPurchasesMap.put(purchase, day == firstPurchasesMap.get(purchase) ? firstPurchasesMap.get(purchase) : day);
+                    firstPurchasesMap.put(purchase, day);
                 }
                 List<Purchase> purchases = dayPurchasesMap.get(day);
                 if (purchases == null) {
@@ -128,7 +128,7 @@ public class Runner {
     private static Byn getCost(List<? extends Purchase> purchaseList) {
         Byn result = new Byn();
         for (Purchase purchases : purchaseList) {
-            result.add(purchases.getCost());
+            result = new Byn(result.add(purchases.getCost()));
         }
         return result;
     }

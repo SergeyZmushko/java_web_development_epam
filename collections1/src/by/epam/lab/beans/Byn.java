@@ -5,7 +5,7 @@ import by.epam.lab.utils.RoundMethod;
 
 import java.util.Scanner;
 
-public class Byn implements Comparable<Byn> {
+public final class Byn implements Comparable<Byn> {
     private final int value;
 
     public Byn() {
