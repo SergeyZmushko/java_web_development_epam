@@ -109,8 +109,9 @@ public class Runner {
 
     private static <K, V> void findAndShow(Map<K, V> map, K searchKey, String header) {
         System.out.println(header);
-        if (map.get(searchKey) != null) {
-            System.out.println(map.get(searchKey));
+        V result = map.get(searchKey);
+        if (result != null) {
+            System.out.println(result);
         } else {
             System.out.println(PURCHASE_IS_NOT_FOUND);
         }
