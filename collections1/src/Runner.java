@@ -108,13 +108,8 @@ public class Runner {
     }
 
     private static <K, V> void findAndShow(Map<K, V> map, K searchKey, String header) {
-        System.out.println(header);
         V result = map.get(searchKey);
-        if (result != null) {
-            System.out.println(result);
-        } else {
-            System.out.println(PURCHASE_IS_NOT_FOUND);
-        }
+        System.out.println(header + COLON + (result != null ? result : PURCHASE_IS_NOT_FOUND));
     }
 
     private static <K, V> void removeEntries(Map<K, V> map, EntryChecker<K, V> checker) {

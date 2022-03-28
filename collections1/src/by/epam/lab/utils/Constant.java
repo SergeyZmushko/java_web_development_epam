@@ -16,6 +16,7 @@ public class Constant {
     public final static String BREAD = "bread";
     public final static String ARROW = "=>";
     public final static String SEPARATOR = ";";
+    public final static String COLON = " : ";
     public final static String FORMAT_STRING_TO_BYN = "%d.%02d";
     public final static String FILE_NOT_FOUND = "Input file is not found";
     public final static String FIRST_DAY_MAP = "FirstDayMap";
