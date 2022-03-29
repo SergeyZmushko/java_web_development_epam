@@ -5,10 +5,7 @@ import static by.epam.lab.utils.Constants.*;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Runner {
     public static void main(String[] args) {
@@ -17,15 +14,11 @@ public class Runner {
             while (sc.hasNextLine()) {
                 String[] mas = sc.nextLine().split(REGEX_SPLIT);
                 Segment segment = new Segment(new Dot(mas[1], mas[2]), new Dot(mas[3], mas[4]));
-                boolean result = true;
-                for (SegmentsInfo el : segmentsInfoList){
-                    if (el.getLength() == segment.getLength()){
-                        result = false;
-                        el.increase();
-                    }
-                }
-                if (result) {
+                int result = Collections.binarySearch(segmentsInfoList, new SegmentsInfo(segment));
+                if (result < 0){
                     segmentsInfoList.add(new SegmentsInfo(segment));
+                }else{
+                    segmentsInfoList.get(result).increase();
                 }
             }
             segmentsInfoList.sort(new Comparator<SegmentsInfo>() {

@@ -1,7 +1,7 @@
 package by.epam.lab.bean;
 import static by.epam.lab.utils.Constants.*;
 
-public class SegmentsInfo {
+public class SegmentsInfo implements Comparable<SegmentsInfo>{
     private final int length;
     private int number;
 
@@ -24,5 +24,10 @@ public class SegmentsInfo {
 
     public String toString(){
         return OPEN_BRACKET + length + SPLITTER + number + END_BRACKET;
+    }
+
+    @Override
+    public int compareTo(SegmentsInfo o) {
+        return length - o.getLength();
     }
 }
