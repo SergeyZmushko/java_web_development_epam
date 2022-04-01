@@ -18,13 +18,15 @@ public class Runner {
                 setNumLen.add(numLen);
             }
             List<NumLen> listNumLen = new ArrayList<>(setNumLen);
-            listNumLen.sort(new Comparator<NumLen>() {
+            Collections.sort(listNumLen, new Comparator<NumLen>() {
                 @Override
                 public int compare(NumLen o1, NumLen o2) {
                     return o2.getNum() - o1.getNum();
                 }
             });
-            System.out.println(listNumLen);
+            for (NumLen element : listNumLen){
+                System.out.println(element);
+            }
         } catch (FileNotFoundException e) {
             System.out.println(FILE_NOT_FOUND);
         }
