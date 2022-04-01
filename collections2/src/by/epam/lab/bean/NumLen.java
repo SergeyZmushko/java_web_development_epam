@@ -9,7 +9,7 @@ public class NumLen {
 
     public NumLen(int len){
         this.len = len;
-        num = 1;
+        num = ONE;
     }
 
     public int getLen() {
@@ -21,8 +21,7 @@ public class NumLen {
     }
 
     public int hashCode(){
-        int result = 1;
-        return PRIME * result + len;
+        return PRIME * ONE + len;
     }
 
     @Override
