@@ -1,6 +1,7 @@
-import by.epam.lab.bean.Dot;
-import by.epam.lab.bean.Segment;
-import by.epam.lab.bean.SegmentsInfo;
+import by.epam.lab.bean.NumLen;
+import by.epam.lab.enums.RoundMethod;
+import by.epam.lab.utils.Utils;
+
 import static by.epam.lab.utils.Constants.*;
 
 import java.io.FileNotFoundException;
@@ -9,25 +10,21 @@ import java.util.*;
 
 public class Runner {
     public static void main(String[] args) {
-        List<SegmentsInfo> segmentsInfoList = new ArrayList<>();
+        Set<NumLen> setNumLen = new HashSet<>();
         try (Scanner sc = new Scanner(new FileReader(FILE_NAME))) {
-            while (sc.hasNextLine()) {
+            while (sc.hasNext()) {
                 String[] mas = sc.nextLine().split(REGEX_SPLIT);
-                Segment segment = new Segment(new Dot(mas[1], mas[2]), new Dot(mas[3], mas[4]));
-                int result = Collections.binarySearch(segmentsInfoList, new SegmentsInfo(segment));
-                if (result < 0){
-                    segmentsInfoList.add(new SegmentsInfo(segment));
-                }else{
-                    segmentsInfoList.get(result).increase();
-                }
+                NumLen numLen = new NumLen(Utils.lengthCalculate(mas[1], mas[2], mas[3], mas[4], RoundMethod.ROUND, 0));
+                setNumLen.add(numLen);
             }
-            segmentsInfoList.sort(new Comparator<SegmentsInfo>() {
+            List<NumLen> listNumLen = new ArrayList<>(setNumLen);
+            listNumLen.sort(new Comparator<NumLen>() {
                 @Override
-                public int compare(SegmentsInfo o1, SegmentsInfo o2) {
-                    return o2.getNumber() - o1.getNumber();
+                public int compare(NumLen o1, NumLen o2) {
+                    return o2.getNum() - o1.getNum();
                 }
             });
-            System.out.println(segmentsInfoList);
+            System.out.println(listNumLen);
         } catch (FileNotFoundException e) {
             System.out.println(FILE_NOT_FOUND);
         }
