@@ -13,11 +13,11 @@ public class Runner {
                 String[] mas = sc.nextLine().split(REGEX_SPLIT);
                 int len = (int) Math.round(Math.sqrt((Double.parseDouble(mas[INDEX_X1]) - Double.parseDouble(mas[INDEX_X2])) *
                         (Double.parseDouble(mas[INDEX_X1]) - Double.parseDouble(mas[INDEX_X2])) +
-                                (Double.parseDouble(mas[INDEX_Y1]) - Double.parseDouble(mas[INDEX_Y2])) *
-                                        (Double.parseDouble(mas[INDEX_Y1]) - Double.parseDouble(mas[INDEX_Y2]))));
-                if (numLenMap.containsKey(len)){
+                        (Double.parseDouble(mas[INDEX_Y1]) - Double.parseDouble(mas[INDEX_Y2])) *
+                                (Double.parseDouble(mas[INDEX_Y1]) - Double.parseDouble(mas[INDEX_Y2]))));
+                if (numLenMap.containsKey(len)) {
                     numLenMap.put(len, numLenMap.get(len) + ONE);
-                }else {
+                } else {
                     numLenMap.put(len, ONE);
                 }
             }
