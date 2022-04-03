@@ -1,4 +1,6 @@
 
+import by.epam.lab.comparator.NumComparator;
+
 import static by.epam.lab.utils.Constants.*;
 
 import java.io.FileNotFoundException;
@@ -11,23 +13,15 @@ public class Runner {
             Map<Integer, Integer> numLenMap = new HashMap<>();
             while (sc.hasNext()) {
                 String[] mas = sc.nextLine().split(REGEX_SPLIT);
-                int len = (int) Math.round(Math.sqrt((Double.parseDouble(mas[INDEX_X1]) - Double.parseDouble(mas[INDEX_X2])) *
-                        (Double.parseDouble(mas[INDEX_X1]) - Double.parseDouble(mas[INDEX_X2])) +
-                        (Double.parseDouble(mas[INDEX_Y1]) - Double.parseDouble(mas[INDEX_Y2])) *
-                                (Double.parseDouble(mas[INDEX_Y1]) - Double.parseDouble(mas[INDEX_Y2]))));
-                if (numLenMap.containsKey(len)) {
-                    numLenMap.put(len, numLenMap.get(len) + ONE);
-                } else {
-                    numLenMap.put(len, ONE);
-                }
+                double x1 = Double.parseDouble(mas[INDEX_X1]);
+                double x2 = Double.parseDouble(mas[INDEX_X2]);
+                double y1 = Double.parseDouble(mas[INDEX_Y1]);
+                double y2 = Double.parseDouble(mas[INDEX_Y2]);
+                int len = (int) Math.round(Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2)));
+                numLenMap.put(len, numLenMap.get(len) != null ? numLenMap.get(len) + 1 : 1);
             }
             List<Map.Entry<Integer, Integer>> numLenList = new ArrayList<>(numLenMap.entrySet());
-            Collections.sort(numLenList, new Comparator<Map.Entry<Integer, Integer>>() {
-                @Override
-                public int compare(Map.Entry<Integer, Integer> o1, Map.Entry<Integer, Integer> o2) {
-                    return o2.getValue() - o1.getValue();
-                }
-            });
+            Collections.sort(numLenList, new NumComparator());
             for (Map.Entry<Integer, Integer> entry : numLenList) {
                 System.out.println(entry.getKey() + SEPARATOR + entry.getValue());
             }
