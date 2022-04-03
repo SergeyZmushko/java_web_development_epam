@@ -13,15 +13,15 @@ public class Runner {
             List<int[]> numLenList = new ArrayList<>();
             while (sc.hasNext()) {
                 String[] mas = sc.nextLine().split(REGEX_SPLIT);
-                int len = Utils.lengthCalculate(mas[1], mas[2], mas[3], mas[4], RoundMethod.ROUND, 0);
-                int[] numLen = new int[2];
-                numLen[0] = len;
-                numLen[1] = 1;
+                int len = Utils.lengthCalculate(mas[INDEX_ONE], mas[INDEX_TWO], mas[INDEX_THREE], mas[INDEX_FOUR], RoundMethod.ROUND, 0);
+                int[] numLen = new int[MASS_SIZE];
+                numLen[INDEX_ZERO] = len;
+                numLen[INDEX_ONE] = 1;
                 numLenList.add(numLen);
-                for (int i = 0; i <= numLenList.size() - 1; i++) {
+                for (int i = INDEX_ZERO; i < numLenList.size() - 1; i++) {
                     for (int j = i + 1; j < numLenList.size(); j++) {
-                        if (numLenList.get(i)[0] == numLenList.get(j)[0]) {
-                            numLenList.get(i)[1]++;
+                        if (numLenList.get(i)[INDEX_ZERO] == numLenList.get(j)[INDEX_ZERO]) {
+                            numLenList.get(i)[INDEX_ONE]++;
                             numLenList.remove(numLenList.get(j));
                         }
                     }
