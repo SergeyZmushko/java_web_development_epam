@@ -18,7 +18,8 @@ public class Runner {
                 double y1 = Double.parseDouble(mas[INDEX_Y1]);
                 double y2 = Double.parseDouble(mas[INDEX_Y2]);
                 int len = (int) Math.round(Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2)));
-                numLenMap.put(len, numLenMap.get(len) != null ? numLenMap.get(len) + 1 : 1);
+                int num = numLenMap.get(len) != null ? numLenMap.get(len) + 1 : 1;
+                numLenMap.put(len, num);
             }
             List<Map.Entry<Integer, Integer>> numLenList = new ArrayList<>(numLenMap.entrySet());
             Collections.sort(numLenList, new NumComparator());
