@@ -1,5 +1,3 @@
-import by.epam.lab.enums.RoundMethod;
-import by.epam.lab.utils.Utils;
 
 import static by.epam.lab.utils.Constants.*;
 
@@ -10,31 +8,29 @@ import java.util.*;
 public class Runner {
     public static void main(String[] args) {
         try (Scanner sc = new Scanner(new FileReader(FILE_NAME))) {
-            List<int[]> numLenList = new ArrayList<>();
+            Map<Integer, Integer> numLenMap = new HashMap<>();
             while (sc.hasNext()) {
                 String[] mas = sc.nextLine().split(REGEX_SPLIT);
-                int len = Utils.lengthCalculate(mas[INDEX_ONE], mas[INDEX_TWO], mas[INDEX_THREE], mas[INDEX_FOUR], RoundMethod.ROUND, 0);
-                int[] numLen = new int[MASS_SIZE];
-                numLen[INDEX_ZERO] = len;
-                numLen[INDEX_ONE] = 1;
-                numLenList.add(numLen);
-                for (int i = INDEX_ZERO; i < numLenList.size() - 1; i++) {
-                    for (int j = i + 1; j < numLenList.size(); j++) {
-                        if (numLenList.get(i)[INDEX_ZERO] == numLenList.get(j)[INDEX_ZERO]) {
-                            numLenList.get(i)[INDEX_ONE]++;
-                            numLenList.remove(numLenList.get(j));
-                        }
-                    }
+                int len = (int) Math.round(Math.sqrt((Double.parseDouble(mas[INDEX_ONE]) - Double.parseDouble(mas[INDEX_THREE])) *
+                        (Double.parseDouble(mas[INDEX_ONE]) - Double.parseDouble(mas[INDEX_THREE])) +
+                                (Double.parseDouble(mas[INDEX_TWO]) - Double.parseDouble(mas[INDEX_FOUR])) *
+                                        (Double.parseDouble(mas[INDEX_TWO]) - Double.parseDouble(mas[INDEX_FOUR]))));
+                if (numLenMap.containsKey(len)){
+                    int num = numLenMap.get(len) + 1;
+                    numLenMap.put(len, num);
+                }else {
+                    numLenMap.put(len, 1);
                 }
             }
-            Collections.sort(numLenList, new Comparator<int[]>() {
+            List<Map.Entry<Integer, Integer>> numLenList = new ArrayList<>(numLenMap.entrySet());
+            Collections.sort(numLenList, new Comparator<Map.Entry<Integer, Integer>>() {
                 @Override
-                public int compare(int[] o1, int[] o2) {
-                    return o2[1] - o1[1];
+                public int compare(Map.Entry<Integer, Integer> o1, Map.Entry<Integer, Integer> o2) {
+                    return o2.getValue() - o1.getValue();
                 }
             });
-            for (int[] element : numLenList) {
-                System.out.println(Arrays.toString(element));
+            for (Map.Entry<Integer, Integer> entry : numLenList) {
+                System.out.println(entry.getKey() + SEPARATOR + entry.getValue());
             }
         } catch (FileNotFoundException e) {
             System.out.println(FILE_NOT_FOUND);
