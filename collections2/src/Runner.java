@@ -11,15 +11,14 @@ public class Runner {
             Map<Integer, Integer> numLenMap = new HashMap<>();
             while (sc.hasNext()) {
                 String[] mas = sc.nextLine().split(REGEX_SPLIT);
-                int len = (int) Math.round(Math.sqrt((Double.parseDouble(mas[INDEX_ONE]) - Double.parseDouble(mas[INDEX_THREE])) *
-                        (Double.parseDouble(mas[INDEX_ONE]) - Double.parseDouble(mas[INDEX_THREE])) +
-                                (Double.parseDouble(mas[INDEX_TWO]) - Double.parseDouble(mas[INDEX_FOUR])) *
-                                        (Double.parseDouble(mas[INDEX_TWO]) - Double.parseDouble(mas[INDEX_FOUR]))));
+                int len = (int) Math.round(Math.sqrt((Double.parseDouble(mas[INDEX_X1]) - Double.parseDouble(mas[INDEX_X2])) *
+                        (Double.parseDouble(mas[INDEX_X1]) - Double.parseDouble(mas[INDEX_X2])) +
+                                (Double.parseDouble(mas[INDEX_Y1]) - Double.parseDouble(mas[INDEX_Y2])) *
+                                        (Double.parseDouble(mas[INDEX_Y1]) - Double.parseDouble(mas[INDEX_Y2]))));
                 if (numLenMap.containsKey(len)){
-                    int num = numLenMap.get(len) + 1;
-                    numLenMap.put(len, num);
+                    numLenMap.put(len, numLenMap.get(len) + ONE);
                 }else {
-                    numLenMap.put(len, 1);
+                    numLenMap.put(len, ONE);
                 }
             }
             List<Map.Entry<Integer, Integer>> numLenList = new ArrayList<>(numLenMap.entrySet());
