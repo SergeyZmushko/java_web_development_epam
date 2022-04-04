@@ -1,5 +1,5 @@
 
-import by.epam.lab.comparator.NumComparator;
+import by.epam.lab.comparator.NumMapComparator;
 
 import static by.epam.lab.utils.Constants.*;
 
@@ -18,16 +18,23 @@ public class Runner {
                 double y1 = Double.parseDouble(mas[INDEX_Y1]);
                 double y2 = Double.parseDouble(mas[INDEX_Y2]);
                 int len = (int) Math.round(Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2)));
-                int num = numLenMap.get(len) != null ? numLenMap.get(len) + 1 : 1;
-                numLenMap.put(len, num);
+                Integer value = numLenMap.get(len);
+                if (value == null) {
+                    value = 0;
+                }
+                numLenMap.put(len, value + 1);
             }
-            List<Map.Entry<Integer, Integer>> numLenList = new ArrayList<>(numLenMap.entrySet());
-            Collections.sort(numLenList, new NumComparator());
-            for (Map.Entry<Integer, Integer> entry : numLenList) {
-                System.out.println(entry.getKey() + SEPARATOR + entry.getValue());
-            }
+            SortedMap<Integer, Integer> sortedMapNumLen = new TreeMap<>(new NumMapComparator(numLenMap));
+            sortedMapNumLen.putAll(numLenMap);
+            printCollection(sortedMapNumLen.entrySet());
         } catch (FileNotFoundException e) {
             System.out.println(FILE_NOT_FOUND);
+        }
+    }
+
+    private static void printCollection(Collection<Map.Entry<Integer, Integer>> entrySet) {
+        for (Map.Entry<Integer, Integer> pair : entrySet) {
+            System.out.println(pair.getKey() + SPLITTER + pair.getValue());
         }
     }
 }
