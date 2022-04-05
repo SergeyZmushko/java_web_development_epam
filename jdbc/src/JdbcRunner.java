@@ -20,6 +20,9 @@ public class JdbcRunner {
                     NumLen numLen = new NumLen(rs.getInt(1), rs.getInt(2));
                     numLenList.add(numLen);
                 }
+                for (NumLen numLen : numLenList){
+                    System.out.println(numLen);
+                }
                 //2
                 st.executeUpdate(SQL_DELETE_FROM_FREQUENCIES);
                 //3
@@ -33,7 +36,7 @@ public class JdbcRunner {
 
                 rs = st.executeQuery(SQL_SELECT_FROM_FREQUENCIES_LEN_MORE_NUM);
                 while (rs.next()) {
-                    System.out.println(rs.getInt(1) + ARROW + rs.getInt(2));
+                    System.out.println(rs.getInt(1) + SPLITTER + rs.getInt(2));
                 }
             } finally {
                 if (rs != null && !rs.isClosed()) {

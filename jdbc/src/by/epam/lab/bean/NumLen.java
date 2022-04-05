@@ -1,5 +1,7 @@
 package by.epam.lab.bean;
 
+import by.epam.lab.utils.Constants;
+
 public class NumLen {
     private final int len;
     private final int num;
@@ -19,6 +21,6 @@ public class NumLen {
 
     @Override
     public String toString() {
-        return len + ";" + num;
+        return len + Constants.SPLITTER + num;
     }
 }

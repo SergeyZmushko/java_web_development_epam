@@ -9,5 +9,5 @@ public class Constants {
     public final static String SQL_DELETE_FROM_FREQUENCIES = "delete from frequencies";
     public final static String SQL_INSERT_INTO_FREQUENCIES = "insert into frequencies (len, num) values (?, ?)";
     public final static String SQL_SELECT_FROM_FREQUENCIES_LEN_MORE_NUM = "SELECT * FROM frequencies where len > num";
-    public final static String ARROW = " => ";
+    public final static String SPLITTER = ";";
     }
