@@ -12,4 +12,5 @@ public class Constants {
     public final static String SPLITTER = ";";
     public final static int LEN_IND = 1;
     public final static int NUM_IND = 2;
+
 }

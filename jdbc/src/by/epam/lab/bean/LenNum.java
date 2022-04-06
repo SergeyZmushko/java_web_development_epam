@@ -19,6 +19,7 @@ public class LenNum {
         return num;
     }
 
+
     @Override
     public String toString() {
         return len + Constants.SPLITTER + num;
