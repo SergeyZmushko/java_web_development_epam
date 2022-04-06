@@ -2,11 +2,11 @@ package by.epam.lab.bean;
 
 import by.epam.lab.utils.Constants;
 
-public class NumLen {
+public class LenNum {
     private final int len;
     private final int num;
 
-    public NumLen(int len, int num){
+    public LenNum(int len, int num){
         this.len = len;
         this.num = num;
     }
