@@ -374,7 +374,7 @@ void methodThrowsSomeRuntimeException() {
         throw new SomeRuntimeException();
         ...
     }
-    ```
+    ```  
 **Источник**  
  
 46. Является ли данный код антипаттерном?   
@@ -385,7 +385,7 @@ void methodThrowsSomeRuntimeException() throws SomeRuntimeException {
         	throw new SomeRuntimeException();
         	...
 }
-```
+```  
 **Ответ.**  
 Да, так как runtime исключения являются не проверяемыми, а объявление его в имени метода с помощью слова `throws` обязывает код использующий данный метод обработать его.  
 **Источник**  
