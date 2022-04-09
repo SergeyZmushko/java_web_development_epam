@@ -243,7 +243,7 @@ https://docs.oracle.com/javase/tutorial/essential/exceptions/creating.html
  
 35. Какой класс исключений может использоваться в качестве суперкласса для собственного исключения?  
 **Ответ.**  
-Exceptions и наследующие его  
+Exceptions и наследующие его
 **Источник**  
 https://docs.oracle.com/javase/tutorial/essential/exceptions/creating.html 
  
