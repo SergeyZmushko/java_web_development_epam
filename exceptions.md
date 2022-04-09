@@ -356,7 +356,7 @@ void methodThrowsSomeCheckedException() throws SomeCheckedException {
     public static void main(String[] args) {
         int i = 1 / 0;
     }
-    ```
+```
 **Источник**  
  
 45. Можно ли отрефакторить данный код? Если да, то выполните.  
