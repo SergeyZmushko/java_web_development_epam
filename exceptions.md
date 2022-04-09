@@ -369,12 +369,12 @@ void methodThrowsSomeRuntimeException() {
 ```
 **Ответ.**  
     ```java
-    void methodThrowsSomeRuntimeException() {
-        ...
-        throw new SomeRuntimeException();
-        ...
-    }
-    ```  
+    void methodThrowsSomeRuntimeException() {  
+        ...  
+        throw new SomeRuntimeException();  
+        ...  
+    }  
+    ```   
 **Источник**  
  
 46. Является ли данный код антипаттерном?   
