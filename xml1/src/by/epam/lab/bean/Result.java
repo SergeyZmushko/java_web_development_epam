@@ -1,4 +1,8 @@
 package by.epam.lab.bean;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import static by.epam.lab.util.Constants.*;
 
 public class Result {
@@ -18,11 +22,15 @@ public class Result {
         this.mark = mark;
     }
 
-    public Result(String login, String test, String date, String mark) {
-        this.login = login;
-        this.test = test;
-        this.date = new Date(date);
-        setMark(mark);
+    public Result(String login, String test, String date, String mark) throws ParseException {
+        this(login, test, INPUT_DATE_FORMAT.parse(date), (int) (Double.parseDouble(mark) * 10));
+    }
+
+    private final static SimpleDateFormat OUTPUT_DATE_FORMAT = new SimpleDateFormat(OUTPUT_DATE);
+    private final static SimpleDateFormat INPUT_DATE_FORMAT = new SimpleDateFormat(INPUT_DATE);
+
+    public String getStringDate(){
+        return OUTPUT_DATE_FORMAT.format(date);
     }
 
     public void setLogin(String login) {
@@ -33,7 +41,7 @@ public class Result {
         this.test = test;
     }
 
-    public void setDate(Date date) {
+    public void setDate(java.util.Date date) {
         this.date = date;
     }
 
@@ -47,7 +55,7 @@ public class Result {
     }
 
     private String getStringMark(){
-        return String.format(MARK_FORMAT, mark / 10, mark % 10);
+        return (mark / 10) + DOT + (mark % 10);
     }
 
     public String getLogin() {
@@ -67,6 +75,6 @@ public class Result {
     }
 
     public String toString(){
-        return login + SEPARATOR_SEMICOLON + test + SEPARATOR_SEMICOLON + date + SEPARATOR_SEMICOLON + getStringMark();
+        return login + SEPARATOR_SEMICOLON + test + SEPARATOR_SEMICOLON + getStringDate() + SEPARATOR_SEMICOLON + getStringMark();
     }
 }
