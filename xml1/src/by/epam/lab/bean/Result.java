@@ -75,6 +75,6 @@ public class Result {
     }
 
     public String toString(){
-        return login + SEPARATOR_SEMICOLON + test + SEPARATOR_SEMICOLON + getStringDate() + SEPARATOR_SEMICOLON + getStringMark();
+        return login + DELIMITER + test + DELIMITER + getStringDate() + DELIMITER + getStringMark();
     }
 }
