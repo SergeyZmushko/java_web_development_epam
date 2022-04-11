@@ -1,5 +1,5 @@
 package by.epam.lab.bean;
-import java.text.ParseException;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -11,26 +11,21 @@ public class Result {
     private Date date;
     private int mark;
 
-    public Result(){
+    private final static SimpleDateFormat OUTPUT_DATE_FORMAT = new SimpleDateFormat(OUTPUT_DATE);
 
-    }
-
-    public Result(String login, String test, Date date, int mark) {
+    public Result(String login, String test, String date, String mark) {
         this.login = login;
         this.test = test;
-        this.date = date;
-        this.mark = mark;
+        this.date = java.sql.Date.valueOf(date);
+        this.mark = (int) (Double.parseDouble(mark) * TEN);
     }
 
-    public Result(String login, String test, String date, String mark) throws ParseException {
-        this(login, test, INPUT_DATE_FORMAT.parse(date), (int) (Double.parseDouble(mark) * 10));
-    }
-
-    private final static SimpleDateFormat OUTPUT_DATE_FORMAT = new SimpleDateFormat(OUTPUT_DATE);
-    private final static SimpleDateFormat INPUT_DATE_FORMAT = new SimpleDateFormat(INPUT_DATE);
-
-    public String getStringDate(){
+    private String getStringDate() {
         return OUTPUT_DATE_FORMAT.format(date);
+    }
+
+    private String getStringMark() {
+        return (mark / TEN) + DOT + (mark % TEN);
     }
 
     public void setLogin(String login) {
@@ -49,15 +44,6 @@ public class Result {
         this.mark = mark;
     }
 
-    public void setMark(String mark){
-        double dMark = Double.parseDouble(mark);
-        this.mark = (int)(dMark * 10);
-    }
-
-    private String getStringMark(){
-        return (mark / 10) + DOT + (mark % 10);
-    }
-
     public String getLogin() {
         return login;
     }
@@ -74,7 +60,7 @@ public class Result {
         return mark;
     }
 
-    public String toString(){
+    public String toString() {
         return login + DELIMITER + test + DELIMITER + getStringDate() + DELIMITER + getStringMark();
     }
 }

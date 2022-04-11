@@ -9,17 +9,17 @@ import javax.xml.parsers.SAXParserFactory;
 import java.io.IOException;
 
 public class Runner {
-    public static void main(String[] args){
+    public static void main(String[] args) {
         try {
             SAXParserFactory factory = SAXParserFactory.newInstance();
             SAXParser parser = factory.newSAXParser();
             XMLHandler xmlHandler = new XMLHandler();
             parser.parse(Constants.FILE_NAME, xmlHandler);
-            for (Result result : xmlHandler.getResults()){
+            for (Result result : xmlHandler.getResults()) {
                 System.out.println(result);
             }
-        }catch (SAXException | IOException | ParserConfigurationException e){
-            e.printStackTrace();
+        } catch (SAXException | IOException | ParserConfigurationException e) {
+            System.err.println(e);
         }
     }
 }

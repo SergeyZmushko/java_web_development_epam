@@ -2,11 +2,10 @@ package by.epam.lab.service;
 
 import by.epam.lab.bean.Result;
 import org.xml.sax.Attributes;
-import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
+
 import static by.epam.lab.util.Constants.*;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,26 +22,18 @@ public class XMLHandler extends DefaultHandler {
         return results;
     }
 
-    public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+    public void startElement(String uri, String localName, String qName, Attributes attributes) {
         currentEnum = ResultEnum.valueOf(qName.toUpperCase());
         if (currentEnum == ResultEnum.TEST) {
-            try {
-                Result result = new Result(currentLogin,
-                        attributes.getValue(TEST_INDEX),
-                        attributes.getValue(DATE_INDEX),
-                        attributes.getValue(MARK_INDEX));
-                results.add(result);
-            } catch (ParseException e) {
-                throw new IllegalArgumentException(e);
-            }
-
+            results.add(new Result(currentLogin, attributes.getValue(TEST_INDEX),
+                    attributes.getValue(DATE_INDEX), attributes.getValue(MARK_INDEX)));
         }
     }
 
     public void characters(char[] ch, int start, int length) {
         if (currentEnum == ResultEnum.LOGIN) {
             String str = new String(ch, start, length).trim();
-            if (!str.isEmpty()){
+            if (!str.isEmpty()) {
                 currentLogin = str;
             }
         }
