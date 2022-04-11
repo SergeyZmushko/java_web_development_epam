@@ -17,7 +17,7 @@ public class Result {
         this.login = login;
         this.test = test;
         this.date = java.sql.Date.valueOf(date);
-        this.mark = (int) (Double.parseDouble(mark) * TEN);
+        this.mark = (int) (Double.parseDouble(mark) * FORMAT_COEFFICIENT);
     }
 
     private String getStringDate() {
@@ -25,7 +25,7 @@ public class Result {
     }
 
     private String getStringMark() {
-        return (mark / TEN) + DOT + (mark % TEN);
+        return (mark / FORMAT_COEFFICIENT) + DOT + (mark % FORMAT_COEFFICIENT);
     }
 
     public void setLogin(String login) {
