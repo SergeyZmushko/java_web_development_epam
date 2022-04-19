@@ -2,7 +2,6 @@ package by.epam.lab.bean;
 
 import java.sql.Date;
 
-
 public class Test {
     private String login;
     private String test;

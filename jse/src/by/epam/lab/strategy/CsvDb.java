@@ -1,22 +1,17 @@
-package by.epam.lab.CSV;
-
-import by.epam.lab.DBConnection.DB;
+package by.epam.lab.strategy;
 
 import by.epam.lab.bean.Test;
-import by.epam.lab.util.Constants;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-public class ParseCSV implements CsvDAO {
-
+public class CsvDb extends Config {
     @Override
-    public void insertStudents() throws SQLException, ClassNotFoundException {
-        DB db = new DB();
+    public void fillDb(String filename) throws SQLException, ClassNotFoundException {
         db.clearTables();
-        try (Scanner sc = new Scanner(new FileReader(Constants.FILE_NAME_CSV_1))){
+        try (Scanner sc = new Scanner(new FileReader(filename))){
             while (sc.hasNextLine()) {
                 String[] str = sc.nextLine().split(";");
                 Test test = new Test(str[0], str[1], str[2], str[3]);
@@ -27,8 +22,3 @@ public class ParseCSV implements CsvDAO {
         }
     }
 }
-
-
-
-
-

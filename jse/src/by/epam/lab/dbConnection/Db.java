@@ -1,4 +1,4 @@
-package by.epam.lab.DBConnection;
+package by.epam.lab.dbConnection;
 
 import by.epam.lab.bean.Test;
 import by.epam.lab.util.DBConstants;
@@ -9,7 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 
-public class DB implements DBConnect {
+public class Db implements DBConnect {
 
     public Connection getDBConnect() throws ClassNotFoundException, SQLException {
         Class.forName(DBConstants.CLASS_NAME);

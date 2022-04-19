@@ -1,6 +1,7 @@
-package by.epam.lab.XML;
+package by.epam.lab.handler;
 
 import by.epam.lab.bean.Test;
+import by.epam.lab.dbConnection.Db;
 import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
 import static by.epam.lab.util.Constants.*;

@@ -1,4 +1,4 @@
-package by.epam.lab.DBConnection;
+package by.epam.lab.dbConnection;
 
 import by.epam.lab.bean.Test;
 
