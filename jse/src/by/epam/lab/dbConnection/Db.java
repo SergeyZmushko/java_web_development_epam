@@ -2,12 +2,10 @@ package by.epam.lab.dbConnection;
 
 import by.epam.lab.bean.Test;
 import by.epam.lab.util.DBConstants;
+
 import static by.epam.lab.util.DBConstants.*;
 
 import java.sql.*;
-import java.util.LinkedList;
-import java.util.List;
-
 
 public class Db implements DBConnect {
 
@@ -42,43 +40,15 @@ public class Db implements DBConnect {
         st.executeUpdate(SQL_SET_FK_1);
     }
 
-    public void printMeanMark() throws SQLException, ClassNotFoundException {
+    public ResultSet getMeanMarkRequest() throws SQLException, ClassNotFoundException {
         Statement st = getDBConnect().createStatement();
-        ResultSet resultSet = st.executeQuery(SQL_SELECT_AVG_MARK);
-        while (resultSet.next()){
-            String login = resultSet.getString(LOGIN_IND);
-            double avgMark = resultSet.getDouble(AVG_MARK_IND);
-            System.out.println(login + ":" + avgMark);
-        }
+        return st.executeQuery(SQL_SELECT_AVG_MARK);
     }
 
-    public LinkedList<Test> getSortedDateList() throws SQLException, ClassNotFoundException {
-        LinkedList<Test> sortedDateList = new LinkedList<>();
+    public ResultSet getSortedDateListRequest() throws SQLException, ClassNotFoundException {
         Statement st = getDBConnect().createStatement();
-        ResultSet resultSet = st.executeQuery(SQL_SELECT_CURRENT_MONTH_ASC);
-        while (resultSet.next()){
-            Test test = new Test(resultSet.getString(LOGIN_IND),
-                    resultSet.getString(TEST_IND),
-                    resultSet.getDate(DATE_IND),
-                    resultSet.getInt(MARK_IND));
-            sortedDateList.add(test);
-        }
-        return sortedDateList;
+        return st.executeQuery(SQL_SELECT_CURRENT_MONTH_ASC);
     }
-
-    public void printList(List<Test> tests){
-        for (Test test : tests){
-            System.out.println(test);
-        }
-    }
-
-    public void printLatestDayResult(LinkedList<Test> tests){
-        if (!tests.isEmpty()){
-            System.out.println(tests.getLast());
-        }
-    }
-
-
 }
 
 

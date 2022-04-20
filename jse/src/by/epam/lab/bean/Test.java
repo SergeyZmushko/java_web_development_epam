@@ -2,13 +2,15 @@ package by.epam.lab.bean;
 
 import java.sql.Date;
 
-public class Test {
-    private String login;
-    private String test;
-    private Date date;
-    private int mark;
+import static by.epam.lab.util.Constants.*;
 
-    public Test(String login, String test, Date date, int mark){
+public class Test {
+    private final String login;
+    private final String test;
+    private final Date date;
+    private final int mark;
+
+    public Test(String login, String test, Date date, int mark) {
         this.login = login;
         this.test = test;
         this.date = date;
@@ -19,7 +21,11 @@ public class Test {
         this.login = login;
         this.test = test;
         this.date = Date.valueOf(date);
-        this.mark = Integer.parseInt(mark);
+        this.mark = (int) (Double.parseDouble(mark) * FORMAT_COEFFICIENT);
+    }
+
+    private String getStringMark() {
+        return (mark / FORMAT_COEFFICIENT + DOT + mark % FORMAT_COEFFICIENT).replaceAll(REPLACE_REGEX, REPLACEMENT);
     }
 
     public String getLogin() {
@@ -38,7 +44,7 @@ public class Test {
         return mark;
     }
 
-    public String toString(){
-        return login + ";" + test + ';' + date + ";" + mark;
+    public String toString() {
+        return login + DELIMITER + test + DELIMITER + date + DELIMITER + getStringMark();
     }
 }

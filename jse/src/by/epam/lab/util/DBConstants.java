@@ -22,7 +22,7 @@ public class DBConstants {
     public final static String SQL_TRUNCATE_RESULTS = "truncate TABLE results";
     public final static String SQL_TRUNCATE_LOGINS = "truncate TABLE logins";
     public final static String SQL_TRUNCATE_TESTS = "truncate TABLE tests";
-    public final static String SQL_SELECT_AVG_MARK = "Select name, format(avg(mark), 2) as avg\n" +
+    public final static String SQL_SELECT_AVG_MARK = "Select name, format((avg(format(mark, 2)) / 10), 2) as avg\n" +
             "From logins, results\n" +
             "where logins.idLogin = results.loginId\n" +
             "group by loginId\n" +
