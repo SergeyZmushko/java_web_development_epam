@@ -9,7 +9,6 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
-import static by.epam.lab.util.Constants.COLON;
 import static by.epam.lab.util.DBConstants.*;
 
 public abstract class Config implements DbStrategy {
@@ -20,12 +19,12 @@ public abstract class Config implements DbStrategy {
 
     @Override
     public void printMeanMarks() throws SQLException, ClassNotFoundException {
-        System.out.println("Print mean Mark ");
+        System.out.println("Print mean mark");
         ResultSet resultSet = db.getMeanMarkRequest();
         while (resultSet.next()) {
             String login = resultSet.getString(LOGIN_IND);
             double avgMark = resultSet.getDouble(AVG_MARK_IND);
-            System.out.println(login + COLON + avgMark);
+            System.out.printf("%s:%.2f\n", login, avgMark);
         }
     }
 

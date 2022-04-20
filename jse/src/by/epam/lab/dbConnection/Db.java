@@ -7,7 +7,7 @@ import static by.epam.lab.util.DBConstants.*;
 
 import java.sql.*;
 
-public class Db implements DBConnect {
+public class Db {
 
     public Connection getDBConnect() throws ClassNotFoundException, SQLException {
         Class.forName(DBConstants.CLASS_NAME);
