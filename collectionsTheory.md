@@ -193,7 +193,6 @@ Object[] toArray() - возвращает только Object;
 <T> T[] toArray(T[] a) - возвращает конкретный тип	 
 **Источник.**   
 
-	
 В описании методов интерфейсов коллекций в JavaDoc есть методы, помеченные фразой “optional operation”. \
 
 Modifier and Type	Method and Description\
@@ -206,55 +205,84 @@ Removes all of the elements from this collection (optional operation).\
 
 Как это понимать?\
 **Ответ.**   
+эти необязательные операции возвращаются к общему интерфейсу Collection, где операции становятся необязательными, что не имеет смысла для некоторых видов коллекций. Например. add - операция, которая не очень полезна для какой-либо коллекции только для чтения. Это четко изложено в Javadoc, поэтому оно становится частью того, что предлагают все классы коллекций, но кто-то, кто его использует, знает, что, учитывая некоторую коллекцию, они точно не знают, может быть, что метод просто бросает UnsupportedOperationException.
 **Источник.**   
+https://overcoder.net/q/455077/%D1%87%D1%82%D0%BE-%D0%BE%D0%B7%D0%BD%D0%B0%D1%87%D0%B0%D0%B5%D1%82-%D0%BD%D0%B5%D0%BE%D0%B1%D1%8F%D0%B7%D0%B0%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D0%B0%D1%8F-%D0%BE%D0%BF%D0%B5%D1%80%D0%B0%D1%86%D0%B8%D1%8F-%D0%B2-javadoc-%D0%BD%D0%B0%D0%BF%D1%80%D0%B8%D0%BC%D0%B5%D1%80-set-add-e
 
 Какую математическую сущность моделирует интерфейс Set?\
 **Ответ.**   
+Он моделирует математическое представление множество.
 **Источник.**   
+https://docs.oracle.com/javase/tutorial/collections/interfaces/index.html
 
 Какое основное свойство всех имплементаций интерфейса Set, т.е. что их объединяет независимо от имплементации?\
 **Ответ.**   
+это Collection, который не может содержать повторяющиеся элементы
 **Источник.**   
+https://docs.oracle.com/javase/tutorial/collections/interfaces/index.html
 
 Может ли множество содержать null элемент?\
 **Ответ.**   
+Null values in a Set object
+As per the definition a set object does not allow duplicate values but it does allow at most one null value.
+
+Null values in HashSet − The HashSet object allows null values but, you can add only one null element to it. Though you add more null values if you try to print its contents, it displays only one null.
+
+Null values in LinkedHashSet: Just like the HashSet object, this also allows null values but, you can add only one null element to it. Though you add more null values if you try to print its contents, it displays only one null.
+
+Null values in TreeSet − The TreeSet object doesn’t allows null values but, If you try to add them, a runtime exception will be generated at.
 **Источник.**   
+https://www.tutorialspoint.com/can-we-add-null-elements-to-a-set-in-java
 
 Есть ли отношение следования (предыдущий, текущий, следующий элемент) в множестве?\
 Если нет, то есть ли у множества итератор? \
 **Ответ.**   
+Отношения следования нету. Итератор есть.
 **Источник.**   
 
 Как получить элемент множества по индексу?\
 **Ответ.**   
+никак. Это связано с тем, что порядок элементов во множестве не определён.
 **Источник.**   
 
 Как реализован метод add() во множестве?\
 **Ответ.**   
+
 **Источник.**   
 
 Какая группа методов увеличилась в интерфейсе Set по сравнению с интерфейсом Collection?\
 Какие методы добавились?\
 **Ответ.**   
-**Источник.**   
+ The Set interface contains only methods inherited from Collection
+**Источник.**
+https://docs.oracle.com/javase/tutorial/collections/interfaces/set.html
 
 Зависит ли множество, как структура данных, от имплементации?\
 Обоснуйте ответ. \
 **Ответ.**   
+ В множествах Set каждый элемент хранится только в одном экземпляре, а разные реализации Set используют разный порядок хранения элементов. В HashSet порядок элементов определяется по сложному алгоритму. Если порядок хранения для вас важен, используйте контейнер TreeSet, в котором объекты хранятся отсортированными по возрастанию в порядке сравнения или LinkedHashSet с хранением элементов в порядке добавления.
 **Источник.**   
-
+http://developer.alexanderklimov.ru/android/java/set.php
 
 Какие методы должны быть переопределены в классе, которым параметризовано множество, чтобы гарантировать правильную работу HashSet имплементации?\
 **Ответ.**   
+hashCode() и equals();
 **Источник.**   
 
 Какие соглашения установлены для переопределения метода hashCode()?\
 **Ответ.**   
+1) Если два объекта равны (т. е. метод equals() возвращает true), у них должен быть одинаковый хэш-код.
+2) Если метод hashCode() вызывается несколько раз на одном и том же объекте, каждый раз он должен возвращать одно и то же число.
+3) Одинаковый хэш-код может быть у двух разных объектов. 
 **Источник.**   
+https://training.by/#!/News/339?lang=ru
 
 Почему недостаточно переопределить один только метод hashCode()?\
 **Ответ.**   
-**Источник.**   
+Мы должны переопределить hashCode() в каждом классе, который переопределяет equals(). Несоблюдение этого требования приведет к нарушению общего договора для Object.hashCode(), что предотвратит правильное функционирование  класса в сочетании со всеми коллекциями на основе хешей, включая HashMap, HashSet и Hashtable.  
+Если мы только переопределяем hashCode, то при вызове метода .put(first,someValue) он берет сначала, вычисляет его hashCode и сохраняет его в таблице. Затем, когда мы вызываем .put(second,someOtherValue), он должен сначала заменить второй на Map Documentation, потому что они равны (согласно бизнес-требованиям).
+**Источник.** 
+  https://overcoder.net/q/22728/%D0%BF%D0%BE%D1%87%D0%B5%D0%BC%D1%83-%D0%BC%D0%BD%D0%B5-%D0%BD%D1%83%D0%B6%D0%BD%D0%BE-%D0%BF%D0%B5%D1%80%D0%B5%D0%BE%D0%BF%D1%80%D0%B5%D0%B4%D0%B5%D0%BB%D0%B8%D1%82%D1%8C-%D0%BC%D0%B5%D1%82%D0%BE%D0%B4%D1%8B-equals-%D0%B8-hashcode-%D0%B2-java
 
 Являются ли приведенная реализация hashCode() допустимой (в смысле будут ли правильно выполняться все операции над множеством)?\
 ```java
@@ -264,6 +292,7 @@ return 22;
 }
 ```
 **Ответ.**   
+нет.
 **Источник.**   
 
 Являются ли приведенная реализация hashCode() допустимой (в смысле будут ли правильно выполняться все операции над множеством HashSet<Entity>)?\
@@ -292,20 +321,24 @@ public int hashCode() {
 }
 ```
 **Ответ.**   
+Да.
 **Источник.**   
 
 Какие методы должны быть переопределены в классе, которым параметризовано множество, чтобы гарантировать правильную работу TreeSet имплементации?\
 **Ответ.**   
+equals(), hashCode(), compareTo()
 **Источник.**   
 
 В чем заключается актуальность внешнего компаратора?\
 **Ответ.**   
+Нет необходимости переопределять методы equals() и hashCode()
 **Источник.**   
 
 Дана следующая коллекция:\
 Collection<Entity> entities = …;\
 Приведите идиому, позволяющую оставить только уникальные элементы в коллекции при условии правильной реализации класса Entity. \
 **Ответ.**   
+Set<Entity> ent = new HashSet<>(entitis); 
 **Источник.**   
 
 Какую математическую сущность моделирует интерфейс List?\
