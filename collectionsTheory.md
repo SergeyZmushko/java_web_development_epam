@@ -458,15 +458,21 @@ https://docs.oracle.com/javase/tutorial/collections/interfaces/queue.html
 
 Какую математическую сущность моделирует интерфейс Map?\
 **Ответ.**   
+математическую функцию
 **Источник.**   
+https://docs.oracle.com/javase/tutorial/collections/interfaces/map.html
 
 Какое основное свойство всех имплементаций интерфейса Map, т.е. что их объединяет независимо от имплементации?\
 **Ответ.**   
-**Источник.**   
+ В Map мы добавляем не отдельные объекты, а пары объектов (ключ, значение). Доступ к значению в коллекции получаем по ключу.
+**Источник.**
+   https://docs.oracle.com/javase/tutorial/collections/interfaces/map.html
 
 Реализует ли Map интерфейс Collection?\
 **Ответ.**   
+нет
 **Источник.**   
+https://docs.oracle.com/javase/tutorial/collections/interfaces/index.html
 
 Какую структуру данных представляет собой совокупность \
 •	ключей; \
@@ -474,34 +480,61 @@ https://docs.oracle.com/javase/tutorial/collections/interfaces/queue.html
 •	пар ключ-значение\
 любой имплементации Map?\
 **Ответ.**   
+ключей - Set ключей
+Значений - Collection значений, содержащихся в Map. Эта Collection не Set;
+пар ключ-значение - Set пар ключ-значение. 
 **Источник.**   
+https://docs.oracle.com/javase/tutorial/collections/interfaces/map.html
 
 Какие группы операций определены в интерфейсе Map?\
 **Ответ.**   
+- basic operations of Map (put, get, containsKey, containsValue, size, and isEmpty);  
+- bulk operations of Map (putAll and clear);  
+- collection veiws (keySet, entrySet, values);
 **Источник.**   
+https://docs.oracle.com/javase/tutorial/collections/interfaces/map.html
 
 Какой интерфейс представляет мультикарту (multimap) в Collections Framework?\
 **Ответ.**   
+Платформа Java Collections Framework не включает интерфейс для multimaps
 **Источник.**   
+https://docs.oracle.com/javase/tutorial/collections/interfaces/map.html
 
 Дана карта:\
 Map<K, V> map = …;\
 Приведите идиому для выполнения метода void doAction(K key, V value) со всеми элементами карты.\
 **Ответ.**   
+```java
+for (Map.Entry<KeyType, ValType> e : m.entrySet())
+    doAction(e.getKey(), e.getValue());
+```
 **Источник.**   
+https://docs.oracle.com/javase/tutorial/collections/interfaces/map.html
 
 Дана карта:\
 Map<K, V> map = …;\
 в которой нет элементов со значением null.\
 Приведите идиому для выполнения метода void doAction(V value) с элементом map, заданным ключом K key.\
 **Ответ.**   
+```java
+V value = map.get(key);
+if(value != null) {
+	doAction(value);
+}
+```
 **Источник.**   
+
 
 Дана карта:\
 Map<K, V> map = …;\
 в которой есть элементы со значением null.\
 Приведите идиому для выполнения метода void doAction(V value) с элементом map, заданным ключом K key.\
 **Ответ.**   
+```java
+if(map.contains(key)) {
+	doAction(value);
+}
+```
 **Источник.**   
 
 Можно ли отрефакторить следующий код? \
@@ -516,27 +549,53 @@ Map<K, V> map = …;\
         }
 ```
 **Ответ.**   
+```java
+       Purchase purchase = new Purchase("meat", new Byn(100), 10);
+       for (Map.Entry<Purchase, WeekDay> entry: purchaseWeekDayMap.entrySet()) {
+            if (entry.containsKey(purchase)) {
+                System.out.println(entry.getKey());
+                break;
+            }
+        }
+```
 **Источник.**   
 
 Что возвращает метод put интерфейса Map?\
 **Ответ.**   
+Вставляет запись в вызываемую карту, перезаписывая любое предыдущее значение, связанное с ключом. Ключ и значения соответствуют k и v. Возвращает ноль, если ключ ещё не существует. В противном случае возвращается предыдущее значение, связанное с ключом.
 **Источник.**   
+http://proglang.su/java/map-interface
 
 Почему интерфейс Map не расширяет интерфейс Collection в Java Collections Framework?\
 **Ответ.**   
+Коллекция принимает элементы одного значения. Карта принимает записи пар ключ/значение. Они могли бы быть спроектированы для повторного использования одного и того же общего интерфейса, однако некоторые методы, которые они реализуют, несовместимы, например.
+Collection.remove(Object) - removes an element.
+Map.remove(Object) - removes by key, not by entry.
 **Источник.**   
+https://overcoder.net/q/544206/%D0%BF%D0%BE%D1%87%D0%B5%D0%BC%D1%83-map-%D0%BD%D0%B5-%D1%80%D0%B0%D1%81%D1%88%D0%B8%D1%80%D1%8F%D0%B5%D1%82-%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D1%84%D0%B5%D0%B9%D1%81-collection-duplicate
 
 Дайте определение понятию имплементация (Implementation) в контексте Collections Framework.\
 **Ответ.**   
+это объекты данных, используемые для хранения коллекций, которые реализуют интерфейсы, описанные в разделе Интерфейсы.
 **Источник.**   
+https://docs.oracle.com/javase/tutorial/collections/implementations/index.html
 
 Какие виды имплементаций можно выделить?\
 **Ответ.**   
+General-purpose implementations are the most commonly used implementations, designed for everyday use. They are summarized in the table titled General-purpose-implementations.
+Special-purpose implementations are designed for use in special situations and display nonstandard performance characteristics, usage restrictions, or behavior.
+Concurrent implementations are designed to support high concurrency, typically at the expense of single-threaded performance. These implementations are part of the java.util.concurrent package.
+Wrapper implementations are used in combination with other types of implementations, often the general-purpose ones, to provide added or restricted functionality.
+Convenience implementations are mini-implementations, typically made available via static factory methods, that provide convenient, efficient alternatives to general-purpose implementations for special collections (for example, singleton sets).
+Abstract implementations are skeletal implementations that facilitate the construction of custom implementations — described later in the Custom Collection Implementations section. An advanced topic, it's not particularly difficult, but relatively few people will need to do it.
 **Источник.**   
+https://docs.oracle.com/javase/tutorial/collections/implementations/index.html
 
 На что влияет выбор имплементации?\
 **Ответ.**   
+на производительность
 **Источник.**   
+https://docs.oracle.com/javase/tutorial/collections/implementations/index.html
 
 Идиома создания пустой коллекции имеет следующий вид: \
 SomeInterface<Entity> entities = new SuitableImplementation<>();\
@@ -545,13 +604,20 @@ SomeInterface<Entity> entities = new SuitableImplementation<>();\
 
 Почему в левой части идиомы используется ссылка на интерфейс, а не на имплементацию?\
 **Ответ.**   
+Это дает возможноть в любой момент изменить реализацию в любое время, внеся изменения только в одной части программы
 **Источник.**   
+https://docs.oracle.com/javase/tutorial/collections/implementations/index.html
 
 Укажите наиболее часто используемые имплементации для интерфейсов Collections Framework, а также структуру данных, которая поддерживается данной имплементацией. \
 Результат представьте в виде таблицы:\
 Interface	Implementation	Abstract Data Type\
 -----------------------------------------------------------------------\
 **Ответ.**   
+Set         HashSet          set  
+List        ArrayList        dynamic array (sequence)  
+Queue       LinkedList       fifo(queue)  
+Deque       ArrayDeque       lifo (stack)  
+Map         HashMap          map  
 **Источник.**   
 
 Приведите идиому создания очереди. \
@@ -566,51 +632,81 @@ Xxx<Integer> stack = ...;\
 Xxx - это подходящий интерфейс.\
 Добавьте 3 элемента и удалите 1, выведя содержимое на консоль. \
 **Ответ.**   
+```java
+        Deque<Integer> stack = new ArrayDeque<>();
+        stack.offer(1);
+        stack.offer(2);
+        stack.offer(3);
+        stack.poll();
+        System.out.println(Arrays.toString(stack.toArray()));
+```
 **Источник.**   
 
 Когда целесообразно использовать реализацию TreeSet вместо HashSet?\
 **Ответ.**   
+В случае, когда объекты в коллекции должны находиться в отсортированном порядке.
 **Источник.**   
 
 Опишите неупорядоченные реализации Map.\
 **Ответ.**   
+HashMap
 **Источник.**   
+https://docs.oracle.com/javase/tutorial/collections/interfaces/map.html
 
 Опишите упорядоченные реализации Map.\
 **Ответ.**   
+TreeMap, LinkedHashMap
 **Источник.**   
+https://docs.oracle.com/javase/tutorial/collections/interfaces/map.html
 
 Чем отличается ArrayList и LinkedList?\
 **Ответ.**   
+ArrayList это список, реализованный на основе массива, а LinkedList — это классический связный список, основанный на объектах с ссылками между ними.
 **Источник.**   
+https://habr.com/ru/post/162017/
 
 Что такое вычислительная сложность операции (алгоритма)?\
 **Ответ.**   
+Обозначает функцию зависимости объёма работы, которая выполняется некоторым алгоритмом, от размера входных данных
 **Источник.**   
+https://ru.wikipedia.org/wiki/%D0%92%D1%8B%D1%87%D0%B8%D1%81%D0%BB%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D0%B0%D1%8F_%D1%81%D0%BB%D0%BE%D0%B6%D0%BD%D0%BE%D1%81%D1%82%D1%8C
 
 Укажите вычислительную сложность для операций получения элемента по индексу, поиска, вставки и удаления, для основных коллекций.\
 **Ответ.**   
+
 **Источник.**   
  
 В чем разница между интерфейсами Comparable и Comparator?\
 **Ответ.**   
+Интерфейс Comparable используется только для сравнения объектов класса, в котором данный интерфейс реализован. Т.е. interface Comparable определяет логику сравнения объекта определенного ссылочного типа внутри своей реализации (по правилам разработчика).
+
+Comparator представляет отдельную реализацию и ее можно использовать многократно и с различными классами. Т.е. interface Comparator позволяет создавать объекты, которые будут управлять процессом сравнения (например при сортировках).
 **Источник.**   
+https://java-online.ru/blog-comparator.xhtml#:~:text=interface%20Comparable%20%D0%BE%D0%BF%D1%80%D0%B5%D0%B4%D0%B5%D0%BB%D1%8F%D0%B5%D1%82%20%D0%BB%D0%BE%D0%B3%D0%B8%D0%BA%D1%83%20%D1%81%D1%80%D0%B0%D0%B2%D0%BD%D0%B5%D0%BD%D0%B8%D1%8F,%D0%BC%D0%BD%D0%BE%D0%B3%D0%BE%D0%BA%D1%80%D0%B0%D1%82%D0%BD%D0%BE%20%D0%B8%20%D1%81%20%D1%80%D0%B0%D0%B7%D0%BB%D0%B8%D1%87%D0%BD%D1%8B%D0%BC%D0%B8%20%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%B0%D0%BC%D0%B8.
 
 В чем разница между Iterator и ListIterator?\
 **Ответ.**   
+Основное различие между Iterator и ListIterator заключается в том, что Iterator может проходить элементы в коллекции только в прямом направлении, тогда как ListIterator может проходить элементы в коллекции как в прямом, так и в обратном направлении.
 **Источник.**   
+https://ru.gadget-info.com/difference-between-iterator 
 
 Почему в классе Iterator нет метода для получения следующего элемента без передвижения курсора?\
 **Ответ.**   
+Итератор похож на указатель своими основными операциями: он указывает на отдельный элемент коллекции объектов (предоставляет доступ к элементу) и содержит функции для перехода к другому элементу списка (следующему или предыдущему). Контейнер, который реализует поддержку итераторов, должен предоставлять первый элемент списка, а также возможность проверить, перебраны ли все элементы контейнера (является ли итератор конечным). Таким образом без курсора просто нельзя будет реализовать безошибочное передвижение по коллекции.
 **Источник.**   
+https://javastudy.ru/interview/collections/
 
 Назовите высокопроизводительные реализации Set для перечислимых типов (enum)?\
 **Ответ.**   
+EnumSet<>
 **Источник.**   
+https://hr-vector.com/java/enumset
 
 Как происходит удаление элементов из ArrayList? Как меняется в этом случае размер ArrayList?\
 **Ответ.**   
+При удалении произвольного элемента из списка, все элементы находящиеся «правее» смещаются на одну ячейку влево и реальный размер массива (его емкость, capacity) не изменяется никак. Механизм автоматического «расширения» массива существует, а вот автоматического «сжатия» нет, можно только явно выполнить «сжатие» командой trimToSize().
 **Источник.**   
+https://habr.com/ru/post/162017/
 
 Можно ли использовать массив в качестве ключа для HashMap? \
 Если да, то какие есть особенности.\
@@ -628,12 +724,19 @@ Collections.unmodifiableCollection(Collection<? extends T> c)?\
 
 Перечислите различия между массивами и коллекциями?\
 **Ответ.**   
+Массив неизменный и длина его задается изначально  
+Коллекции не могут содержать примитивные типы данных
+Коллекции обязательно 
+
+
 **Источник.**   
 
 Массивы и коллекции являются ковариантными или инвариантными?\
 Поясните ответ. \
 **Ответ.**   
+Массивы коварианты, массивы инварианты
 **Источник.**   
+Дж. Блох, Prefer list to arrays
 
 Дано:
 SortedSet<Entity> set = ...;\
@@ -649,5 +752,6 @@ set = set2;\
 Массивы и коллекции являются reified (овеществленные) или non-reified типами?\
 Поясните ответ. \
 **Ответ.**   
+массивы являются reified, коллекции не являются reified
 **Источник.**   
-
+Дж. Блох, Prefer list to arrays
