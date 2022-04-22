@@ -343,31 +343,51 @@ Set<Entity> ent = new HashSet<>(entitis);
 
 Какую математическую сущность моделирует интерфейс List?\
 **Ответ.**   
+Последовательность
 **Источник.**   
+https://docs.oracle.com/javase/tutorial/collections/interfaces/list.html
 
 Какое основное свойство всех имплементаций интерфейса List, т.е. что их объединяет независимо от имплементации?\
 **Ответ.**   
+Объекты находятся в последовательности, определенной программистом.
 **Источник.**   
+https://docs.oracle.com/javase/tutorial/collections/interfaces/list.html
 
 Может ли имплементация интерфейса List содержать одинаковые элементы? \
 Обоснуйте ответ. \
 **Ответ.**   
+да. Т.к. ключевое в данной коллекции не уникальность, а то, что элементы расположены один за одним
 **Источник.**   
 
 Какие группы методов увеличились в интерфейсе List по сравнению с интерфейсом Collection?\
 Какие методы добавились?\
 **Ответ.**   
+basic  
+-position access;  
+get, set, add, remove, indexOf, lastIndexOf, addAll  
+-search;  
+-iteration;  
+hasNext, next, remove;  
+bulk  
+-range-view  
+sublist();  
+array  
 **Источник.**   
+https://docs.oracle.com/javase/tutorial/collections/interfaces/list.html
 
 Влияют ли изменения внесенные в последовательность, возвращаемый методом subList(), на исходную последовательность?\
 **Ответ.**   
+да.
 **Источник.**   
+https://docs.oracle.com/javase/tutorial/collections/interfaces/list.html
 
 Дана следующая последовательность:\
 List<Entity> entities = …;\
 Приведите идиому, позволяющую удалить все элементы с номерами из полусегмента [fromIndex; toIndex). \
 **Ответ.**   
+list.subList(fromIndex, toIndex).clear();
 **Источник.**   
+https://docs.oracle.com/javase/tutorial/collections/interfaces/list.html
 
 Дана следующая неупорядоченная последовательность и некоторый элемент для сравнения:\
 List<Entity> entities = …;\
@@ -375,44 +395,66 @@ Entity cmpEntity = …;\
 Приведите идиому для выполнения метода void doAction() класса Entity со всеми элементами последовательности entities, которые совпадают с элементом cmpEntity.\
 Запрещается упорядочивать последовательность и явно проверять на равенство каждый элемент последовательности. \
 **Ответ.**   
+int i = list.subList(fromIndex, toIndex).indexOf(o);
 **Источник.**   
+https://docs.oracle.com/javase/tutorial/collections/interfaces/list.html
 
 Какую математическую сущность моделирует интерфейс Queue?\
 **Ответ.**   
+Очередь
 **Источник.**   
+https://docs.oracle.com/javase/tutorial/collections/interfaces/queue.html
 
 Какое основное свойство всех имплементаций интерфейса Queue, т.е. что их объединяет независимо от имплементации?\
 **Ответ.**   
-**Источник.**   
+поведение очередей, которые представляют собой список с дисциплиной "первый вошел, первый вышел" (FIFO).
+**Источник.**  
+ https://www.examclouds.com/ru/java/java-core-russian/interface-queue
 
 Какие группы методов увеличились в интерфейсе Queue по сравнению с интерфейсом Collection?\
 Какие методы добавились?\
 **Ответ.**   
-**Источник.**   
+basic
+offer(), poll(), peek(), element();
+**Источник.** 
+  https://docs.oracle.com/javase/tutorial/collections/interfaces/queue.html
 
 Какую математическую сущность моделирует интерфейс Deque?\
 **Ответ.**   
-**Источник.**   
+Очередь
+**Источник.** 
+  https://docs.oracle.com/javase/tutorial/collections/interfaces/deque.html
 
 Какое основное свойство всех имплементаций интерфейса Deque, т.е. что их объединяет независимо от имплементации?\
 **Ответ.**   
+поведение очередей, которые представляют собой список с дисциплиной "двусторонняя очередь".
 **Источник.**   
+https://docs.oracle.com/javase/tutorial/collections/interfaces/deque.html
 
 Какие методы определяет Deque в добавок к методам унаследованным от Queue?\
 **Ответ.**   
+![image](https://user-images.githubusercontent.com/79933495/164761618-3f8fb520-c714-4834-b2d2-71c0b75b6a2c.png)  
 **Источник.**   
+https://docs.oracle.com/javase/tutorial/collections/interfaces/deque.html  
 
 Верно ли утверждение, что Queue всегда обрабатывает элемента в порядке FIFO?\
 **Ответ.**   
-**Источник.**   
+нет.  
+Note that the Deque interface can be used both as last-in-first-out stacks and first-in-first-out queues. The methods given in the Deque interface are divided into three parts:
+**Источник.**  
+https://docs.oracle.com/javase/tutorial/collections/interfaces/deque.html 
 
 Какой элемент независимо от упорядочения Queue будет удален методами remove и poll?\
 **Ответ.**   
+удалят верхний элемент очереди (первый элемент) "голову".
 **Источник.**   
+https://docs.oracle.com/javase/tutorial/collections/interfaces/queue.html
 
 Зачем в интерфейсе Queue метод poll, когда есть remove?\
 **Ответ.**   
+Если операция по удалению методом remove() пройдет неудачно, то будет выброшено исклюение, метод poll() при "провале" операции, возвращает специальное значени (null или false, в зависимости от операции).
 **Источник.**   
+https://docs.oracle.com/javase/tutorial/collections/interfaces/queue.html
 
 Какую математическую сущность моделирует интерфейс Map?\
 **Ответ.**   
