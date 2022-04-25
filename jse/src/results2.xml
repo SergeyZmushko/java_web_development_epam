@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<results>
+    <student>
+        <login>cool</login>
+        <results>
+            <result name="oop" date="2022-04-20" mark="8.5"/>
+            <result name="xml" date="2022-02-23" mark="7.3"/>
+            <result name="oop" date="2022-02-27" mark="9.4"/>
+            <result name="jdbc" date="2022-02-27" mark="6.8"/>
+            <result name="xml" date="2022-04-15" mark="7.9"/>
+        </results>
+    </student>
+    <student>
+        <login>clever</login>
+        <results>
+            <result name="oop" date="2022-04-19" mark="7.0"/>
+            <result name="collections" date="2022-04-18" mark="6.4"/>
+        </results>
+    </student>
+</results>

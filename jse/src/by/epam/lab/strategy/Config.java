@@ -9,7 +9,9 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
+import static by.epam.lab.util.Constants.FORMAT_COEFFICIENT_100;
 import static by.epam.lab.util.DBConstants.*;
+import static by.epam.lab.util.Constants.FORMAT_COEFFICIENT_10;
 
 public abstract class Config implements DbStrategy {
     Db db = new Db();
@@ -19,40 +21,32 @@ public abstract class Config implements DbStrategy {
 
     @Override
     public void printMeanMarks() throws SQLException, ClassNotFoundException {
-        System.out.println("Print mean mark");
+        System.out.println(MEAN_MARK);
         ResultSet resultSet = db.getMeanMarkRequest();
         while (resultSet.next()) {
-            String login = resultSet.getString(LOGIN_IND);
-            double avgMark = resultSet.getDouble(AVG_MARK_IND);
-            System.out.printf("%s:%.2f\n", login, avgMark);
+            String login = resultSet.getString(LOGIN_IND_DB);
+            double avgMark = resultSet.getDouble(AVG_MARK_IND_DB);
+            System.out.printf(FORMAT_STRING_MEAN_MARK, login, (int) avgMark / FORMAT_COEFFICIENT_10,
+                    (int) (avgMark * FORMAT_COEFFICIENT_10 % FORMAT_COEFFICIENT_100));
         }
     }
 
     @Override
-    public void printLastDayResult(LinkedList<Test> tests) {
-        System.out.println("Last day result");
+    public void printLastDayResult(LinkedList<? extends Test> tests) {
+        System.out.println(LAST_DAYS_RESULT);
         if (!tests.isEmpty()) {
-            System.out.println(tests.getLast());
+            Test test = tests.getLast();
+            for (Test test1 : tests) {
+                if (test.getDate().equals(test1.getDate())) {
+                    System.out.println(test1);
+                }
+            }
         }
     }
 
     @Override
-    public LinkedList<Test> currentMonthResults() throws SQLException, ClassNotFoundException {
-        LinkedList<Test> sortedDateList = new LinkedList<>();
-        ResultSet resultSet = db.getSortedDateListRequest();
-        while (resultSet.next()) {
-            Test test = new Test(resultSet.getString(LOGIN_IND),
-                    resultSet.getString(TEST_IND),
-                    resultSet.getDate(DATE_IND),
-                    resultSet.getInt(MARK_IND));
-            sortedDateList.add(test);
-        }
-        return sortedDateList;
-    }
-
-    @Override
-    public void printList(List<Test> tests) {
-        System.out.println("Print tests on April");
+    public void printList(List<? extends Test> tests) {
+        System.out.println(CURRENT_MONTH_TESTS);
         for (Test test : tests) {
             System.out.println(test);
         }

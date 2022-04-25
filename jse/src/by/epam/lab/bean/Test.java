@@ -2,9 +2,10 @@ package by.epam.lab.bean;
 
 import java.sql.Date;
 
-import static by.epam.lab.util.Constants.*;
+import static by.epam.lab.util.Constants.DELIMITER;
+import static by.epam.lab.util.Constants.FORMAT_COEFFICIENT_10;
 
-public class Test {
+public abstract class Test {
     private final String login;
     private final String test;
     private final Date date;
@@ -17,15 +18,11 @@ public class Test {
         this.mark = mark;
     }
 
-    public Test(String login, String test, String date, String mark) {
+    protected Test(String login, String test, String date, String mark) {
         this.login = login;
         this.test = test;
         this.date = Date.valueOf(date);
-        this.mark = (int) (Double.parseDouble(mark) * FORMAT_COEFFICIENT);
-    }
-
-    private String getStringMark() {
-        return (mark / FORMAT_COEFFICIENT + DOT + mark % FORMAT_COEFFICIENT).replaceAll(REPLACE_REGEX, REPLACEMENT);
+        this.mark = (int) (Double.parseDouble(mark) * FORMAT_COEFFICIENT_10);
     }
 
     public String getLogin() {
@@ -44,7 +41,11 @@ public class Test {
         return mark;
     }
 
+    public String fieldToString() {
+        return login + DELIMITER + test + DELIMITER + date + DELIMITER;
+    }
+
     public String toString() {
-        return login + DELIMITER + test + DELIMITER + date + DELIMITER + getStringMark();
+        return fieldToString();
     }
 }

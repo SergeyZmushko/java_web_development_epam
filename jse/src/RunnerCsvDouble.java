@@ -1,15 +1,21 @@
-import by.epam.lab.strategy.Context;
-import by.epam.lab.strategy.CsvDb;
+import by.epam.lab.bean.TestDoubleCsv;
+
+import by.epam.lab.strategy.CsvDoubleDb;
+
 import by.epam.lab.util.Constants;
 
 import java.sql.SQLException;
+import java.util.LinkedList;
 
 public class RunnerCsvDouble {
     public static void main(String[] args) {
-        Context context = new Context();
-        context.setStrategy(new CsvDb());
+        CsvDoubleDb doubleDb = new CsvDoubleDb();
         try {
-            context.executeActivity(Constants.FILE_NAME_CSV_2);
+            doubleDb.fillDb(Constants.FILE_NAME_CSV_2);
+            doubleDb.printMeanMarks();
+            LinkedList<TestDoubleCsv> csvTests = doubleDb.currentMonthResults();
+            doubleDb.printList(csvTests);
+            doubleDb.printLastDayResult(csvTests);
         } catch (SQLException | ClassNotFoundException e) {
             System.err.println(e);
         }

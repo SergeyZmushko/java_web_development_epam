@@ -16,18 +16,18 @@ public class Db {
 
     public void insertStudent(Test test) throws SQLException, ClassNotFoundException {
         PreparedStatement ps = getDBConnect().prepareStatement(SQL_INSERT_INTO_LOGINS);
-        ps.setString(LOGIN_IND, test.getLogin());
-        ps.setString(TEST_IND, test.getLogin());
+        ps.setString(LOGIN_IND_DB, test.getLogin());
+        ps.setString(TEST_IND_DB, test.getLogin());
         ps.executeUpdate();
         ps = getDBConnect().prepareStatement(SQL_INSERT_INTO_TESTS);
-        ps.setString(LOGIN_IND, test.getTest());
-        ps.setString(TEST_IND, test.getTest());
+        ps.setString(LOGIN_IND_DB, test.getTest());
+        ps.setString(TEST_IND_DB, test.getTest());
         ps.executeUpdate();
         ps = getDBConnect().prepareStatement(SQL_INSERT_INTO_RESULTS);
-        ps.setString(LOGIN_IND, test.getLogin());
-        ps.setString(TEST_IND, test.getTest());
-        ps.setDate(DATE_IND, test.getDate());
-        ps.setInt(MARK_IND, test.getMark());
+        ps.setString(LOGIN_IND_DB, test.getLogin());
+        ps.setString(TEST_IND_DB, test.getTest());
+        ps.setDate(DATE_IND_DB, test.getDate());
+        ps.setInt(MARK_IND_DB, test.getMark());
         ps.executeUpdate();
     }
 
