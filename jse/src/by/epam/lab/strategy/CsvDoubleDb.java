@@ -20,8 +20,7 @@ public class CsvDoubleDb extends Config {
             db.clearTables();
             while (sc.hasNextLine()) {
                 String[] str = sc.nextLine().split(DELIMITER);
-                TestDoubleCsv test = new TestDoubleCsv(str[LOGIN_IND], str[TEST_IND], str[DATE_IND], str[MARK_IND]);
-                db.insertStudent(test);
+                db.insertStudent(new TestDoubleCsv(str[LOGIN_IND], str[TEST_IND], str[DATE_IND], str[MARK_IND]));
             }
         } catch (FileNotFoundException e) {
             System.err.println(FILE_NOT_FOUND);
@@ -32,11 +31,13 @@ public class CsvDoubleDb extends Config {
         LinkedList<TestDoubleCsv> sortedDateList = new LinkedList<>();
         ResultSet resultSet = db.getSortedDateListRequest();
         while (resultSet.next()) {
-            TestDoubleCsv test = new TestDoubleCsv(resultSet.getString(LOGIN_IND_DB),
+            sortedDateList.add(new TestDoubleCsv(resultSet.getString(LOGIN_IND_DB),
                     resultSet.getString(TEST_IND_DB),
                     resultSet.getDate(DATE_IND_DB),
-                    resultSet.getInt(MARK_IND_DB));
-            sortedDateList.add(test);
+                    resultSet.getInt(MARK_IND_DB)));
+        }
+        if (sortedDateList.isEmpty()) {
+            System.out.println(NO_DATA);
         }
         return sortedDateList;
     }

@@ -5,7 +5,7 @@ import by.epam.lab.strategy.XmlDb;
 import by.epam.lab.util.Constants;
 
 import java.sql.SQLException;
-import java.util.LinkedList;
+import java.util.List;
 
 public class RunnerXml {
     public static void main(String[] args) {
@@ -13,7 +13,7 @@ public class RunnerXml {
         try {
             xmlDb.fillDb(Constants.FILE_NAME_XML);
             xmlDb.printMeanMarks();
-            LinkedList<TestXml> csvTests = xmlDb.currentMonthResults();
+            List<TestXml> csvTests = xmlDb.currentMonthResults();
             xmlDb.printList(csvTests);
             xmlDb.printLastDayResult(csvTests);
         } catch (SQLException | ClassNotFoundException e) {

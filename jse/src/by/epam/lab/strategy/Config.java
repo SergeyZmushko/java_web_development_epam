@@ -6,15 +6,13 @@ import by.epam.lab.strategy.impl.DbStrategy;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.LinkedList;
 import java.util.List;
 
-import static by.epam.lab.util.Constants.FORMAT_COEFFICIENT_100;
+import static by.epam.lab.util.Constants.*;
 import static by.epam.lab.util.DBConstants.*;
-import static by.epam.lab.util.Constants.FORMAT_COEFFICIENT_10;
 
 public abstract class Config implements DbStrategy {
-    Db db = new Db();
+    protected Db db = new Db();
 
     @Override
     public abstract void fillDb(String filename) throws SQLException, ClassNotFoundException;
@@ -32,13 +30,13 @@ public abstract class Config implements DbStrategy {
     }
 
     @Override
-    public void printLastDayResult(LinkedList<? extends Test> tests) {
-        System.out.println(LAST_DAYS_RESULT);
+    public void printLastDayResult(List<? extends Test> tests) {
         if (!tests.isEmpty()) {
-            Test test = tests.getLast();
-            for (Test test1 : tests) {
-                if (test.getDate().equals(test1.getDate())) {
-                    System.out.println(test1);
+            System.out.println(LAST_DAYS_RESULT);
+            Test lastTest = tests.get(tests.size() - GET_LAST_IND_LIST);
+            for (Test test : tests) {
+                if (test.getDate().equals(lastTest.getDate())) {
+                    System.out.println(test);
                 }
             }
         }
@@ -46,9 +44,11 @@ public abstract class Config implements DbStrategy {
 
     @Override
     public void printList(List<? extends Test> tests) {
-        System.out.println(CURRENT_MONTH_TESTS);
-        for (Test test : tests) {
-            System.out.println(test);
+        if (!tests.isEmpty()) {
+            System.out.println(CURRENT_MONTH_TESTS);
+            for (Test test : tests) {
+                System.out.println(test);
+            }
         }
     }
 }

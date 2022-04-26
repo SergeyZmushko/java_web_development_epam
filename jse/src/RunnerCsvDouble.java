@@ -5,7 +5,7 @@ import by.epam.lab.strategy.CsvDoubleDb;
 import by.epam.lab.util.Constants;
 
 import java.sql.SQLException;
-import java.util.LinkedList;
+import java.util.List;
 
 public class RunnerCsvDouble {
     public static void main(String[] args) {
@@ -13,7 +13,7 @@ public class RunnerCsvDouble {
         try {
             doubleDb.fillDb(Constants.FILE_NAME_CSV_2);
             doubleDb.printMeanMarks();
-            LinkedList<TestDoubleCsv> csvTests = doubleDb.currentMonthResults();
+            List<TestDoubleCsv> csvTests = doubleDb.currentMonthResults();
             doubleDb.printList(csvTests);
             doubleDb.printLastDayResult(csvTests);
         } catch (SQLException | ClassNotFoundException e) {

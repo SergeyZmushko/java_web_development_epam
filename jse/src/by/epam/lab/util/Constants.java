@@ -1,6 +1,7 @@
 package by.epam.lab.util;
 
 public class Constants {
+    public final static int GET_LAST_IND_LIST = 1;
     public final static int TEST_IND_XML = 0;
     public final static int DATE_IND_XML = 1;
     public final static int MARK_IND_XML = 2;
@@ -19,5 +20,4 @@ public class Constants {
     public final static String FILE_NAME_CSV_1 = "src/results1.csv";
     public final static String FILE_NAME_CSV_2 = "src/results3.csv";
     public final static String FILE_NOT_FOUND = "File is not found";
-
 }

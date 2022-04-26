@@ -19,10 +19,7 @@ public abstract class Test {
     }
 
     protected Test(String login, String test, String date, String mark) {
-        this.login = login;
-        this.test = test;
-        this.date = Date.valueOf(date);
-        this.mark = (int) (Double.parseDouble(mark) * FORMAT_COEFFICIENT_10);
+        this(login, test, Date.valueOf(date), (int) (Double.parseDouble(mark) * FORMAT_COEFFICIENT_10));
     }
 
     public String getLogin() {
@@ -41,7 +38,7 @@ public abstract class Test {
         return mark;
     }
 
-    public String fieldToString() {
+    protected String fieldToString() {
         return login + DELIMITER + test + DELIMITER + date + DELIMITER;
     }
 

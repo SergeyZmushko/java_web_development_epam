@@ -38,6 +38,7 @@ public class DBConstants {
     public final static String LAST_DAYS_RESULT = "Last day result";
     public final static String CURRENT_MONTH_TESTS = "Print tests on current month";
     public final static String FORMAT_STRING_MEAN_MARK = "%s:%d.%d\n";
+    public final static String NO_DATA = "No data for current month";
 
 
 }

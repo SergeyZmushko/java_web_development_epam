@@ -20,8 +20,7 @@ public class CsvIntDb extends Config {
             db.clearTables();
             while (sc.hasNextLine()) {
                 String[] str = sc.nextLine().split(DELIMITER);
-                TestIntCsv test = new TestIntCsv(str[LOGIN_IND], str[TEST_IND], str[DATE_IND], str[MARK_IND]);
-                db.insertStudent(test);
+                db.insertStudent(new TestIntCsv(str[LOGIN_IND], str[TEST_IND], str[DATE_IND], str[MARK_IND]));
             }
         } catch (FileNotFoundException e) {
             System.err.println(FILE_NOT_FOUND);
@@ -32,14 +31,14 @@ public class CsvIntDb extends Config {
         LinkedList<TestIntCsv> sortedDateList = new LinkedList<>();
         ResultSet resultSet = db.getSortedDateListRequest();
         while (resultSet.next()) {
-            TestIntCsv test = new TestIntCsv(resultSet.getString(LOGIN_IND_DB),
+            sortedDateList.add(new TestIntCsv(resultSet.getString(LOGIN_IND_DB),
                     resultSet.getString(TEST_IND_DB),
                     resultSet.getDate(DATE_IND_DB),
-                    resultSet.getInt(MARK_IND_DB));
-            sortedDateList.add(test);
+                    resultSet.getInt(MARK_IND_DB)));
+        }
+        if (sortedDateList.isEmpty()) {
+            System.out.println(NO_DATA);
         }
         return sortedDateList;
     }
-
-
 }

@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
+import java.util.List;
 
 
 public class XmlDb extends Config {
@@ -28,7 +29,7 @@ public class XmlDb extends Config {
             XMLHandler xmlHandler = new XMLHandler();
             parser.parse(filename, xmlHandler);
             db.clearTables();
-            LinkedList<TestXml> tests = xmlHandler.getResults();
+            List<TestXml> tests = xmlHandler.getResults();
             for (Test test : tests) {
                 db.insertStudent(test);
             }
@@ -39,16 +40,17 @@ public class XmlDb extends Config {
         }
     }
 
-
     public LinkedList<TestXml> currentMonthResults() throws SQLException, ClassNotFoundException {
         LinkedList<TestXml> sortedDateList = new LinkedList<>();
         ResultSet resultSet = db.getSortedDateListRequest();
         while (resultSet.next()) {
-            TestXml test = new TestXml(resultSet.getString(LOGIN_IND_DB),
+            sortedDateList.add(new TestXml(resultSet.getString(LOGIN_IND_DB),
                     resultSet.getString(TEST_IND_DB),
                     resultSet.getDate(DATE_IND_DB),
-                    resultSet.getInt(MARK_IND_DB));
-            sortedDateList.add(test);
+                    resultSet.getInt(MARK_IND_DB)));
+        }
+        if (sortedDateList.isEmpty()) {
+            System.out.println(NO_DATA);
         }
         return sortedDateList;
     }

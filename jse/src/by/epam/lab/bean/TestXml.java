@@ -19,7 +19,7 @@ public class TestXml extends Test {
         return String.format(FORMAT_MARK_XML, getMark() / FORMAT_COEFFICIENT_10, getMark() % FORMAT_COEFFICIENT_10);
     }
 
-    public String fieldToString() {
+    protected String fieldToString() {
         return super.fieldToString() + getStringMark();
     }
 }

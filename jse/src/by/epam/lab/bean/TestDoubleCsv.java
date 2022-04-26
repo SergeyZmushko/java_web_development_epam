@@ -19,7 +19,7 @@ public class TestDoubleCsv extends Test {
         return (getMark() / FORMAT_COEFFICIENT_10 + DOT + getMark() % FORMAT_COEFFICIENT_10).replaceAll(REPLACE_REGEX, REPLACEMENT);
     }
 
-    public String fieldToString() {
+    protected String fieldToString() {
         return super.fieldToString() + getStringMark();
     }
 

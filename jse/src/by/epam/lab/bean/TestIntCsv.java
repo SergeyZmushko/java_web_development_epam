@@ -19,7 +19,7 @@ public class TestIntCsv extends Test {
     }
 
     @Override
-    public String fieldToString() {
+    protected String fieldToString() {
         return super.fieldToString() + getStringMark();
     }
 }
