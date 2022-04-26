@@ -1,6 +1,7 @@
 package by.epam.lab.strategy;
 
 import by.epam.lab.bean.TestDoubleCsv;
+import by.epam.lab.dbConnection.Db;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
