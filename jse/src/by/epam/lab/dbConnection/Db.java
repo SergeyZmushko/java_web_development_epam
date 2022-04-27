@@ -57,42 +57,42 @@ public class Db {
         return st.executeQuery(SQL_SELECT_CURRENT_MONTH_ASC);
     }
 
-    public void closePrepareStatement(){
+    public void closePrepareStatement() {
         if (ps != null) {
-            try{
+            try {
                 ps.close();
-            }catch(SQLException e){
-                e.printStackTrace();
+            } catch (SQLException e) {
+                System.err.println(e);
             }
         }
     }
 
-    public void closeStatement(){
-        if(st != null){
+    public void closeStatement() {
+        if (st != null) {
             try {
                 st.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                System.err.println(e);
             }
         }
     }
 
-    public void closeConnection(){
-        if(connection != null){
+    public void closeConnection() {
+        if (connection != null) {
             try {
                 connection.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                System.err.println(e);
             }
         }
     }
 
-    public static void close(ResultSet rs){
+    public static void close(ResultSet rs) {
         if (rs != null) {
             try {
                 rs.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                System.err.println(e);
             }
         }
     }

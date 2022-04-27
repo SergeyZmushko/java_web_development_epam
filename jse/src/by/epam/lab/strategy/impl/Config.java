@@ -1,8 +1,8 @@
-package by.epam.lab.strategy;
+package by.epam.lab.strategy.impl;
 
 import by.epam.lab.bean.Test;
 import by.epam.lab.dbConnection.Db;
-import by.epam.lab.strategy.impl.DbStrategy;
+import by.epam.lab.strategy.DbStrategy;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

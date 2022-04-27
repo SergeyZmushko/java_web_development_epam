@@ -1,4 +1,4 @@
-package by.epam.lab.strategy;
+package by.epam.lab.strategy.impl;
 
 import by.epam.lab.bean.Test;
 import by.epam.lab.bean.TestXml;

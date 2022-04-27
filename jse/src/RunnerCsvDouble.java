@@ -1,7 +1,7 @@
 import by.epam.lab.bean.TestDoubleCsv;
 
 import by.epam.lab.dbConnection.Db;
-import by.epam.lab.strategy.CsvDoubleDb;
+import by.epam.lab.strategy.impl.CsvDoubleDb;
 
 import by.epam.lab.util.Constants;
 
@@ -20,7 +20,7 @@ public class RunnerCsvDouble {
             doubleDb.printLastDayResult(csvTests);
         } catch (SQLException | ClassNotFoundException e) {
             System.err.println(e);
-        }finally {
+        } finally {
             db.closePrepareStatement();
             db.closeStatement();
             db.closeConnection();

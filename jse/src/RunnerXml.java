@@ -2,7 +2,7 @@
 import by.epam.lab.bean.TestXml;
 
 import by.epam.lab.dbConnection.Db;
-import by.epam.lab.strategy.XmlDb;
+import by.epam.lab.strategy.impl.XmlDb;
 import by.epam.lab.util.Constants;
 
 import java.sql.SQLException;
@@ -20,7 +20,7 @@ public class RunnerXml {
             xmlDb.printLastDayResult(csvTests);
         } catch (SQLException | ClassNotFoundException e) {
             System.err.println(e);
-        }finally {
+        } finally {
             db.closePrepareStatement();
             db.closeStatement();
             db.closeConnection();
