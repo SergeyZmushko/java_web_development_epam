@@ -37,6 +37,7 @@ public class CsvDoubleDb extends Config {
                     resultSet.getDate(DATE_IND_DB),
                     resultSet.getInt(MARK_IND_DB)));
         }
+        Db.close(resultSet);
         if (sortedDateList.isEmpty()) {
             System.out.println(NO_DATA);
         }

@@ -27,6 +27,7 @@ public abstract class Config implements DbStrategy {
             System.out.printf(FORMAT_STRING_MEAN_MARK, login, (int) avgMark / FORMAT_COEFFICIENT_10,
                     (int) (avgMark * FORMAT_COEFFICIENT_10 % FORMAT_COEFFICIENT_100));
         }
+        Db.close(resultSet);
     }
 
     @Override

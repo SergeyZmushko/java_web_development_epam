@@ -8,6 +8,9 @@ import static by.epam.lab.util.DBConstants.*;
 import java.sql.*;
 
 public class Db {
+    private Connection connection;
+    private PreparedStatement ps;
+    private Statement st;
 
     public Connection getDBConnect() throws ClassNotFoundException, SQLException {
         Class.forName(DBConstants.CLASS_NAME);
@@ -15,7 +18,8 @@ public class Db {
     }
 
     public void insertStudent(Test test) throws SQLException, ClassNotFoundException {
-        PreparedStatement ps = getDBConnect().prepareStatement(SQL_INSERT_INTO_LOGINS);
+        connection = getDBConnect();
+        ps = connection.prepareStatement(SQL_INSERT_INTO_LOGINS);
         ps.setString(LOGIN_IND_DB, test.getLogin());
         ps.setString(TEST_IND_DB, test.getLogin());
         ps.executeUpdate();
@@ -32,7 +36,8 @@ public class Db {
     }
 
     public void clearTables() throws SQLException, ClassNotFoundException {
-        Statement st = getDBConnect().createStatement();
+        connection = getDBConnect();
+        st = connection.createStatement();
         st.executeUpdate(SQL_SET_FK_0);
         st.executeUpdate(SQL_TRUNCATE_LOGINS);
         st.executeUpdate(SQL_TRUNCATE_TESTS);
@@ -41,26 +46,28 @@ public class Db {
     }
 
     public ResultSet getMeanMarkRequest() throws SQLException, ClassNotFoundException {
-        Statement st = getDBConnect().createStatement();
+        connection = getDBConnect();
+        st = connection.createStatement();
         return st.executeQuery(SQL_SELECT_AVG_MARK);
     }
 
     public ResultSet getSortedDateListRequest() throws SQLException, ClassNotFoundException {
-        Statement st = getDBConnect().createStatement();
+        connection = getDBConnect();
+        st = connection.createStatement();
         return st.executeQuery(SQL_SELECT_CURRENT_MONTH_ASC);
     }
 
-    public static void close(PreparedStatement pstmt){
-        if (pstmt != null) {
+    public void closePrepareStatement(){
+        if (ps != null) {
             try{
-                pstmt.close();
+                ps.close();
             }catch(SQLException e){
                 e.printStackTrace();
             }
         }
     }
 
-    public static void close(Statement st){
+    public void closeStatement(){
         if(st != null){
             try {
                 st.close();
@@ -70,10 +77,10 @@ public class Db {
         }
     }
 
-    public static void close(Connection conn){
-        if(conn != null){
+    public void closeConnection(){
+        if(connection != null){
             try {
-                conn.close();
+                connection.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }

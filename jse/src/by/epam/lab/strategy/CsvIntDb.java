@@ -1,6 +1,7 @@
 package by.epam.lab.strategy;
 
 import by.epam.lab.bean.TestIntCsv;
+import by.epam.lab.dbConnection.Db;
 
 import static by.epam.lab.util.Constants.*;
 import static by.epam.lab.util.DBConstants.*;
@@ -35,6 +36,7 @@ public class CsvIntDb extends Config {
                     resultSet.getDate(DATE_IND_DB),
                     resultSet.getInt(MARK_IND_DB)));
         }
+        Db.close(resultSet);
         if (sortedDateList.isEmpty()) {
             System.out.println(NO_DATA);
         }

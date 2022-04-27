@@ -2,6 +2,7 @@ package by.epam.lab.strategy;
 
 import by.epam.lab.bean.Test;
 import by.epam.lab.bean.TestXml;
+import by.epam.lab.dbConnection.Db;
 import by.epam.lab.handler.XMLHandler;
 import org.xml.sax.SAXException;
 
@@ -49,6 +50,7 @@ public class XmlDb extends Config {
                     resultSet.getDate(DATE_IND_DB),
                     resultSet.getInt(MARK_IND_DB)));
         }
+        Db.close(resultSet);
         if (sortedDateList.isEmpty()) {
             System.out.println(NO_DATA);
         }

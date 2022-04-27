@@ -1,6 +1,7 @@
 
 import by.epam.lab.bean.TestXml;
 
+import by.epam.lab.dbConnection.Db;
 import by.epam.lab.strategy.XmlDb;
 import by.epam.lab.util.Constants;
 
@@ -9,6 +10,7 @@ import java.util.List;
 
 public class RunnerXml {
     public static void main(String[] args) {
+        Db db = new Db();
         XmlDb xmlDb = new XmlDb();
         try {
             xmlDb.fillDb(Constants.FILE_NAME_XML);
@@ -18,6 +20,10 @@ public class RunnerXml {
             xmlDb.printLastDayResult(csvTests);
         } catch (SQLException | ClassNotFoundException e) {
             System.err.println(e);
+        }finally {
+            db.closePrepareStatement();
+            db.closeStatement();
+            db.closeConnection();
         }
     }
 }
