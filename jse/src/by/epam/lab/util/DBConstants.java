@@ -41,4 +41,10 @@ public class DBConstants {
     public final static String NO_DATA = "No data for current month";
 
 
+    public final static String SELECT_LOGIN = "select idLogin from logins where name = ?";
+    public final static String SELECT_TEST = "select idTest from tests where name = ?";
+    public final static String INSERT_LOGIN = "insert into logins (name) value (?)";
+    public final static String INSERT_TEST = "insert into tests (name) value (?)";
+    public final static String SQL_INSERT_INTO_RESULTS = "INSERT INTO results (loginId, testId, dat, mark) values(?, ?, ?, ?)";
+
 }
