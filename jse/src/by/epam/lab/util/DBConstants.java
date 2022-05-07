@@ -12,11 +12,7 @@ public class DBConstants {
     public final static int MARK_IND_DB = 4;
     public final static String SQL_INSERT_INTO_LOGINS = "insert into logins (name) Select ? Where not exists(select * from logins where name = ?)";
     public final static String SQL_INSERT_INTO_TESTS = "insert into tests (name) Select ? Where not exists(select * from tests where name = ?)";
-    public final static String SQL_INSERT_INTO_RESULTS = "INSERT INTO results (loginId, testId, dat, mark)\n" +
-            "values( \n" +
-            "(SELECT idLogin FROM logins WHERE name = ?),\n" +
-            "(SELECT idTest FROM tests WHERE name = ?),\n" +
-            "?, ?);";
+
     public final static String SQL_SET_FK_0 = "SET FOREIGN_KEY_CHECKS=0;";
     public final static String SQL_SET_FK_1 = "SET FOREIGN_KEY_CHECKS=1";
     public final static String SQL_TRUNCATE_RESULTS = "truncate TABLE results";
@@ -27,7 +23,7 @@ public class DBConstants {
             "where logins.idLogin = results.loginId\n" +
             "group by loginId\n" +
             "order by avg DESC";
-    public final static String SQL_SELECT_CURRENT_MONTH_ASC = "SELECT logins.name, tests.name, dat, mark\n" +
+    public final static String SQL_SELECT_CURRENT_MONTH_ASC = "SELECT logins.name as login, tests.name as test, dat as date, mark\n" +
             "FROM logins, tests, results\n" +
             "Where logins.idLogin = results.loginId and\n" +
             "tests.idTest = results.testId and\n" +
@@ -46,5 +42,9 @@ public class DBConstants {
     public final static String INSERT_LOGIN = "insert into logins (name) value (?)";
     public final static String INSERT_TEST = "insert into tests (name) value (?)";
     public final static String SQL_INSERT_INTO_RESULTS = "INSERT INTO results (loginId, testId, dat, mark) values(?, ?, ?, ?)";
-
+//    public final static String SQL_INSERT_INTO_RESULTS = "INSERT INTO results (loginId, testId, dat, mark)\n" +
+//            "values( \n" +
+//            "(SELECT idLogin FROM logins WHERE name = ?),\n" +
+//            "(SELECT idTest FROM tests WHERE name = ?),\n" +
+//            "?, ?);";
 }

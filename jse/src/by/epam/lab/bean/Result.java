@@ -42,11 +42,7 @@ public class Result {
         return String.valueOf(mark / 10);
     }
 
-    protected String fieldToString() {
-        return login + DELIMITER + test + DELIMITER + date + DELIMITER + markToString();
-    }
-
     public String toString() {
-        return fieldToString();
+        return getClass().getSimpleName() + login + DELIMITER + test + DELIMITER + date + DELIMITER + markToString();
     }
 }

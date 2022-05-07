@@ -1,4 +1,4 @@
-package by.epam.lab;
+package by.epam.lab.dao;
 
 import by.epam.lab.bean.Result;
 

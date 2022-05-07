@@ -1,5 +1,7 @@
-package by.epam.lab;
+package by.epam.lab.runner;
 
+import by.epam.lab.ConnectionProvider;
+import by.epam.lab.ResultLoader;
 import by.epam.lab.bean.Result;
 import by.epam.lab.dao.ResultDao;
 import by.epam.lab.factory.ResultFactory;
@@ -14,9 +16,8 @@ import static by.epam.lab.util.DBConstants.*;
 
 public class RunnerLogic {
     public static void execute(ResultDao reader, ResultFactory resultFactory) {
-        try {
+        try (Connection cn = ConnectionProvider.getConnection()){
             ResultLoader.loadResults(reader);
-            Connection cn = DriverManager.getConnection(DB_URL, USER, PASSWORD);
             PreparedStatement ps = cn.prepareStatement(SQL_SELECT_AVG_MARK);
             try (ResultSet rs = ps.executeQuery(SQL_SELECT_AVG_MARK)) {
                 while (rs.next()) {

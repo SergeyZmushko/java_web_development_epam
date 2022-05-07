@@ -1,6 +1,7 @@
 package by.epam.lab;
 
 import by.epam.lab.bean.Result;
+import by.epam.lab.dao.ResultDao;
 
 import java.sql.*;
 
@@ -8,8 +9,15 @@ import static by.epam.lab.util.DBConstants.*;
 
 public class ResultLoader {
 
-    public static void loadResults(ResultDao reader) throws SQLException {
-        try (Connection cn = DriverManager.getConnection(DB_URL, USER, PASSWORD)) {
+    public static void loadResults(ResultDao reader) {
+        try {
+            Connection cn = ConnectionProvider.getConnection();
+            Statement st = cn.createStatement();
+            st.executeUpdate(SQL_SET_FK_0);
+            st.executeUpdate(SQL_TRUNCATE_LOGINS);
+            st.executeUpdate(SQL_TRUNCATE_TESTS);
+            st.executeUpdate(SQL_TRUNCATE_RESULTS);
+            st.executeUpdate(SQL_SET_FK_1);
             PreparedStatement psSelectLogin = cn.prepareStatement(SELECT_LOGIN);
             PreparedStatement psInsertLogin = cn.prepareStatement(INSERT_LOGIN);
             PreparedStatement psSelectTest = cn.prepareStatement(SELECT_TEST);
@@ -28,6 +36,8 @@ public class ResultLoader {
                 psInsertResult.addBatch();
                 psInsertResult.executeBatch();
             }
+        }catch (SQLException e){
+            System.out.println(e);
         }
     }
 
