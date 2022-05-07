@@ -1,10 +1,13 @@
 package by.epam.lab;
 
 import by.epam.lab.bean.Result;
+import by.epam.lab.dao.ResultDao;
+import by.epam.lab.factory.ResultFactory;
 
 import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.ListIterator;
 
 import static by.epam.lab.util.Constants.*;
 import static by.epam.lab.util.DBConstants.*;
@@ -28,20 +31,23 @@ public class RunnerLogic {
                 while (rs.next()) {
                     Result result = resultFactory.getResultFromFactory(rs.getString("login"), rs.getString("test"),
                             rs.getDate("date"), rs.getInt("mark"));
-                    System.out.println(result);
                     results.add(result);
                 }
-                for (Result result : results) {
-                    System.out.println(result);
-                }
                 if (!results.isEmpty()) {
-                    System.out.println(LAST_DAYS_RESULT);
-                    Result lastResult = results.get(results.size() - GET_LAST_IND_LIST);
                     for (Result result : results) {
-                        if (result.getDate().equals(lastResult.getDate())) {
-                            System.out.println(result);
+                        System.out.println(result);
+                    }
+                    System.out.println(LAST_DAYS_RESULT);
+                    ListIterator<Result> it = results.listIterator(results.size());
+                    Result lastResult = it.previous();
+                    System.out.println(lastResult);
+                    while (it.hasPrevious()){
+                        if (lastResult.getDate().equals(it.previous().getDate())){
+                            System.out.println(lastResult);
                         }
                     }
+                }else {
+                    System.out.println(NO_DATA);
                 }
             }
         } catch (SQLException e) {
