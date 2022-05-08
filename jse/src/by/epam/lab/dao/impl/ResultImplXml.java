@@ -1,9 +1,7 @@
 package by.epam.lab.dao.impl;
 
-import by.epam.lab.bean.DecimalResult;
 import by.epam.lab.bean.Result;
 import by.epam.lab.dao.ResultDao;
-import by.epam.lab.factory.DecimalResultFactory;
 import by.epam.lab.handler.XMLHandler;
 import org.xml.sax.SAXException;
 

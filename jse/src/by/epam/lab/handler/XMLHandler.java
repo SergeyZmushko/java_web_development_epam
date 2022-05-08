@@ -1,6 +1,5 @@
 package by.epam.lab.handler;
 
-import by.epam.lab.bean.DecimalResult;
 import by.epam.lab.bean.Result;
 import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;

@@ -4,15 +4,13 @@ public class DBConstants {
     public final static String USER = "jse";
     public final static String PASSWORD = "jse";
     public final static String DB_URL = "jdbc:mysql://127.0.0.1:3306/results";
-    public final static String CLASS_NAME = "com.mysql.cj.jdbc.Driver";
     public final static int LOGIN_IND_DB = 1;
+    public final static int ID_LOGIN_DB_IND = 1;
+    public final static int ID_TEST_DB_IND = 2;
+    public final static int DATE_DB_IND = 3;
+    public final static int MARK_DB_IND = 4;
     public final static int TEST_IND_DB = 2;
     public final static int AVG_MARK_IND_DB = TEST_IND_DB;
-    public final static int DATE_IND_DB = 3;
-    public final static int MARK_IND_DB = 4;
-    public final static String SQL_INSERT_INTO_LOGINS = "insert into logins (name) Select ? Where not exists(select * from logins where name = ?)";
-    public final static String SQL_INSERT_INTO_TESTS = "insert into tests (name) Select ? Where not exists(select * from tests where name = ?)";
-
     public final static String SQL_SET_FK_0 = "SET FOREIGN_KEY_CHECKS=0;";
     public final static String SQL_SET_FK_1 = "SET FOREIGN_KEY_CHECKS=1";
     public final static String SQL_TRUNCATE_RESULTS = "truncate TABLE results";
@@ -35,16 +33,10 @@ public class DBConstants {
     public final static String CURRENT_MONTH_TESTS = "Print tests on current month";
     public final static String FORMAT_STRING_MEAN_MARK = "%s:%d.%d\n";
     public final static String NO_DATA = "No data for current month";
-
-
     public final static String SELECT_LOGIN = "select idLogin from logins where name = ?";
     public final static String SELECT_TEST = "select idTest from tests where name = ?";
     public final static String INSERT_LOGIN = "insert into logins (name) value (?)";
     public final static String INSERT_TEST = "insert into tests (name) value (?)";
     public final static String SQL_INSERT_INTO_RESULTS = "INSERT INTO results (loginId, testId, dat, mark) values(?, ?, ?, ?)";
-//    public final static String SQL_INSERT_INTO_RESULTS = "INSERT INTO results (loginId, testId, dat, mark)\n" +
-//            "values( \n" +
-//            "(SELECT idLogin FROM logins WHERE name = ?),\n" +
-//            "(SELECT idTest FROM tests WHERE name = ?),\n" +
-//            "?, ?);";
+
 }

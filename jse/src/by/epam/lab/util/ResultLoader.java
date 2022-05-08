@@ -1,4 +1,4 @@
-package by.epam.lab;
+package by.epam.lab.util;
 
 import by.epam.lab.bean.Result;
 import by.epam.lab.dao.ResultDao;
@@ -29,27 +29,27 @@ public class ResultLoader {
                 String test = result.getTest();
                 int idLogin = getId(login, psSelectLogin, psInsertLogin);
                 int idTest = getId(test, psSelectTest, psInsertTest);
-                psInsertResult.setInt(1, idLogin);
-                psInsertResult.setInt(2, idTest);
-                psInsertResult.setDate(3, result.getDate());
-                psInsertResult.setInt(4, result.getMark());
+                psInsertResult.setInt(ID_LOGIN_DB_IND, idLogin);
+                psInsertResult.setInt(ID_TEST_DB_IND, idTest);
+                psInsertResult.setDate(DATE_DB_IND, result.getDate());
+                psInsertResult.setInt(MARK_DB_IND, result.getMark());
                 psInsertResult.addBatch();
                 psInsertResult.executeBatch();
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             System.out.println(e);
         }
     }
 
     private static int getId(String login, PreparedStatement psSelect, PreparedStatement psInsert) throws SQLException {
-        psSelect.setString(1, login);
+        psSelect.setString(LOGIN_IND_DB, login);
         ResultSet resultSet = psSelect.executeQuery();
         if (!resultSet.next()) {
-            psInsert.setString(1, login);
+            psInsert.setString(LOGIN_IND_DB, login);
             psInsert.executeUpdate();
         }
         ResultSet resultSet1 = psSelect.executeQuery();
         resultSet1.next();
-        return resultSet1.getInt(1);
+        return resultSet1.getInt(ID_LOGIN_DB_IND);
     }
 }

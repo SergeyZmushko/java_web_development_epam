@@ -1,6 +1,7 @@
 package by.epam.lab.bean;
 
 import java.sql.Date;
+import static by.epam.lab.util.Constants.*;
 
 public class DecimalResult extends Result{
 
@@ -13,6 +14,6 @@ public class DecimalResult extends Result{
     }
 
     public String markToString(){
-        return getMark() / 10 + "." + getMark() % 10;
+        return getMark() / FORMAT_COEFFICIENT_10 + DOT + getMark() % FORMAT_COEFFICIENT_10;
     }
 }

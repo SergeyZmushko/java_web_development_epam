@@ -2,8 +2,7 @@ package by.epam.lab.bean;
 
 import java.sql.Date;
 
-import static by.epam.lab.util.Constants.DELIMITER;
-import static by.epam.lab.util.Constants.FORMAT_COEFFICIENT_10;
+import static by.epam.lab.util.Constants.*;
 
 public class Result {
     private final String login;
@@ -39,10 +38,10 @@ public class Result {
     }
 
     public String markToString(){
-        return String.valueOf(mark / 10);
+        return String.valueOf(mark / FORMAT_COEFFICIENT_10);
     }
 
     public String toString() {
-        return getClass().getSimpleName() + login + DELIMITER + test + DELIMITER + date + DELIMITER + markToString();
+        return login + DELIMITER + test + DELIMITER + date + DELIMITER + markToString();
     }
 }
