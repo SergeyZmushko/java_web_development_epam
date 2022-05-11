@@ -5,6 +5,7 @@ import by.epam.lab.bean.DecimalResult;
 import by.epam.lab.bean.Result;
 import by.epam.lab.dao.ResultDao;
 import by.epam.lab.dao.impl.ResultImplXml;
+import by.epam.lab.util.Constants;
 
 import java.sql.Date;
 
@@ -18,11 +19,11 @@ public class DecimalResultFactory extends ResultFactory {
         return new DecimalResult(login, test, date, mark);
     }
 
-    public ResultDao getResultDaoFromFactory(String fileName) {
-        return new ResultImplXml(fileName);
+    public ResultDao getResultDaoFromFactory(String fileName, ResultFactory factory) {
+        return new ResultImplXml(fileName, factory);
     }
 
     public double getRightAvgMark(double mark) {
-        return mark / 10;
+        return mark / Constants.FORMAT_COEFFICIENT;
     }
 }

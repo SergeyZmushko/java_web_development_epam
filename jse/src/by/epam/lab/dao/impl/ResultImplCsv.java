@@ -12,20 +12,21 @@ import static by.epam.lab.util.Constants.*;
 
 public class ResultImplCsv implements ResultDao {
     private Scanner scanner;
+    private final ResultFactory factory;
 
-    public ResultImplCsv(String fileName) {
+    public ResultImplCsv(String fileName, ResultFactory factory) {
+        this.factory = factory;
         try {
             scanner = new Scanner(new FileReader(fileName));
         } catch (FileNotFoundException e) {
             System.out.println(FILE_NOT_FOUND);
-            e.printStackTrace();
         }
     }
 
     @Override
     public Result nextResult() {
         String[] str = scanner.next().split(DELIMITER);
-        return new ResultFactory().getResultFromFactory(str[LOGIN_IND], str[TEST_IND], str[DATE_IND], str[MARK_IND]);
+        return factory.getResultFromFactory(str[LOGIN_IND], str[TEST_IND], str[DATE_IND], str[MARK_IND]);
     }
 
     @Override

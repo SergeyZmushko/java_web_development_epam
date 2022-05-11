@@ -8,12 +8,12 @@ public class Constants {
     public final static int TEST_IND = DATE_IND_XML;
     public final static int DATE_IND = 2;
     public final static int MARK_IND = 3;
-    public final static int FORMAT_COEFFICIENT_10 = 10;
-    public final static int FORMAT_COEFFICIENT_100 = 100;
+    public final static int FORMAT_COEFFICIENT = 10;
     public final static String REPLACE_REGEX = "\\.0";
-    public final static String REGEX_HALF_MARK = "\\d\\.\\d";
     public final static String DOT = ".";
+    public final static String COMMA = ",";
     public final static String REPLACEMENT = "";
+    public final static String FORMAT_STRING_MEAN_MARK = "%s:%.2f\n";
     public final static String DELIMITER = ";";
     public final static String FILE_NAME_XML = "src/results2.xml";
     public final static String FILE_NAME_CSV_1 = "src/results1.csv";

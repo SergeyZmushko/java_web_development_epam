@@ -1,5 +1,6 @@
 package by.epam.lab.handler;
 
+import by.epam.lab.bean.DecimalResult;
 import by.epam.lab.bean.Result;
 import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
@@ -25,7 +26,7 @@ public class XMLHandler extends DefaultHandler {
     public void startElement(String uri, String localName, String qName, Attributes attributes) {
         currentEnum = ResultEnum.valueOf(qName.toUpperCase());
         if (currentEnum == ResultEnum.TEST) {
-            results.add(new Result(currentLogin, attributes.getValue(TEST_IND_XML),
+            results.add(new DecimalResult(currentLogin, attributes.getValue(TEST_IND_XML),
                     attributes.getValue(DATE_IND_XML), attributes.getValue(MARK_IND_XML)));
         }
     }

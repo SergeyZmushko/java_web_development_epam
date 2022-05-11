@@ -16,12 +16,12 @@ public class ResultFactory {
         return new Result(login, test, date, mark);
     }
 
-    public ResultDao getResultDaoFromFactory(String fileName) throws DaoException {
-        return new ResultImplCsv(fileName);
+    public ResultDao getResultDaoFromFactory(String fileName, ResultFactory factory) {
+        return new ResultImplCsv(fileName, factory);
     }
 
     public double getRightAvgMark(double mark) {
-        return mark / Constants.FORMAT_COEFFICIENT_10;
+        return mark;
     }
 
 

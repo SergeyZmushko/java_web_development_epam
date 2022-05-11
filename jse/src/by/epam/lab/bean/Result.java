@@ -18,7 +18,7 @@ public class Result {
     }
 
     public Result(String login, String test, String date, String mark) {
-        this(login, test, Date.valueOf(date), (int) (Double.parseDouble(mark) * FORMAT_COEFFICIENT_10));
+        this(login, test, Date.valueOf(date), Integer.parseInt(mark));
     }
 
     public String getTest() {
@@ -37,11 +37,11 @@ public class Result {
         return login;
     }
 
-    public String markToString(){
-        return String.valueOf(mark / FORMAT_COEFFICIENT_10);
+    public String markToString() {
+        return String.valueOf(mark);
     }
 
     public String toString() {
-        return login + DELIMITER + test + DELIMITER + date + DELIMITER + markToString();
+        return getClass().getSimpleName() + DELIMITER + login + DELIMITER + test + DELIMITER + date + DELIMITER + markToString();
     }
 }

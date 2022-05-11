@@ -8,19 +8,31 @@ import static by.epam.lab.util.DBConstants.*;
 
 public class ConnectionProvider {
 
-    private static Connection INSTANCE;
+    private static final Connection INSTANCE = getInstance();
 
-    private ConnectionProvider(){
+    private ConnectionProvider() {
+    }
+
+    public static Connection getInstance() {
+        try {
+            return DriverManager.getConnection(DB_URL, USER, PASSWORD);
+        } catch (SQLException e) {
+            System.out.println(e);
+            throw new RuntimeException(CONNECTION_ERROR);
+        }
     }
 
     public static Connection getConnection() {
-        if (INSTANCE == null){
+        return INSTANCE;
+    }
+
+    public static void closeConnection() {
+        if (INSTANCE != null) {
             try {
-                INSTANCE = DriverManager.getConnection(DB_URL, USER, PASSWORD);
-            }catch (SQLException e){
-                System.out.println(e);
+                INSTANCE.close();
+            } catch (SQLException e) {
+                System.err.println(CLOSE_CONNECTION_ERROR);
             }
         }
-        return INSTANCE;
     }
 }
