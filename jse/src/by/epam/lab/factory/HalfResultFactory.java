@@ -4,6 +4,7 @@ import by.epam.lab.bean.HalfResult;
 import by.epam.lab.bean.Result;
 import by.epam.lab.dao.ResultDao;
 import by.epam.lab.dao.impl.ResultImplCsv;
+import by.epam.lab.exceptions.SourceException;
 import by.epam.lab.util.Constants;
 
 import java.sql.Date;
@@ -18,7 +19,7 @@ public class HalfResultFactory extends ResultFactory {
         return new HalfResult(login, test, date, mark);
     }
 
-    public ResultDao getResultDaoFromFactory(String fileName, ResultFactory factory) {
+    public ResultDao getResultDaoFromFactory(String fileName, ResultFactory factory) throws SourceException {
         return new ResultImplCsv(fileName, factory);
     }
 

@@ -3,7 +3,7 @@ package by.epam.lab.factory;
 import by.epam.lab.dao.ResultDao;
 import by.epam.lab.dao.impl.ResultImplCsv;
 import by.epam.lab.bean.Result;
-import by.epam.lab.util.Constants;
+import by.epam.lab.exceptions.SourceException;
 
 import java.sql.Date;
 
@@ -16,7 +16,7 @@ public class ResultFactory {
         return new Result(login, test, date, mark);
     }
 
-    public ResultDao getResultDaoFromFactory(String fileName, ResultFactory factory) {
+    public ResultDao getResultDaoFromFactory(String fileName, ResultFactory factory) throws SourceException {
         return new ResultImplCsv(fileName, factory);
     }
 

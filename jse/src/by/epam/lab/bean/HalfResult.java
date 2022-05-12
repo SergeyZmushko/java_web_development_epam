@@ -14,7 +14,8 @@ public class HalfResult extends Result {
         super(login, test, date, String.valueOf((int) (Double.parseDouble(mark) * FORMAT_COEFFICIENT)));
     }
 
-    public String markToString() {
-        return (getMark() / FORMAT_COEFFICIENT + DOT + getMark() % FORMAT_COEFFICIENT).replaceAll(REPLACE_REGEX, REPLACEMENT);
+    protected String markToString() {
+        return String.format(MARK_FORMAT, getMark() / FORMAT_COEFFICIENT, getMark() % FORMAT_COEFFICIENT)
+                .replaceAll(REPLACE_REGEX, REPLACEMENT);
     }
 }

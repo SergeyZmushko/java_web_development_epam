@@ -1,10 +1,13 @@
 package by.epam.lab.util;
 
+import by.epam.lab.exceptions.InitRuntimeException;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 import static by.epam.lab.util.DBConstants.*;
+import static by.epam.lab.util.Constants.*;
 
 public class ConnectionProvider {
 
@@ -18,7 +21,7 @@ public class ConnectionProvider {
             return DriverManager.getConnection(DB_URL, USER, PASSWORD);
         } catch (SQLException e) {
             System.out.println(e);
-            throw new RuntimeException(CONNECTION_ERROR);
+            throw new InitRuntimeException(CONNECTION_ERROR);
         }
     }
 

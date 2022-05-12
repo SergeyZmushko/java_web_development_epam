@@ -37,11 +37,11 @@ public class Result {
         return login;
     }
 
-    public String markToString() {
+    protected String markToString() {
         return String.valueOf(mark);
     }
 
     public String toString() {
-        return getClass().getSimpleName() + DELIMITER + login + DELIMITER + test + DELIMITER + date + DELIMITER + markToString();
+        return String.format(RESULT_FORMAT, getClass().getSimpleName(), login, test, date, markToString());
     }
 }

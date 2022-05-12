@@ -2,6 +2,7 @@ package by.epam.lab.dao.impl;
 
 import by.epam.lab.bean.Result;
 import by.epam.lab.dao.ResultDao;
+import by.epam.lab.exceptions.SourceException;
 import by.epam.lab.factory.ResultFactory;
 
 import java.io.FileNotFoundException;
@@ -11,15 +12,15 @@ import java.util.Scanner;
 import static by.epam.lab.util.Constants.*;
 
 public class ResultImplCsv implements ResultDao {
-    private Scanner scanner;
+    private final Scanner scanner;
     private final ResultFactory factory;
 
-    public ResultImplCsv(String fileName, ResultFactory factory) {
+    public ResultImplCsv(String fileName, ResultFactory factory) throws SourceException {
         this.factory = factory;
         try {
             scanner = new Scanner(new FileReader(fileName));
         } catch (FileNotFoundException e) {
-            System.out.println(FILE_NOT_FOUND);
+            throw new SourceException(e.getMessage());
         }
     }
 

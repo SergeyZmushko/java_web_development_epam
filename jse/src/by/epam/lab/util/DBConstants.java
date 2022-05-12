@@ -27,13 +27,12 @@ public class DBConstants {
     public final static String MEAN_MARK = "Print mean mark";
     public final static String LAST_DAYS_RESULT = "Last day result";
     public final static String CURRENT_MONTH_TESTS = "Print tests on current month";
-    public final static String NO_DATA = "No data for current month";
+    public final static String NO_CURRENT_MONTH_DATA = "No data for current month";
     public final static String SELECT_LOGIN = "select idLogin from logins where name = ?";
     public final static String SELECT_TEST = "select idTest from tests where name = ?";
     public final static String INSERT_LOGIN = "insert into logins (name) value (?)";
     public final static String INSERT_TEST = "insert into tests (name) value (?)";
-    public final static String SQL_INSERT_INTO_RESULTS = "INSERT INTO results (loginId, testId, dat, mark) values(?, ?, ?, ?)";
-    public final static String CONNECTION_ERROR = "Connection error";
-    public final static String CLOSE_CONNECTION_ERROR = "Close connection error";
+    public final static String SQL_INSERT_RESULTS = "INSERT INTO results (loginId, testId, dat, mark) values(?, ?, ?, ?)";
+
 
 }
