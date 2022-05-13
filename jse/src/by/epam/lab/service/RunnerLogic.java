@@ -100,7 +100,7 @@ public class RunnerLogic {
              ResultSet rs = statement.executeQuery(SQL_SELECT_AVG_MARK)) {
             System.out.println(MEAN_MARK);
             while (rs.next()) {
-                System.out.printf(String.format(FORMAT_STRING_MEAN_MARK, rs.getString(LOGIN_IND_DB),
+                System.out.println(String.format(FORMAT_STRING_MEAN_MARK, rs.getString(LOGIN_IND_DB),
                         resultFactory.getRightAvgMark(rs.getDouble(AVG_MARK_IND_DB))).replace(COMMA, DOT));
             }
         } catch (SQLException e) {

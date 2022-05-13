@@ -13,7 +13,7 @@ public class Constants {
     public final static String DOT = ".";
     public final static String COMMA = ",";
     public final static String REPLACEMENT = "";
-    public final static String FORMAT_STRING_MEAN_MARK = "%s:%.2f\n";
+    public final static String FORMAT_STRING_MEAN_MARK = "%s:%.2f";
     public final static String RESULT_FORMAT = "%s;%s;%s;%s;%s";
     public final static String MARK_FORMAT = "%d.%d";
     public final static String DELIMITER = ";";
