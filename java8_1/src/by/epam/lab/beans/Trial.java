@@ -3,7 +3,7 @@ package by.epam.lab.beans;
 import static by.epam.lab.utils.Constants.*;
 
 public class Trial {
-    private String name;
+    private final String name;
     private int mark1;
     private int mark2;
     protected static final int PASS_MARK = 120;
