@@ -39,7 +39,10 @@ public class Runner {
         System.out.println(RAW_DELIMITER);
         List<Trial> notPassedTrials = trials.stream()
                 .filter(trial -> !trial.isPassed())
-                .map(trial -> new Trial(trial.getName(), 0, 0))
+                .peek(trial -> {
+                    trial.setMark1(0);
+                    trial.setMark2(0);
+                })
                 .toList();
         notPassedTrials.forEach(System.out::println);
 
