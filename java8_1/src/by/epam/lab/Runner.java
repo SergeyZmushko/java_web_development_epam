@@ -26,10 +26,10 @@ public class Runner {
         trials.forEach(System.out::println);
 
         System.out.println(RAW_DELIMITER);
-        long count = trials.stream()
+
+        System.out.println(PASSED_TRIAL_COUNT + trials.stream()
                 .filter(Trial::isPassed)
-                .count();
-        System.out.println(PASSED_TRIAL_COUNT + count);
+                .count());
 
         trials.sort(Comparator.comparing(Runner::markSum));
 
@@ -47,10 +47,9 @@ public class Runner {
                 })
                 .collect(Collectors.toList());
 
-        boolean match = notPassedTrials.stream()
-                .allMatch(t -> !t.isPassed());
         notPassedTrials.forEach(System.out::println);
-        System.out.println(match);
+        System.out.println(notPassedTrials.stream()
+                .allMatch(t -> !t.isPassed()));
 
         System.out.println(RAW_DELIMITER);
         int[] numericArray = trials.stream()
