@@ -1,5 +1,7 @@
 package by.epam.lab.beans;
 
+import by.epam.lab.utils.Constants;
+
 public class StrongTrial extends Trial {
 
     public StrongTrial(String name, int mark1, int mark2) {
@@ -7,7 +9,7 @@ public class StrongTrial extends Trial {
     }
 
     protected int result() {
-        return getMark1() / 2 + getMark2();
+        return getMark1() / Constants.FORMAT_MARK + getMark2();
     }
 
     public boolean isPassed() {

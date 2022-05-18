@@ -26,15 +26,17 @@ public class Runner {
         trials.forEach(System.out::println);
 
         System.out.println(RAW_DELIMITER);
-        trials.forEach(t -> {
-            if (t.isPassed()) {
-                System.out.println(trials.indexOf(t));
-            }
-        });
-        trials.sort(Comparator.comparing(t -> t.getMark1() + t.getMark2()));
+        long count = trials.stream()
+                .filter(Trial::isPassed)
+                .count();
+        System.out.println(PASSED_TRIAL_COUNT + count);
+
+        trials.sort(Comparator.comparing(Runner::markSum));
 
         System.out.println(RAW_DELIMITER);
-        trials.forEach(t -> System.out.println(t.getMark1() + t.getMark2()));
+        trials.stream().
+                mapToInt(Runner::markSum)
+                .forEach(System.out::println);
 
         System.out.println(RAW_DELIMITER);
         List<Trial> notPassedTrials = trials.stream()
@@ -43,16 +45,24 @@ public class Runner {
                     trial.setMark1(0);
                     trial.setMark2(0);
                 })
-                .toList();
+                .collect(Collectors.toList());
+
+        boolean match = notPassedTrials.stream()
+                .allMatch(t -> !t.isPassed());
         notPassedTrials.forEach(System.out::println);
+        System.out.println(match);
 
         System.out.println(RAW_DELIMITER);
         int[] numericArray = trials.stream()
-                .mapToInt(t -> t.getMark1() + t.getMark2())
+                .mapToInt(Runner::markSum)
                 .toArray();
         String str = Arrays.stream(numericArray)
                 .mapToObj(String::valueOf)
                 .collect(Collectors.joining(ARRAY_DELIMITER));
         System.out.println(str);
+    }
+
+    private static int markSum(Trial trial) {
+        return trial.getMark1() + trial.getMark2();
     }
 }
