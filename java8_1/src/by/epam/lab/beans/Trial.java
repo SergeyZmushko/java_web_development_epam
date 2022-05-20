@@ -22,6 +22,10 @@ public class Trial {
         this.mark2 = mark2;
     }
 
+    public Trial getCopy() {
+        return new Trial(name, mark1, mark2);
+    }
+
     public String getName() {
         return name;
     }
@@ -32,6 +36,11 @@ public class Trial {
 
     public int getMark2() {
         return mark2;
+    }
+
+    public void clearMarks() {
+        setMark1(0);
+        setMark2(0);
     }
 
     protected int result() {
