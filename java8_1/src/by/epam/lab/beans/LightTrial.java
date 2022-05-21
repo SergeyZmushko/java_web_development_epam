@@ -8,7 +8,7 @@ public class LightTrial extends Trial {
         super(name, mark1, mark2);
     }
 
-    public LightTrial(LightTrial lightTrial){
+    public LightTrial(LightTrial lightTrial) {
         super(lightTrial);
     }
 

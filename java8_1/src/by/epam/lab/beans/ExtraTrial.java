@@ -11,7 +11,7 @@ public class ExtraTrial extends Trial {
         this.mark3 = mark3;
     }
 
-    public ExtraTrial(ExtraTrial extraTrial){
+    public ExtraTrial(ExtraTrial extraTrial) {
         super(extraTrial);
         this.mark3 = extraTrial.mark3;
     }

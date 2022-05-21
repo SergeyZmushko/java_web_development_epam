@@ -8,7 +8,7 @@ public class StrongTrial extends Trial {
         super(name, mark1, mark2);
     }
 
-    public StrongTrial(StrongTrial strongTrial){
+    public StrongTrial(StrongTrial strongTrial) {
         super(strongTrial);
     }
 
