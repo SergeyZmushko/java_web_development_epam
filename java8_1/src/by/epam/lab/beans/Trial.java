@@ -14,16 +14,14 @@ public class Trial {
         this.mark2 = mark2;
     }
 
-    public void setMark1(int mark1) {
-        this.mark1 = mark1;
-    }
-
-    public void setMark2(int mark2) {
-        this.mark2 = mark2;
+    public Trial(Trial trial){
+        name = trial.name;
+        mark1 = trial.mark1;
+        mark2 = trial.mark2;
     }
 
     public Trial getCopy() {
-        return new Trial(name, mark1, mark2);
+        return new Trial(this);
     }
 
     public String getName() {
@@ -39,8 +37,8 @@ public class Trial {
     }
 
     public void clearMarks() {
-        setMark1(0);
-        setMark2(0);
+        mark1 = 0;
+        mark2 = 0;
     }
 
     protected int result() {

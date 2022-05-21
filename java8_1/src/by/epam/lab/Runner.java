@@ -4,11 +4,11 @@ import by.epam.lab.beans.ExtraTrial;
 import by.epam.lab.beans.LightTrial;
 import by.epam.lab.beans.StrongTrial;
 import by.epam.lab.beans.Trial;
-import by.epam.lab.functionalInterface.Operationable;
 
 import static by.epam.lab.utils.Constants.*;
 
 import java.util.*;
+import java.util.function.ToIntFunction;
 import java.util.stream.Collectors;
 
 public class Runner {
@@ -32,12 +32,12 @@ public class Runner {
                 .filter(Trial::isPassed)
                 .count());
         //4
-        Operationable operation = trial -> trial.getMark1() + trial.getMark2();
-        trials.sort(Comparator.comparingInt(operation::calculateMark));
+        ToIntFunction<Trial> markSum = trial -> trial.getMark1() + trial.getMark2();
+        trials.sort(Comparator.comparingInt(markSum));
         //5
         System.out.println(RAW_DELIMITER);
         trials.stream().
-                map(operation::calculateMark)
+                map(markSum::applyAsInt)
                 .forEach(System.out::println);
         //6
         System.out.println(RAW_DELIMITER);
@@ -45,16 +45,15 @@ public class Runner {
                 .filter(trial -> !trial.isPassed())
                 .map(Trial::getCopy)
                 .peek(Trial::clearMarks)
+                .peek(System.out::println)
                 .collect(Collectors.toList());
-
-        notPassedTrials.forEach(System.out::println);
 
         System.out.println(notPassedTrials.stream()
                 .allMatch(t -> !t.isPassed()));
         //7
         System.out.println(RAW_DELIMITER);
         int[] numericArray = trials.stream()
-                .mapToInt(operation::calculateMark)
+                .mapToInt(markSum)
                 .toArray();
         String str = Arrays.stream(numericArray)
                 .mapToObj(String::valueOf)

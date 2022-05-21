@@ -8,9 +8,13 @@ public class LightTrial extends Trial {
         super(name, mark1, mark2);
     }
 
+    public LightTrial(LightTrial lightTrial){
+        super(lightTrial);
+    }
+
     @Override
-    public Trial getCopy() {
-        return new LightTrial(getName(), getMark1(), getMark2());
+    public LightTrial getCopy() {
+        return new LightTrial(this);
     }
 
     @Override

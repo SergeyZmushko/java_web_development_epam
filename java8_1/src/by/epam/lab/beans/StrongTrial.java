@@ -8,9 +8,13 @@ public class StrongTrial extends Trial {
         super(name, mark1, mark2);
     }
 
+    public StrongTrial(StrongTrial strongTrial){
+        super(strongTrial);
+    }
+
     @Override
-    public Trial getCopy() {
-        return new StrongTrial(getName(), getMark1(), getMark2());
+    public StrongTrial getCopy() {
+        return new StrongTrial(this);
     }
 
     @Override
