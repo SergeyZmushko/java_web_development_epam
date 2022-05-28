@@ -6,15 +6,12 @@ public class Drop {
     private Trial trial;
     private boolean empty = true;
 
-    public boolean isEmpty() {
-        return empty;
-    }
-
     public synchronized Trial take() {
         while (empty) {
             try {
                 wait();
-            } catch (InterruptedException ignored) {}
+            } catch (InterruptedException ignored) {
+            }
         }
         empty = true;
         notifyAll();
@@ -25,7 +22,8 @@ public class Drop {
         while (!empty) {
             try {
                 wait();
-            } catch (InterruptedException ignored) {}
+            } catch (InterruptedException ignored) {
+            }
         }
         empty = false;
         this.trial = trial;

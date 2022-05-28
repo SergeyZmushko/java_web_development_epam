@@ -1,5 +1,7 @@
 package by.epam.lab;
 
+import by.epam.lab.beans.Trial;
+
 import static by.epam.lab.utils.Constants.GOT;
 
 public class Consumer implements Runnable {
@@ -12,8 +14,8 @@ public class Consumer implements Runnable {
     @Override
     public void run() {
         synchronized (drop) {
-            while (drop.isEmpty()) {
-                System.out.println(GOT + drop.take());
+            for (Trial trial = drop.take(); trial != null; trial = drop.take()) {
+                System.out.println(GOT + trial);
             }
         }
     }

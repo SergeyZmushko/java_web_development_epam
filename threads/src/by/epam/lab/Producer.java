@@ -17,19 +17,18 @@ public class Producer implements Runnable {
 
     @Override
     public void run() {
-        try (Scanner sc = new Scanner(new FileReader(FILE_NAME))) {
-            while (sc.hasNextLine()) {
-                synchronized (drop) {
-                    while (drop.isEmpty()) {
-                        String[] str = sc.next().split(DELIMITER);
-                        Trial trial = new Trial(str);
-                        drop.put(trial);
-                        System.out.println(PUT + trial);
-                    }
+        synchronized (drop) {
+            try (Scanner sc = new Scanner(new FileReader(FILE_NAME))) {
+                while (sc.hasNextLine()) {
+                    String[] str = sc.next().split(DELIMITER);
+                    Trial trial = new Trial(str);
+                    drop.put(trial);
+                    System.out.println(PUT + trial);
                 }
+                drop.put(null);
+            } catch (FileNotFoundException e) {
+                System.out.println(FILE_NOT_FOUND);
             }
-        } catch (FileNotFoundException e) {
-            System.out.println(FILE_NOT_FOUND);
         }
     }
 }
