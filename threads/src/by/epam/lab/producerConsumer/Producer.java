@@ -1,6 +1,7 @@
-package by.epam.lab;
+package by.epam.lab.producerConsumer;
 
 import by.epam.lab.beans.Trial;
+import by.epam.lab.producerConsumer.Drop;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
