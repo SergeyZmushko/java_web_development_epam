@@ -9,4 +9,5 @@ public class Constants {
     public final static int NAME_INDEX = 0;
     public final static int MARK1_INDEX = 1;
     public final static int MARK2_INDEX = 2;
+    public final static String EXCEPTION = "Exception: ";
 }

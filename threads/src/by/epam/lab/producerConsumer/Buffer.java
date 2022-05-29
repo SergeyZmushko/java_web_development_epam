@@ -2,6 +2,8 @@ package by.epam.lab.producerConsumer;
 
 import by.epam.lab.beans.Trial;
 
+import static by.epam.lab.utils.Constants.EXCEPTION;
+
 public class Buffer {
     private Trial trial;
     private boolean empty = true;
@@ -11,7 +13,8 @@ public class Buffer {
             try {
                 wait();
             } catch (InterruptedException ignored) {
-                System.out.println("Interrupted, closing...");
+                //the thread should not be interrupted
+                System.err.println(EXCEPTION + ignored);
             }
         }
         empty = true;
@@ -24,6 +27,8 @@ public class Buffer {
             try {
                 wait();
             } catch (InterruptedException ignored) {
+                //the thread should not be interrupted
+                System.err.println(EXCEPTION + ignored);
             }
         }
         empty = false;
