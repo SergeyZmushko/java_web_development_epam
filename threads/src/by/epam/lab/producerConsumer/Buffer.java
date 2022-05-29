@@ -12,9 +12,9 @@ public class Buffer {
         while (empty) {
             try {
                 wait();
-            } catch (InterruptedException ignored) {
+            } catch (InterruptedException ex) {
                 //the thread should not be interrupted
-                System.err.println(EXCEPTION + ignored);
+                System.err.println(EXCEPTION + ex);
             }
         }
         empty = true;
@@ -26,9 +26,9 @@ public class Buffer {
         while (!empty) {
             try {
                 wait();
-            } catch (InterruptedException ignored) {
+            } catch (InterruptedException ex) {
                 //the thread should not be interrupted
-                System.err.println(EXCEPTION + ignored);
+                System.err.println(EXCEPTION + ex);
             }
         }
         empty = false;
