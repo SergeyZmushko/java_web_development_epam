@@ -2,7 +2,7 @@ package by.epam.lab.producerConsumer;
 
 import by.epam.lab.beans.Trial;
 
-public class Drop {
+public class Buffer {
     private Trial trial;
     private boolean empty = true;
 
@@ -11,6 +11,7 @@ public class Drop {
             try {
                 wait();
             } catch (InterruptedException ignored) {
+                System.out.println("Interrupted, closing...");
             }
         }
         empty = true;

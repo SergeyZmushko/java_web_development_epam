@@ -5,16 +5,16 @@ import by.epam.lab.beans.Trial;
 import static by.epam.lab.utils.Constants.GOT;
 
 public class Consumer implements Runnable {
-    private final Drop drop;
+    private final Buffer buffer;
 
-    public Consumer(Drop drop) {
-        this.drop = drop;
+    public Consumer(Buffer buffer) {
+        this.buffer = buffer;
     }
 
     @Override
     public void run() {
-        synchronized (drop) {
-            for (Trial trial = drop.take(); trial != null; trial = drop.take()) {
+        synchronized (buffer) {
+            for (Trial trial = buffer.take(); trial != null; trial = buffer.take()) {
                 System.out.println(GOT + trial);
             }
         }

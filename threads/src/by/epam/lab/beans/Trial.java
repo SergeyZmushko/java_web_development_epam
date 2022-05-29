@@ -6,7 +6,7 @@ public class Trial {
     private final String name;
     private final int mark1;
     private final int mark2;
-    protected static final int PASS_MARK = 120;
+    private static final int PASS_MARK = 120;
 
     public Trial(String name, int mark1, int mark2) {
         this.name = name;
