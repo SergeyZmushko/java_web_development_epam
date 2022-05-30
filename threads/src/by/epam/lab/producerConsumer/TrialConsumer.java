@@ -2,6 +2,7 @@ package by.epam.lab.producerConsumer;
 
 import by.epam.lab.beans.Trial;
 
+import static by.epam.lab.utils.Constants.FAKE_TRIAL;
 import static by.epam.lab.utils.Constants.GOT;
 
 public class TrialConsumer implements Runnable {
@@ -14,10 +15,13 @@ public class TrialConsumer implements Runnable {
     @Override
     public void run() {
         synchronized (trialBuffer) {
-            for (Trial trial = trialBuffer.take();
-                 !trial.equals(new Trial("Abc", 20, 60));
-                 trial = trialBuffer.take()) {
-                System.out.println(GOT + trial);
+            while (true) {
+                Trial trial = trialBuffer.take();
+                if (!trial.equals(FAKE_TRIAL)) {
+                    System.out.println(GOT + trial);
+                } else {
+                    break;
+                }
             }
         }
     }

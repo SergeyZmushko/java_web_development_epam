@@ -21,15 +21,14 @@ public class TrialProducer implements Runnable {
         synchronized (trialBuffer) {
             try (Scanner sc = new Scanner(new FileReader(path))) {
                 while (sc.hasNextLine()) {
-                    String[] str = sc.next().split(DELIMITER);
-                    Trial trial = new Trial(str);
+                    Trial trial = new Trial(sc.next().split(DELIMITER));
                     trialBuffer.put(trial);
                     System.out.println(PUT + trial);
                 }
             } catch (FileNotFoundException e) {
                 System.out.println(FILE_NOT_FOUND);
             } finally {
-                trialBuffer.put(new Trial("Abc", 20, 60));
+                trialBuffer.put(FAKE_TRIAL);
             }
         }
     }

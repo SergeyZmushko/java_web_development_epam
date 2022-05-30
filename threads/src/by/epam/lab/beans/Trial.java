@@ -14,6 +14,10 @@ public class Trial {
         this.mark2 = mark2;
     }
 
+    public Trial(){
+        this(null, 0, 0);
+    }
+
     public Trial(String name, String mark1, String mark2) {
         this(name, Integer.parseInt(mark1), Integer.parseInt(mark2));
     }
@@ -48,6 +52,14 @@ public class Trial {
 
     public boolean isPassed() {
         return result() >= PASS_MARK;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name != null ? name.hashCode() : NAME_NULL_HASH;
+        result = PRIME_NUMBER * result + mark1;
+        result = PRIME_NUMBER * result + mark2;
+        return result;
     }
 
     @Override
