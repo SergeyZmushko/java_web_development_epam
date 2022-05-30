@@ -4,7 +4,7 @@ import by.epam.lab.beans.Trial;
 
 import static by.epam.lab.utils.Constants.EXCEPTION;
 
-public class Buffer {
+public class TrialBuffer {
     private Trial trial;
     private boolean empty = true;
 

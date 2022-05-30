@@ -50,11 +50,19 @@ public class Trial {
         return result() >= PASS_MARK;
     }
 
-    protected String fieldsToString() {
-        return getClass().getSimpleName() + DELIMITER + name + DELIMITER + mark1 + DELIMITER + mark2;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Trial trial = (Trial) o;
+
+        if (mark1 != trial.mark1) return false;
+        if (mark2 != trial.mark2) return false;
+        return name != null ? name.equals(trial.name) : trial.name == null;
     }
 
     public String toString() {
-        return fieldsToString() + DELIMITER + isPassed();
+        return getClass().getSimpleName() + DELIMITER + name + DELIMITER + mark1 + DELIMITER + mark2 + DELIMITER + isPassed();
     }
 }
