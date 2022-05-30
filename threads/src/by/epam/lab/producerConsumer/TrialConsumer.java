@@ -19,9 +19,8 @@ public class TrialConsumer implements Runnable {
                 Trial trial = trialBuffer.take();
                 if (FAKE_TRIAL.equals(trial)) {
                     break;
-                } else {
-                    System.out.println(GOT + trial);
                 }
+                System.out.println(GOT + trial);
             }
         }
     }
