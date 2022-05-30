@@ -17,10 +17,10 @@ public class TrialConsumer implements Runnable {
         synchronized (trialBuffer) {
             while (true) {
                 Trial trial = trialBuffer.take();
-                if (!trial.equals(FAKE_TRIAL)) {
-                    System.out.println(GOT + trial);
-                } else {
+                if (FAKE_TRIAL.equals(trial)) {
                     break;
+                } else {
+                    System.out.println(GOT + trial);
                 }
             }
         }
