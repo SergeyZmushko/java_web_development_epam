@@ -14,14 +14,12 @@ public class TrialConsumer implements Runnable {
 
     @Override
     public void run() {
-        synchronized (trialBuffer) {
-            while (true) {
-                Trial trial = trialBuffer.take();
-                if (FAKE_TRIAL.equals(trial)) {
-                    break;
-                }
-                System.out.println(GOT + trial);
+        while (true) {
+            Trial trial = trialBuffer.take();
+            if (FAKE_TRIAL.equals(trial)) {
+                break;
             }
+            System.out.println(GOT + trial);
         }
     }
 }

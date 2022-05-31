@@ -18,18 +18,16 @@ public class TrialProducer implements Runnable {
 
     @Override
     public void run() {
-        synchronized (trialBuffer) {
-            try (Scanner sc = new Scanner(new FileReader(path))) {
-                while (sc.hasNextLine()) {
-                    Trial trial = new Trial(sc.next().split(DELIMITER));
-                    trialBuffer.put(trial);
-                    System.out.println(PUT + trial);
-                }
-            } catch (FileNotFoundException e) {
-                System.out.println(FILE_NOT_FOUND);
-            } finally {
-                trialBuffer.put(FAKE_TRIAL);
+        try (Scanner sc = new Scanner(new FileReader(path))) {
+            while (sc.hasNextLine()) {
+                Trial trial = new Trial(sc.next().split(DELIMITER));
+                trialBuffer.put(trial);
+                System.out.println(PUT + trial);
             }
+        } catch (FileNotFoundException e) {
+            System.out.println(FILE_NOT_FOUND);
+        } finally {
+            trialBuffer.put(FAKE_TRIAL);
         }
     }
 }

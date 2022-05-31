@@ -6,7 +6,7 @@ import static by.epam.lab.utils.Constants.EXCEPTION;
 
 public class TrialBuffer {
     private Trial trial;
-    private boolean empty = true;
+    private volatile boolean empty = true;
 
     public synchronized Trial take() {
         while (empty) {
