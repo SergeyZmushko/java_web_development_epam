@@ -8,29 +8,22 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.concurrent.BlockingQueue;
 
 import static by.epam.lab.utils.Constants.*;
 
 public class TrialProducer implements Runnable {
-    private final BlockingQueue<String> sharedQueue;
+    private final Buffer buffer;
     private final String path;
-    private final int maxProducersNumber;
-    private final int bufferStrLength;
+    protected final int maxProducersNumber;
 
-    public TrialProducer(BlockingQueue<String> sharedQueue) throws IOException {
-        this.sharedQueue = sharedQueue;
+    public TrialProducer(Buffer buffer) throws IOException {
         this.path = Data.getProperties(FOLDER_NAME);
         this.maxProducersNumber = Integer.parseInt(Data.getProperties(MAX_PRODUCERS_NUMBER));
-        this.bufferStrLength = Integer.parseInt(Data.getProperties(BUFFER_STR_LENGTH));
+        this.buffer = buffer;
     }
 
     public int getMaxProducersNumber() {
         return maxProducersNumber;
-    }
-
-    public int getBufferStrLength() {
-        return bufferStrLength;
     }
 
     @Override
@@ -40,19 +33,23 @@ public class TrialProducer implements Runnable {
             try (Scanner sc = new Scanner(file)) {
                 while (sc.hasNextLine()) {
                     String strTrial = sc.next();
-                    sharedQueue.put(strTrial);
-                    System.out.println(GOT + strTrial + " " + Thread.currentThread().getName());
+                    buffer.getSharedQueue().put(strTrial);
+                    System.out.println(GOT + strTrial + BLANK + Thread.currentThread().getName());
                     Thread.sleep(100);
                 }
             } catch (FileNotFoundException e) {
                 System.out.println(FILE_NOT_FOUND);
-            } catch (InterruptedException ignored) {
+            } catch (InterruptedException e) {
+                //the thread should not be interrupted
+                System.err.println(EXCEPTION + e);
             }
         }
         try {
-            sharedQueue.put(DONE);
+            buffer.getSharedQueue().put(DONE);
             System.out.println(DONE);
-        } catch (InterruptedException ignored) {
+        } catch (InterruptedException e) {
+            //the thread should not be interrupted
+            System.err.println(EXCEPTION + e);
         }
     }
 

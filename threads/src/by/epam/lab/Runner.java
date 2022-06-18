@@ -1,29 +1,28 @@
 package by.epam.lab;
 
-import by.epam.lab.beans.Trial;
-
+import by.epam.lab.producerConsumer.Buffer;
 import by.epam.lab.producerConsumer.TrialConsumer;
 import by.epam.lab.producerConsumer.TrialProducer;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.*;
 
 public class Runner {
     public static void main(String[] args) throws IOException {
-        BlockingQueue<String> sharedQueue = new LinkedBlockingQueue<>(5);
-        List<Trial> trials = new ArrayList<>();
+        Buffer buffer = new Buffer();
 
-        ExecutorService pes = Executors.newFixedThreadPool(1);
-        ExecutorService ces = Executors.newFixedThreadPool(3);
+        TrialProducer trialProducer = new TrialProducer(buffer);
+        TrialConsumer trialConsumer = new TrialConsumer(buffer);
 
-        for (int i = 0; i < 2; i++){
-            pes.submit(new TrialProducer(sharedQueue));
+        ExecutorService pes = Executors.newFixedThreadPool(trialProducer.getMaxProducersNumber());
+        ExecutorService ces = Executors.newFixedThreadPool(trialConsumer.getMaxConsumersNumber());
+
+        for (int i = 0; i < trialProducer.getMaxProducersNumber(); i++){
+            pes.submit(new TrialProducer(buffer));
         }
 
-        for (int i = 0; i < 3; i++){
-            ces.submit(new TrialConsumer(sharedQueue, trials));
+        for (int i = 0; i < trialConsumer.getMaxConsumersNumber(); i++){
+            ces.submit(new TrialConsumer(buffer));
         }
 
         pes.shutdown();

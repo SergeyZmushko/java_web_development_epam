@@ -7,23 +7,22 @@ import by.epam.lab.utils.Data;
 import static by.epam.lab.utils.Constants.*;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.*;
 
 
 public class TrialConsumer implements Runnable {
-    private final BlockingQueue<String> sharedQueue;
-    private final List<Trial> bufferTrial;
-    private final int maxConsumersNumbers;
+    private final Buffer buffer;
+    private final List<Trial> bufferTrial = new ArrayList<>();
+    private final int maxConsumersNumber;
 
-    public TrialConsumer(BlockingQueue<String> sharedQueue, List<Trial> bufferTrial) throws IOException {
-        this.bufferTrial = bufferTrial;
-        this.sharedQueue = sharedQueue;
-        this.maxConsumersNumbers = Integer.parseInt(Data.getProperties(MAX_CONSUMERS_NUMBER));
+    public TrialConsumer(Buffer buffer) throws IOException {
+        this.buffer = buffer;
+        this.maxConsumersNumber = Integer.parseInt(Data.getProperties(MAX_CONSUMERS_NUMBER));
     }
 
-    public int getMaxConsumersNumbers() {
-        return maxConsumersNumbers;
+    public int getMaxConsumersNumber() {
+        return maxConsumersNumber;
     }
 
     @Override
@@ -36,36 +35,35 @@ public class TrialConsumer implements Runnable {
         }
         while (true) {
             try {
-                if ((trialStr = sharedQueue.take()).equals(DONE)) {
+                if ((trialStr = buffer.getSharedQueue().take()).equals(DONE)) {
                     break;
                 }
                 Trial trial = new Trial(trialStr.split(Constants.DELIMITER));
                 if (trial.isPassed()) {
                     bufferTrial.add(trial);
-                    System.out.println(PUT + trialStr + " " + Thread.currentThread().getName());
+                    System.out.println(PUT + trialStr + BLANK + Thread.currentThread().getName());
                     Thread.sleep(2000);
                 }
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                //the thread should not be interrupted
+                System.err.println(EXCEPTION + e);
             }
         }
         recordList(bufferTrial);
     }
 
     private void recordList(List<Trial> trials) {
-        String delimiter = ";";
-        String separator = "\n";
-        try (FileWriter file = new FileWriter(("src/by/epam/lab/allTests.csv"))){
+        try (FileWriter file = new FileWriter((Data.getProperties(RESULT_FILE_NAME)))){
             for (Trial trial : trials) {
                 file.append(trial.getName());
-                file.append(delimiter);
+                file.append(DELIMITER);
                 file.append(String.valueOf(trial.getMark1()));
-                file.append(delimiter);
+                file.append(DELIMITER);
                 file.append(String.valueOf(trial.getMark2()));
-                file.append(separator);
+                file.append(SEPARATOR);
             }
-        }catch (Exception e){
-            System.out.println("Wrong");
+        }catch (IOException e){
+            System.err.println(EXCEPTION + e);
         }
     }
 }

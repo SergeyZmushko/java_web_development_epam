@@ -6,11 +6,14 @@ public class Constants {
     public final static String DELIMITER = ";";
     public final static String GOT = "GOT > ";
     public final static String PUT = "PUT > ";
+    public final static String BLANK = " ";
+    public final static String SEPARATOR = "\n";
     public final static String FILE_NOT_FOUND = "File is not found";
     public final static String FOLDER_NAME = "folderName";
     public final static String MAX_PRODUCERS_NUMBER = "maxProducersNumber";
     public final static String MAX_CONSUMERS_NUMBER = "maxConsumersNumber";
     public final static String BUFFER_STR_LENGTH = "bufferStrLength";
+    public final static String RESULT_FILE_NAME = "resultFileName";
     public final static String EXCEPTION = "Exception: ";
     public final static int PRIME_NUMBER = 31;
     public final static int NAME_NULL_HASH = 0;
