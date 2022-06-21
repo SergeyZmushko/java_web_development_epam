@@ -7,17 +7,17 @@ import by.epam.lab.utils.Data;
 import static by.epam.lab.utils.Constants.*;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.concurrent.BlockingQueue;
 
 
 public class TrialConsumer implements Runnable {
-    private final Buffer buffer;
-    private final List<Trial> bufferTrial = new ArrayList<>();
+    private final BlockingQueue<Trial> trials;
+    private final BlockingQueue<String> strings;
     private final int maxConsumersNumber;
 
-    public TrialConsumer(Buffer buffer) throws IOException {
-        this.buffer = buffer;
+    public TrialConsumer(BlockingQueue<String> strings, BlockingQueue<Trial> trials) throws IOException {
+        this.trials = trials;
+        this.strings = strings;
         this.maxConsumersNumber = Integer.parseInt(Data.getProperties(MAX_CONSUMERS_NUMBER));
     }
 
@@ -35,12 +35,12 @@ public class TrialConsumer implements Runnable {
         }
         while (true) {
             try {
-                if ((trialStr = buffer.getSharedQueue().take()).equals(DONE)) {
+                if ((trialStr = strings.take()).equals(DONE)) {
                     break;
                 }
                 Trial trial = new Trial(trialStr.split(Constants.DELIMITER));
                 if (trial.isPassed()) {
-                    bufferTrial.add(trial);
+                    trials.add(trial);
                     System.out.println(PUT + trialStr + BLANK + Thread.currentThread().getName());
                     Thread.sleep(2000);
                 }
@@ -48,22 +48,6 @@ public class TrialConsumer implements Runnable {
                 //the thread should not be interrupted
                 System.err.println(EXCEPTION + e);
             }
-        }
-        recordList(bufferTrial);
-    }
-
-    private void recordList(List<Trial> trials) {
-        try (FileWriter file = new FileWriter((Data.getProperties(RESULT_FILE_NAME)))){
-            for (Trial trial : trials) {
-                file.append(trial.getName());
-                file.append(DELIMITER);
-                file.append(String.valueOf(trial.getMark1()));
-                file.append(DELIMITER);
-                file.append(String.valueOf(trial.getMark2()));
-                file.append(SEPARATOR);
-            }
-        }catch (IOException e){
-            System.err.println(EXCEPTION + e);
         }
     }
 }

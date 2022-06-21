@@ -8,18 +8,24 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.CountDownLatch;
 
 import static by.epam.lab.utils.Constants.*;
 
 public class TrialProducer implements Runnable {
-    private final Buffer buffer;
+    private final CountDownLatch latch;
+    private final BlockingQueue<String> strings;
     private final String path;
     protected final int maxProducersNumber;
+ //   private static final List<File> files = searchFiles(new File("E:\\java_web_development_epam\\threads\\src\\by\\epam\\lab\\sources"));
 
-    public TrialProducer(Buffer buffer) throws IOException {
+
+    public TrialProducer(BlockingQueue<String> strings, CountDownLatch latch) throws IOException {
+        this.latch = latch;
+        this.strings = strings;
         this.path = Data.getProperties(FOLDER_NAME);
         this.maxProducersNumber = Integer.parseInt(Data.getProperties(MAX_PRODUCERS_NUMBER));
-        this.buffer = buffer;
     }
 
     public int getMaxProducersNumber() {
@@ -28,12 +34,12 @@ public class TrialProducer implements Runnable {
 
     @Override
     public void run() {
-        List<File> fileList = searchFiles(new File(path));
-        for (File file : fileList) {
+        List<File> files = searchFiles(new File(path));
+        for (File file : files) {
             try (Scanner sc = new Scanner(file)) {
                 while (sc.hasNextLine()) {
                     String strTrial = sc.next();
-                    buffer.getSharedQueue().put(strTrial);
+                    strings.put(strTrial);
                     System.out.println(GOT + strTrial + BLANK + Thread.currentThread().getName());
                     Thread.sleep(100);
                 }
@@ -45,15 +51,16 @@ public class TrialProducer implements Runnable {
             }
         }
         try {
-            buffer.getSharedQueue().put(DONE);
+            strings.put(DONE);
             System.out.println(DONE);
         } catch (InterruptedException e) {
             //the thread should not be interrupted
             System.err.println(EXCEPTION + e);
         }
+        latch.countDown();
     }
 
-    private static List<File> searchFiles(File rootFile) {
+    public static List<File> searchFiles(File rootFile) {
         List<File> fileList = new ArrayList<>();
         if (rootFile.isDirectory()) {
             File[] directoryFiles = rootFile.listFiles();
