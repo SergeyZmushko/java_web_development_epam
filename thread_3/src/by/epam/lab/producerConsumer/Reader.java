@@ -16,11 +16,6 @@ public class Reader {
             if (directoryFiles != null) {
                 Arrays.stream(directoryFiles).filter(file -> !file.isDirectory())
                         .collect(Collectors.toCollection(() -> fileList));
-//                for (File file : directoryFiles) {
-//                    if (!file.isDirectory()) {
-//                        fileList.add(file);
-//                    }
-//                }
             }
         }
         return fileList;
