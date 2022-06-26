@@ -30,6 +30,7 @@ public class Constants {
             FOLDER_NAME_VALUE = Data.getProperties(FOLDER_NAME);
             BUFFER_STR_LENGTH_VALUE = Integer.parseInt(Data.getProperties(BUFFER_STR_LENGTH));
         } catch (IOException e) {
+            System.err.println("Wrong data" + e.getMessage());
             throw new RuntimeException(e);
         }
     }
