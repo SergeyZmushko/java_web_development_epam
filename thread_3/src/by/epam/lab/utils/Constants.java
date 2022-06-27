@@ -13,25 +13,12 @@ public class Constants {
     public final static String BUFFER_STR_LENGTH = "bufferStrLength";
     public final static String RESULT_FILE_NAME = "resultFileName";
     public final static String EXCEPTION = "Exception: ";
+    public final static String WRONG_DATA = "Wrong data";
     public final static int PRIME_NUMBER = 31;
     public final static int NAME_NULL_HASH = 0;
     public final static int NAME_INDEX = 0;
     public final static int MARK1_INDEX = 1;
     public final static int MARK2_INDEX = 2;
     public final static String DONE = "Done";
-    public final static int MAX_PRODUCERS_NUMBER_VALUE;
-    public final static int MAX_CONSUMERS_NUMBER_VALUE;
-    public final static String FOLDER_NAME_VALUE;
-    public final static int BUFFER_STR_LENGTH_VALUE;
-    static {
-        try {
-            MAX_PRODUCERS_NUMBER_VALUE = Integer.parseInt(Data.getProperties(MAX_PRODUCERS_NUMBER));
-            MAX_CONSUMERS_NUMBER_VALUE = Integer.parseInt(Data.getProperties(MAX_CONSUMERS_NUMBER));
-            FOLDER_NAME_VALUE = Data.getProperties(FOLDER_NAME);
-            BUFFER_STR_LENGTH_VALUE = Integer.parseInt(Data.getProperties(BUFFER_STR_LENGTH));
-        } catch (IOException e) {
-            System.err.println("Wrong data" + e.getMessage());
-            throw new RuntimeException(e);
-        }
-    }
+    public final static String REGEX_CSV = ".+\\.csv";
 }

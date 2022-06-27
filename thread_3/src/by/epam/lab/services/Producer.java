@@ -1,4 +1,6 @@
-package by.epam.lab.producerConsumer;
+package by.epam.lab.services;
+
+import by.epam.lab.exceptions.FindFileException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -24,13 +26,13 @@ public class Producer implements Runnable {
             while (sc.hasNextLine()) {
                 strTrials.put(sc.next());
             }
-            strTrials.put(DONE);
-            countDownLatch.countDown();
-        } catch (FileNotFoundException e) {
-            System.out.println(FILE_NOT_FOUND);
-        } catch (InterruptedException e) {
+        } catch (InterruptedException ignored) {
             //the thread should not be interrupted
-            System.err.println(EXCEPTION + e);
+            System.err.println(EXCEPTION + ignored.getMessage());
+        } catch (FileNotFoundException e) {
+            throw new FindFileException(FILE_NOT_FOUND);
+        } finally {
+            countDownLatch.countDown();
         }
     }
 }

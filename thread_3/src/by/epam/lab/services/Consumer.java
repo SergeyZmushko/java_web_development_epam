@@ -1,17 +1,18 @@
-package by.epam.lab.producerConsumer;
+package by.epam.lab.services;
 
 import by.epam.lab.beans.Trial;
 import by.epam.lab.utils.Constants;
 
+import java.util.Queue;
 import java.util.concurrent.BlockingQueue;
 
 import static by.epam.lab.utils.Constants.*;
 
 public class Consumer implements Runnable {
-    private final BlockingQueue<Trial> trials;
+    private final Queue<Trial> trials;
     private final BlockingQueue<String> strings;
 
-    public Consumer(BlockingQueue<Trial> trials, BlockingQueue<String> strings) {
+    public Consumer(Queue<Trial> trials, BlockingQueue<String> strings) {
         this.trials = trials;
         this.strings = strings;
     }
@@ -20,15 +21,16 @@ public class Consumer implements Runnable {
         while (true) {
             try {
                 String result = strings.take();
-                if (result.equals(DONE)) {
+                if (DONE.equals(result)) {
                     break;
                 }
                 Trial trial = new Trial(result.split(Constants.DELIMITER));
                 if (trial.isPassed()) {
                     trials.add(trial);
                 }
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+            } catch (InterruptedException ignored) {
+                //the thread should not be interrupted
+                System.err.println(EXCEPTION + ignored.getMessage());
             }
         }
     }
