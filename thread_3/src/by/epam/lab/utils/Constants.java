@@ -10,9 +10,10 @@ public class Constants {
     public final static String MAX_CONSUMERS_NUMBER = "maxConsumersNumber";
     public final static String BUFFER_STR_LENGTH = "bufferStrLength";
     public final static String RESULT_FILE_NAME = "resultFileName";
-    public final static String EXCEPTION = "Exception: ";
-    public final static String WRONG_DATA = "Wrong data";
-    public final static String AWAIT_EXCEPTION = "Await exception";
+    public final static String ADD_TO_FILE_EXCEPTION = "File add exception: ";
+    public final static String WRONG_DATA = "Wrong data: ";
+    public final static String AWAIT_EXCEPTION = "Await exception: ";
+    public final static String THREAD_SLEEP_EXCEPTION = "Sleep exception: ";
     public final static int PRIME_NUMBER = 31;
     public final static int NAME_NULL_HASH = 0;
     public final static int NAME_INDEX = 0;

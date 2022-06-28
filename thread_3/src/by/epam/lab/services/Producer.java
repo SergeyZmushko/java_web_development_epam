@@ -13,22 +13,22 @@ import static by.epam.lab.utils.Constants.*;
 public class Producer implements Runnable {
     private final File file;
     private final CountDownLatch countDownLatch;
-    private final BlockingQueue<String> strTrials;
+    private final BlockingQueue<String> stringBuffer;
 
-    public Producer(File file, CountDownLatch countDownLatch, BlockingQueue<String> strTrials) {
+    public Producer(File file, CountDownLatch countDownLatch, BlockingQueue<String> stringBuffer) {
         this.file = file;
         this.countDownLatch = countDownLatch;
-        this.strTrials = strTrials;
+        this.stringBuffer = stringBuffer;
     }
 
     public void run() {
         try (Scanner sc = new Scanner(file)) {
             while (sc.hasNextLine()) {
                 try {
-                    strTrials.put(sc.next());
+                    stringBuffer.put(sc.next());
                 } catch (InterruptedException ignored) {
                     //the thread should not be interrupted
-                    System.err.println(EXCEPTION + ignored.getMessage());
+                    System.err.println(ADD_TO_FILE_EXCEPTION + ignored.getMessage());
                 }
             }
         } catch (FileNotFoundException e) {
