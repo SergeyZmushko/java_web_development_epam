@@ -24,11 +24,13 @@ public class Producer implements Runnable {
     public void run() {
         try (Scanner sc = new Scanner(file)) {
             while (sc.hasNextLine()) {
-                strTrials.put(sc.next());
+                try {
+                    strTrials.put(sc.next());
+                } catch (InterruptedException ignored) {
+                    //the thread should not be interrupted
+                    System.err.println(EXCEPTION + ignored.getMessage());
+                }
             }
-        } catch (InterruptedException ignored) {
-            //the thread should not be interrupted
-            System.err.println(EXCEPTION + ignored.getMessage());
         } catch (FileNotFoundException e) {
             throw new FindFileException(FILE_NOT_FOUND);
         } finally {

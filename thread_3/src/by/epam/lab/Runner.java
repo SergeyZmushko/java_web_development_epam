@@ -1,11 +1,12 @@
 package by.epam.lab;
 
 import by.epam.lab.beans.Trial;
+import by.epam.lab.exceptions.AwaitException;
 import by.epam.lab.exceptions.ParseDataException;
 import by.epam.lab.services.*;
 import by.epam.lab.utils.Data;
 import by.epam.lab.utils.Reader;
-import by.epam.lab.utils.Writer;
+import by.epam.lab.services.Writer;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,10 +15,7 @@ import java.util.Queue;
 import java.util.concurrent.*;
 import java.util.stream.IntStream;
 
-
 import static by.epam.lab.utils.Constants.*;
-
-import static by.epam.lab.utils.Constants.EXCEPTION;
 
 public class Runner {
     public static void main(String[] args) {
@@ -32,31 +30,34 @@ public class Runner {
             CountDownLatch latch = new CountDownLatch(files.size());
 
             BlockingQueue<String> strings = new LinkedBlockingQueue<>(BUFFER_STR_LENGTH_VALUE);
-            Queue<Trial> trials = new LinkedBlockingQueue<>();
+            Queue<Trial> trials = new ConcurrentLinkedDeque<>();
 
             ExecutorService producerExService = Executors.newFixedThreadPool(MAX_PRODUCERS_NUMBER_VALUE);
             ExecutorService consumerExService = Executors.newFixedThreadPool(MAX_CONSUMERS_NUMBER_VALUE);
+            Writer writer = new Writer(trials);
 
             files.forEach(file -> producerExService.execute(new Producer(file, latch, strings)));
 
             IntStream.range(0, MAX_CONSUMERS_NUMBER_VALUE)
                     .forEach(consumer -> consumerExService.execute(new Consumer(trials, strings)));
 
-            new Thread(new Writer(trials)).start();
+            new Thread(writer).start();
 
-            latch.await();
-
-            for (int i = 0; i < MAX_CONSUMERS_NUMBER_VALUE; i++) {
-                strings.put(DONE);
+            try {
+                latch.await();
+            } catch (InterruptedException e) {
+                System.err.println(AWAIT_EXCEPTION + e.getMessage());
+                throw new AwaitException(e);
             }
 
-            Writer.stopWriter();
+            for (int i = 0; i < MAX_CONSUMERS_NUMBER_VALUE; i++) {
+                strings.add(DONE);
+            }
+
+            writer.stopWriter();
 
             producerExService.shutdown();
             consumerExService.shutdown();
-        } catch (InterruptedException ignored) {
-            //the thread should not be interrupted
-            System.err.println(EXCEPTION + ignored.getMessage());
         } catch (IOException e) {
             System.err.println(WRONG_DATA + e.getMessage());
             throw new ParseDataException(e);
