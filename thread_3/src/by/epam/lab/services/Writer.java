@@ -2,7 +2,6 @@ package by.epam.lab.services;
 
 import by.epam.lab.beans.Trial;
 import by.epam.lab.exceptions.AddToFileException;
-import by.epam.lab.exceptions.ThreadSleepException;
 import by.epam.lab.utils.Data;
 
 import java.io.FileWriter;
@@ -31,9 +30,9 @@ public class Writer implements Runnable {
                 } else {
                     try {
                         TimeUnit.MILLISECONDS.sleep(50);
-                    }catch (InterruptedException e){
-                        System.err.println(THREAD_SLEEP_EXCEPTION + e.getMessage());
-                        throw new ThreadSleepException(e);
+                    }catch (InterruptedException ignored){
+                        //the thread should not be interrupted
+                        System.err.println(THREAD_SLEEP_EXCEPTION + ignored);
                     }
                 }
             }
