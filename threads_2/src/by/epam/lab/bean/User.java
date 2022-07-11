@@ -1,16 +1,22 @@
 package by.epam.lab.bean;
 
+import static by.epam.lab.utils.Constants.*;
+
 public class User {
     private final String account;
     private int id;
 
-    public User(String account){
+    public User(String account) {
         this.account = account;
     }
 
-    public User(String account, int id){
+    public User(String account, int id) {
         this.account = account;
         this.id = id;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getAccount() {
@@ -21,8 +27,8 @@ public class User {
         this.id = id;
     }
 
-    public String toString(){
-        return account + ";" + id;
+    public String toString() {
+        return account + DELIMITER + id;
     }
 
     @Override
@@ -36,7 +42,7 @@ public class User {
     @Override
     public int hashCode() {
         int result = account.hashCode();
-        result = 31 * result + id;
+        result = PRIMARY_NUMBER * result + id;
         return result;
     }
 }

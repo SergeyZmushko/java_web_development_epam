@@ -26,8 +26,8 @@ public class ListImpl implements Command {
     public Optional<User> getUser(int id) {
         readLock.lock();
         try {
-            if (id < 0 || id >= users.size()){
-              return Optional.empty();
+            if (id < 0 || id >= users.size()) {
+                return Optional.empty();
             }
         } finally {
             readLock.unlock();

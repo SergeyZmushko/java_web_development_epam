@@ -1,8 +1,8 @@
 package by.epam.lab;
 
 import by.epam.lab.bean.User;
+import by.epam.lab.exceptions.AwaitListException;
 import by.epam.lab.service.Command;
-import by.epam.lab.service.impl.ListImpl;
 import by.epam.lab.service.impl.MapImpl;
 import org.junit.Assert;
 import org.junit.Test;
@@ -10,6 +10,7 @@ import org.junit.Test;
 import java.util.*;
 import java.util.concurrent.*;
 
+import static by.epam.lab.utils.Constants.*;
 import static org.junit.Assert.*;
 
 public class TestMapImplRunner {
@@ -17,7 +18,7 @@ public class TestMapImplRunner {
     @Test
     public void testRegisterTwoUserInEmptyListWithSleepingAfterReg() {
         //prepare data (Given)
-        ListImpl.id = 0;
+        MapImpl.id = 0;
         User[] usersSource = {new User("Vlad"), new User("Hleb")};
         CountDownLatch countDownLatch = new CountDownLatch(usersSource.length);
         Map<Integer, String> resultUserMap = new HashMap<>();
@@ -31,8 +32,9 @@ public class TestMapImplRunner {
             futureUsersList.add(futureUser);
             try {
                 TimeUnit.MILLISECONDS.sleep(500);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+            } catch (InterruptedException ignored) {
+                //the thread shouldn't be interrupted
+                System.err.println(THREAD_SLEEP_MAP_EXCEPTION + ignored);
             }
         }
 
@@ -43,10 +45,11 @@ public class TestMapImplRunner {
             try {
                 Optional<User> user = currentUser.get();
                 Assert.assertTrue(user.isPresent());
-            } catch (InterruptedException e) {
-                System.err.println(e.getMessage());
+            } catch (InterruptedException ignored) {
+                //the thread shouldn't be interrupted
+                System.err.println(THREAD_SLEEP_MAP_EXCEPTION + ignored);
             } catch (ExecutionException e) {
-                System.err.println(e.getMessage());
+                System.err.println(MAP_EXEC_EXCEPTION + e.getMessage());
             }
         }
 
@@ -63,7 +66,7 @@ public class TestMapImplRunner {
     @Test
     public void testRegisterTwoUserInEmptyListWithSleepingBeforeReg() {
         //prepare data (Given)
-        ListImpl.id = 0;
+        MapImpl.id = 0;
         User[] usersSource = {new User("Vlad"), new User("Hleb")};
         CountDownLatch countDownLatch = new CountDownLatch(usersSource.length);
         Map<Integer, String> resultUserMap = new HashMap();
@@ -75,8 +78,9 @@ public class TestMapImplRunner {
         for (User currentUser : usersSource) {
             try {
                 TimeUnit.MILLISECONDS.sleep(500);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+            } catch (InterruptedException ignored) {
+                //the thread shouldn't be interrupted
+                System.err.println(THREAD_SLEEP_MAP_EXCEPTION + ignored);
             }
             Future<Optional<User>> futureUser = executorService.submit(() -> command.register(currentUser));
             futureUsersList.add(futureUser);
@@ -89,10 +93,11 @@ public class TestMapImplRunner {
             try {
                 Optional<User> user = currentUser.get();
                 Assert.assertTrue(user.isPresent());
-            } catch (InterruptedException e) {
-                System.err.println(e.getMessage());
+            } catch (InterruptedException ignored) {
+                //the thread shouldn't be interrupted
+                System.err.println(THREAD_SLEEP_MAP_EXCEPTION + ignored);
             } catch (ExecutionException e) {
-                System.err.println(e.getMessage());
+                System.err.println(MAP_EXEC_EXCEPTION + e.getMessage());
             }
         }
 
@@ -109,7 +114,7 @@ public class TestMapImplRunner {
     @Test
     public void testRegisterTwoUserInNotEmptyListWithSleepingAfterReg() {
         //prepare data (Given)
-        ListImpl.id = 0;
+        MapImpl.id = 0;
         User[] usersSource = {new User("Vlad"), new User("Hleb")};
         CountDownLatch countDownLatch = new CountDownLatch(usersSource.length);
         Map<Integer, String> resultUserMap = new HashMap<>();
@@ -125,8 +130,9 @@ public class TestMapImplRunner {
             futureUsersList.add(futureUser);
             try {
                 TimeUnit.MILLISECONDS.sleep(500);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+            } catch (InterruptedException ignored) {
+                //the thread shouldn't be interrupted
+                System.err.println(THREAD_SLEEP_MAP_EXCEPTION + ignored);
             }
         }
 
@@ -137,10 +143,11 @@ public class TestMapImplRunner {
             try {
                 Optional<User> user = currentUser.get();
                 Assert.assertTrue(user.isPresent());
-            } catch (InterruptedException e) {
-                System.err.println(e.getMessage());
+            } catch (InterruptedException ignored) {
+                //the thread shouldn't be interrupted
+                System.err.println(THREAD_SLEEP_MAP_EXCEPTION + ignored);
             } catch (ExecutionException e) {
-                System.err.println(e.getMessage());
+                System.err.println(MAP_EXEC_EXCEPTION + e.getMessage());
             }
         }
 
@@ -156,7 +163,7 @@ public class TestMapImplRunner {
     @Test
     public void testRegisterTwoUserInNotEmptyListWithSleepingBeforeReg() {
         //prepare data (Given)
-        ListImpl.id = 0;
+        MapImpl.id = 0;
         User[] usersSource = {new User("Vlad"), new User("Hleb")};
         CountDownLatch countDownLatch = new CountDownLatch(usersSource.length);
         Map<Integer, String> resultUserMap = new HashMap<>();
@@ -170,8 +177,9 @@ public class TestMapImplRunner {
         for (User currentUser : usersSource) {
             try {
                 TimeUnit.MILLISECONDS.sleep(500);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+            } catch (InterruptedException ignored) {
+                //the thread shouldn't be interrupted
+                System.err.println(THREAD_SLEEP_MAP_EXCEPTION + ignored);
             }
             Future<Optional<User>> futureUser = executorService.submit(() -> command.register(currentUser));
             futureUsersList.add(futureUser);
@@ -184,10 +192,11 @@ public class TestMapImplRunner {
             try {
                 Optional<User> user = currentUser.get();
                 Assert.assertTrue(user.isPresent());
-            } catch (InterruptedException e) {
-                System.err.println(e.getMessage());
+            } catch (InterruptedException ignored) {
+                //the thread shouldn't be interrupted
+                System.err.println(THREAD_SLEEP_MAP_EXCEPTION + ignored);
             } catch (ExecutionException e) {
-                System.err.println(e.getMessage());
+                System.err.println(MAP_EXEC_EXCEPTION + e.getMessage());
             }
         }
 
@@ -201,9 +210,9 @@ public class TestMapImplRunner {
     }
 
     @Test
-    public void testRegisterTenDifferentUsersInEmptyList() {
+    public void testRegisterTenDifferentUsersInEmptyList() throws ExecutionException, InterruptedException {
         //prepare data (Given)
-        ListImpl.id = 0;
+        MapImpl.id = 0;
         User[] usersSource = {
                 new User("Vlad"),
                 new User("Hleb"),
@@ -230,7 +239,8 @@ public class TestMapImplRunner {
         try {
             countDownLatch.await();
         } catch (InterruptedException e) {
-            System.err.println(e.getMessage());
+            System.err.println(AWAIT_MAP_EXCEPTION + e.getMessage());
+            throw new AwaitListException(e);
         }
 
         Future<Optional<User>> presentUser = executorService.submit(() -> command.getUser(1));
@@ -243,10 +253,11 @@ public class TestMapImplRunner {
             try {
                 Optional<User> user = currentUser.get();
                 Assert.assertTrue(user.isPresent());
-            } catch (InterruptedException e) {
-                System.err.println(e.getMessage());
+            } catch (InterruptedException ignored) {
+                //the thread shouldn't be interrupted
+                System.err.println(THREAD_SLEEP_MAP_EXCEPTION + ignored);
             } catch (ExecutionException e) {
-                System.err.println(e.getMessage());
+                System.err.println(MAP_EXEC_EXCEPTION + e.getMessage());
             }
         }
 
@@ -255,29 +266,27 @@ public class TestMapImplRunner {
             Optional<User> user2 = notPresentUser.get();
             Assert.assertTrue(user1.isPresent());
             Assert.assertTrue(user2.isEmpty());
-        } catch (InterruptedException e) {
-            System.err.println(e.getMessage());
+        } catch (InterruptedException ignored) {
+            //the thread shouldn't be interrupted
+            System.err.println(THREAD_SLEEP_MAP_EXCEPTION + ignored);
         } catch (ExecutionException e) {
-            System.err.println(e.getMessage());
+            System.err.println(MAP_EXEC_EXCEPTION + e.getMessage());
         }
 
-        List<String> resultAccounts = resultUserMap
-                .values()
+        assertTrue(resultUserMap.values()
                 .stream()
-                .toList();
-        List<String> expectedAccounts = Arrays
-                .stream(usersSource)
-                .map(User::getAccount)
-                .toList();
+                .toList()
+                .containsAll(Arrays.stream(usersSource)
+                        .map(User::getAccount)
+                        .toList()));
 
-        Assert.assertTrue(expectedAccounts.containsAll(resultAccounts));
         assertEquals(usersSource.length, resultUserMap.size());
     }
 
     @Test
     public void testRegisterTenSameUsersInEmptyMap() {
         //prepare data (Given)
-        ListImpl.id = 0;
+        MapImpl.id = 0;
         User[] usersSource = {
                 new User("Vlad"),
                 new User("Vlad"),
@@ -303,7 +312,8 @@ public class TestMapImplRunner {
         try {
             countDownLatch.await();
         } catch (InterruptedException e) {
-            System.err.println(e.getMessage());
+            System.err.println(AWAIT_MAP_EXCEPTION + e.getMessage());
+            throw new AwaitListException(e);
         }
 
         Future<Optional<User>> presentUser = executorService.submit(() -> command.getUser(0));
@@ -322,10 +332,11 @@ public class TestMapImplRunner {
                 } else {
                     notPresent++;
                 }
-            } catch (InterruptedException e) {
-                System.err.println(e.getMessage());
+            } catch (InterruptedException ignored) {
+                //the thread shouldn't be interrupted
+                System.err.println(THREAD_SLEEP_MAP_EXCEPTION + ignored);
             } catch (ExecutionException e) {
-                System.err.println(e.getMessage());
+                System.err.println(MAP_EXEC_EXCEPTION + e.getMessage());
             }
         }
         Assert.assertEquals(1, present);
@@ -336,10 +347,11 @@ public class TestMapImplRunner {
             Optional<User> user2 = notPresentUser.get();
             Assert.assertTrue(user1.isPresent());
             Assert.assertTrue(user2.isEmpty());
-        } catch (InterruptedException e) {
-            System.err.println(e.getMessage());
+        } catch (InterruptedException ignored) {
+            //the thread shouldn't be interrupted
+            System.err.println(THREAD_SLEEP_MAP_EXCEPTION + ignored);
         } catch (ExecutionException e) {
-            System.err.println(e.getMessage());
+            System.err.println(MAP_EXEC_EXCEPTION + e.getMessage());
         }
 
         assertTrue(resultUserMap.values()
@@ -354,7 +366,7 @@ public class TestMapImplRunner {
     @Test
     public void testRegisterFiveUniqueUsersInEmptyMap() {
         //prepare data (Given)
-        ListImpl.id = 0;
+        MapImpl.id = 0;
         User[] usersSource = {
                 new User("Vlad"),
                 new User("Hleb"),
@@ -381,7 +393,8 @@ public class TestMapImplRunner {
         try {
             countDownLatch.await();
         } catch (InterruptedException e) {
-            System.err.println(e.getMessage());
+            System.err.println(AWAIT_MAP_EXCEPTION + e.getMessage());
+            throw new AwaitListException(e);
         }
 
         Future<Optional<User>> presentUser = executorService.submit(() -> command.getUser(1));
@@ -400,14 +413,14 @@ public class TestMapImplRunner {
                 } else {
                     notPresent++;
                 }
-            } catch (InterruptedException e) {
-                System.err.println(e.getMessage());
+            } catch (InterruptedException ignored) {
+                //the thread shouldn't be interrupted
+                System.err.println(THREAD_SLEEP_MAP_EXCEPTION + ignored);
             } catch (ExecutionException e) {
-                System.err.println(e.getMessage());
+                System.err.println(MAP_EXEC_EXCEPTION + e.getMessage());
             }
         }
 
-        futureUsersList.forEach(System.out::println);
         Assert.assertEquals(5, present);
         Assert.assertEquals(5, notPresent);
 
@@ -416,24 +429,20 @@ public class TestMapImplRunner {
             Optional<User> user2 = notPresentUser.get();
             Assert.assertTrue(user1.isPresent());
             Assert.assertTrue(user2.isEmpty());
-        } catch (InterruptedException e) {
-            System.err.println(e.getMessage());
+        } catch (InterruptedException ignored) {
+            //the thread shouldn't be interrupted
+            System.err.println(THREAD_SLEEP_MAP_EXCEPTION + ignored);
         } catch (ExecutionException e) {
-            System.err.println(e.getMessage());
+            System.err.println(MAP_EXEC_EXCEPTION + e.getMessage());
         }
 
-        List<String> resultAccounts = resultUserMap
-                .values()
+        assertTrue(resultUserMap.values()
                 .stream()
-                .toList();
-        List<String> expectedAccounts = Arrays
-                .stream(usersSource)
-                .map(User::getAccount)
-                .toList();
+                .toList()
+                .containsAll(Arrays.stream(usersSource)
+                        .map(User::getAccount)
+                        .toList()));
 
-        resultAccounts.forEach(System.out::println);
-
-        Assert.assertTrue(expectedAccounts.containsAll(resultAccounts));
         assertEquals(5, resultUserMap.size());
     }
 

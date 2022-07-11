@@ -1,6 +1,8 @@
 package by.epam.lab;
 
 import by.epam.lab.bean.User;
+import by.epam.lab.exceptions.AwaitListException;
+import by.epam.lab.exceptions.ListExecutionException;
 import by.epam.lab.service.Command;
 import by.epam.lab.service.impl.ListImpl;
 import org.junit.Assert;
@@ -9,6 +11,7 @@ import org.junit.Test;
 import java.util.*;
 import java.util.concurrent.*;
 
+import static by.epam.lab.utils.Constants.*;
 import static org.junit.Assert.*;
 
 public class TestListImplRunner {
@@ -30,8 +33,9 @@ public class TestListImplRunner {
             futureUsersList.add(futureUser);
             try {
                 TimeUnit.MILLISECONDS.sleep(500);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+            } catch (InterruptedException ignored) {
+                //the thread shouldn't be interrupted
+                System.err.println(THREAD_SLEEP_LIST_EXCEPTION + ignored);
             }
         }
 
@@ -42,10 +46,12 @@ public class TestListImplRunner {
             try {
                 Optional<User> user = currentUser.get();
                 Assert.assertTrue(user.isPresent());
-            } catch (InterruptedException e) {
-                System.err.println(e.getMessage());
+            } catch (InterruptedException ignored) {
+                //the thread shouldn't be interrupted
+                System.err.println(THREAD_SLEEP_LIST_EXCEPTION + ignored);
             } catch (ExecutionException e) {
-                System.err.println(e.getMessage());
+                System.err.println(LIST_EXEC_EXCEPTION + e.getMessage());
+                throw new ListExecutionException(e);
             }
         }
 
@@ -73,8 +79,9 @@ public class TestListImplRunner {
         for (User currentUser : usersSource) {
             try {
                 TimeUnit.MILLISECONDS.sleep(500);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+            } catch (InterruptedException ignored) {
+                //the thread shouldn't be interrupted
+                System.err.println(THREAD_SLEEP_LIST_EXCEPTION + ignored);
             }
             Future<Optional<User>> futureUser = executorService.submit(() -> command.register(currentUser));
             futureUsersList.add(futureUser);
@@ -87,10 +94,12 @@ public class TestListImplRunner {
             try {
                 Optional<User> user = currentUser.get();
                 Assert.assertTrue(user.isPresent());
-            } catch (InterruptedException e) {
-                System.err.println(e.getMessage());
+            } catch (InterruptedException ignored) {
+                //the thread shouldn't be interrupted
+                System.err.println(THREAD_SLEEP_LIST_EXCEPTION + ignored);
             } catch (ExecutionException e) {
-                System.err.println(e.getMessage());
+                System.err.println(LIST_EXEC_EXCEPTION + e.getMessage());
+                throw new ListExecutionException(e);
             }
         }
 
@@ -120,8 +129,9 @@ public class TestListImplRunner {
             futureUsersList.add(futureUser);
             try {
                 TimeUnit.MILLISECONDS.sleep(500);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+            } catch (InterruptedException ignored) {
+                //the thread shouldn't be interrupted
+                System.err.println(THREAD_SLEEP_LIST_EXCEPTION + ignored);
             }
         }
 
@@ -132,10 +142,12 @@ public class TestListImplRunner {
             try {
                 Optional<User> user = currentUser.get();
                 Assert.assertTrue(user.isPresent());
-            } catch (InterruptedException e) {
-                System.err.println(e.getMessage());
+            } catch (InterruptedException ignored) {
+                //the thread shouldn't be interrupted
+                System.err.println(THREAD_SLEEP_LIST_EXCEPTION + ignored);
             } catch (ExecutionException e) {
-                System.err.println(e.getMessage());
+                System.err.println(LIST_EXEC_EXCEPTION + e.getMessage());
+                throw new ListExecutionException(e);
             }
         }
 
@@ -163,8 +175,9 @@ public class TestListImplRunner {
         for (User currentUser : usersSource) {
             try {
                 TimeUnit.MILLISECONDS.sleep(500);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+            } catch (InterruptedException ignored) {
+                //the thread shouldn't be interrupted
+                System.err.println(THREAD_SLEEP_LIST_EXCEPTION + ignored);
             }
             Future<Optional<User>> futureUser = executorService.submit(() -> command.register(currentUser));
             futureUsersList.add(futureUser);
@@ -177,10 +190,12 @@ public class TestListImplRunner {
             try {
                 Optional<User> user = currentUser.get();
                 Assert.assertTrue(user.isPresent());
-            } catch (InterruptedException e) {
-                System.err.println(e.getMessage());
+            } catch (InterruptedException ignored) {
+                //the thread shouldn't be interrupted
+                System.err.println(THREAD_SLEEP_LIST_EXCEPTION + ignored);
             } catch (ExecutionException e) {
-                System.err.println(e.getMessage());
+                System.err.println(LIST_EXEC_EXCEPTION + e.getMessage());
+                throw new ListExecutionException(e);
             }
         }
 
@@ -222,8 +237,9 @@ public class TestListImplRunner {
 
         try {
             countDownLatch.await();
-        } catch (InterruptedException e) {
-            System.err.println(e.getMessage());
+        } catch (InterruptedException ignored) {
+            //the thread shouldn't be interrupted
+            System.err.println(THREAD_SLEEP_LIST_EXCEPTION + ignored);
         }
 
         Future<Optional<User>> presentUser = executorService.submit(() -> command.getUser(1));
@@ -239,7 +255,8 @@ public class TestListImplRunner {
             } catch (InterruptedException e) {
                 System.err.println(e.getMessage());
             } catch (ExecutionException e) {
-                System.err.println(e.getMessage());
+                System.err.println(LIST_EXEC_EXCEPTION + e.getMessage());
+                throw new ListExecutionException(e);
             }
         }
 
@@ -248,10 +265,12 @@ public class TestListImplRunner {
             Optional<User> user2 = notPresentUser.get();
             Assert.assertTrue(user1.isPresent());
             Assert.assertTrue(user2.isEmpty());
-        } catch (InterruptedException e) {
-            System.err.println(e.getMessage());
+        } catch (InterruptedException ignored) {
+            //the thread shouldn't be interrupted
+            System.err.println(THREAD_SLEEP_LIST_EXCEPTION + ignored);
         } catch (ExecutionException e) {
-            System.err.println(e.getMessage());
+            System.err.println(LIST_EXEC_EXCEPTION + e.getMessage());
+            throw new ListExecutionException(e);
         }
 
         assertTrue(resultUserList.stream() // creating new expected and result lists with Account fields and compare.
@@ -293,7 +312,8 @@ public class TestListImplRunner {
         try {
             countDownLatch.await();
         } catch (InterruptedException e) {
-            System.err.println(e.getMessage());
+            System.err.println(AWAIT_LIST_EXCEPTION + e.getMessage());
+            throw new AwaitListException(e);
         }
 
         Future<Optional<User>> presentUser = executorService.submit(() -> command.getUser(0));
@@ -312,10 +332,12 @@ public class TestListImplRunner {
                 } else {
                     notPresent++;
                 }
-            } catch (InterruptedException e) {
-                System.err.println(e.getMessage());
+            } catch (InterruptedException ignored) {
+                //the thread shouldn't be interrupted
+                System.err.println(THREAD_SLEEP_LIST_EXCEPTION + ignored);
             } catch (ExecutionException e) {
-                System.err.println(e.getMessage());
+                System.err.println(LIST_EXEC_EXCEPTION + e.getMessage());
+                throw new ListExecutionException(e);
             }
         }
         Assert.assertEquals(1, present);
@@ -326,10 +348,12 @@ public class TestListImplRunner {
             Optional<User> user2 = notPresentUser.get();
             Assert.assertTrue(user1.isPresent());
             Assert.assertTrue(user2.isEmpty());
-        } catch (InterruptedException e) {
-            System.err.println(e.getMessage());
+        } catch (InterruptedException ignored) {
+            //the thread shouldn't be interrupted
+            System.err.println(THREAD_SLEEP_LIST_EXCEPTION + ignored);
         } catch (ExecutionException e) {
-            System.err.println(e.getMessage());
+            System.err.println(LIST_EXEC_EXCEPTION + e.getMessage());
+            throw new ListExecutionException(e);
         }
 
         assertTrue(resultUserList.stream() // creating new expected and result lists with Account fields and compare.
@@ -369,7 +393,8 @@ public class TestListImplRunner {
         try {
             countDownLatch.await();
         } catch (InterruptedException e) {
-            System.err.println(e.getMessage());
+            System.err.println(AWAIT_LIST_EXCEPTION + e.getMessage());
+            throw new AwaitListException(e);
         }
 
         Future<Optional<User>> presentUser = executorService.submit(() -> command.getUser(1));
@@ -388,10 +413,12 @@ public class TestListImplRunner {
                 } else {
                     notPresent++;
                 }
-            } catch (InterruptedException e) {
-                System.err.println(e.getMessage());
+            } catch (InterruptedException ignored) {
+                //the thread shouldn't be interrupted
+                System.err.println(THREAD_SLEEP_LIST_EXCEPTION + ignored);
             } catch (ExecutionException e) {
-                System.err.println(e.getMessage());
+                System.err.println(LIST_EXEC_EXCEPTION + e.getMessage());
+                throw new ListExecutionException(e);
             }
         }
         Assert.assertEquals(5, present);
@@ -402,10 +429,12 @@ public class TestListImplRunner {
             Optional<User> user2 = notPresentUser.get();
             Assert.assertTrue(user1.isPresent());
             Assert.assertTrue(user2.isEmpty());
-        } catch (InterruptedException e) {
-            System.err.println(e.getMessage());
+        } catch (InterruptedException ignored) {
+            //the thread shouldn't be interrupted
+            System.err.println(THREAD_SLEEP_LIST_EXCEPTION + ignored);
         } catch (ExecutionException e) {
-            System.err.println(e.getMessage());
+            System.err.println(LIST_EXEC_EXCEPTION + e.getMessage());
+            throw new ListExecutionException(e);
         }
 
         assertTrue(resultUserList.stream() // creating new expected and result lists with Account fields and compare.

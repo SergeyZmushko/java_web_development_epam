@@ -27,13 +27,13 @@ public class MapImpl implements Command {
         readLock.lock();
         try {
             Optional<String> account = Optional.ofNullable(users.get(id));
-            if (account.isPresent()){
+            if (account.isPresent()) {
                 User user = new User(users.get(id), id);
                 return Optional.of(user);
-            }else {
+            } else {
                 return Optional.empty();
             }
-        }finally {
+        } finally {
             readLock.unlock();
         }
     }
@@ -42,7 +42,7 @@ public class MapImpl implements Command {
     public Optional<User> register(User user) {
         writeLock.lock();
         try {
-            if (users.containsValue(user.getAccount())){
+            if (users.containsValue(user.getAccount())) {
                 countDownLatch.countDown();
                 return Optional.empty();
             }
@@ -50,13 +50,32 @@ public class MapImpl implements Command {
                 id = users.size();
             }
             user.setId(id);
-            users.put(id, user.getAccount());
+            users.put(user.getId(), user.getAccount());
             id++;
             countDownLatch.countDown();
-
         } finally {
             writeLock.unlock();
         }
         return Optional.of(user);
+
+//        writeLock.lock();
+//        try {
+//            for (User currentUser : users) {
+//                if (user.getAccount().equals(currentUser.getAccount())) {
+//                    countDownLatch.countDown();
+//                    return Optional.empty();
+//                }
+//            }
+//            if (!users.isEmpty()) {
+//                id = users.size();
+//            }
+//            user.setId(id);
+//            users.add(user);
+//            id++;
+//            countDownLatch.countDown();
+//        } finally {
+//            writeLock.unlock();
+//        }
+//        return Optional.of(user);
     }
 }
