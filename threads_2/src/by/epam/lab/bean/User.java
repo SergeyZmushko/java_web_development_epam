@@ -4,11 +4,7 @@ import static by.epam.lab.utils.Constants.*;
 
 public class User {
     private final String account;
-    private int id;
-
-    public User(String account) {
-        this.account = account;
-    }
+    private final int id;
 
     public User(String account, int id) {
         this.account = account;
@@ -21,10 +17,6 @@ public class User {
 
     public String getAccount() {
         return account;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String toString() {

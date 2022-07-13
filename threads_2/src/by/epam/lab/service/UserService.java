@@ -4,9 +4,11 @@ import by.epam.lab.bean.User;
 
 import java.util.Optional;
 
-public interface Command {
+public interface UserService {
 
     Optional<User> getUser(int id);
 
-    Optional<User> register(User user);
+    Optional<User> register(String user);
+
+    void setStartingIdAsZero();
 }

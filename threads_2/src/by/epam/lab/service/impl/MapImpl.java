@@ -1,81 +1,54 @@
 package by.epam.lab.service.impl;
 
 import by.epam.lab.bean.User;
-import by.epam.lab.service.Command;
+import by.epam.lab.service.UserService;
 
 import java.util.Map;
 import java.util.Optional;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
+import java.util.concurrent.locks.ReentrantLock;
 
-public class MapImpl implements Command {
+public class MapImpl implements UserService {
     private final Map<Integer, String> users;
-    private final ReentrantReadWriteLock rwLock = new ReentrantReadWriteLock();
-    private final Lock readLock = rwLock.readLock();
-    private final Lock writeLock = rwLock.writeLock();
-    public static int id;
-    private final CountDownLatch countDownLatch;
+    private final ReentrantLock lock = new ReentrantLock();
+    private static int id;
 
-    public MapImpl(Map<Integer, String> users, CountDownLatch countDownLatch) {
+
+    public MapImpl(Map<Integer, String> users) {
         this.users = users;
-        this.countDownLatch = countDownLatch;
     }
 
     @Override
     public Optional<User> getUser(int id) {
-        readLock.lock();
-        try {
-            Optional<String> account = Optional.ofNullable(users.get(id));
-            if (account.isPresent()) {
-                User user = new User(users.get(id), id);
-                return Optional.of(user);
-            } else {
-                return Optional.empty();
-            }
-        } finally {
-            readLock.unlock();
+        Optional<String> account = Optional.ofNullable(users.get(id));
+        if (account.isPresent()) {
+            User user = new User(users.get(id), id);
+            return Optional.of(user);
+        } else {
+            return Optional.empty();
         }
     }
 
     @Override
-    public Optional<User> register(User user) {
-        writeLock.lock();
+    public Optional<User> register(String userName) {
+        lock.lock();
         try {
-            if (users.containsValue(user.getAccount())) {
-                countDownLatch.countDown();
+            if (users.containsValue(userName)) {
                 return Optional.empty();
             }
             if (!users.isEmpty()) {
                 id = users.size();
             }
-            user.setId(id);
+            User user = new User(userName, id);
             users.put(user.getId(), user.getAccount());
             id++;
-            countDownLatch.countDown();
+            return Optional.of(user);
         } finally {
-            writeLock.unlock();
+            lock.unlock();
         }
-        return Optional.of(user);
+    }
 
-//        writeLock.lock();
-//        try {
-//            for (User currentUser : users) {
-//                if (user.getAccount().equals(currentUser.getAccount())) {
-//                    countDownLatch.countDown();
-//                    return Optional.empty();
-//                }
-//            }
-//            if (!users.isEmpty()) {
-//                id = users.size();
-//            }
-//            user.setId(id);
-//            users.add(user);
-//            id++;
-//            countDownLatch.countDown();
-//        } finally {
-//            writeLock.unlock();
-//        }
-//        return Optional.of(user);
+    @Override
+    public void setStartingIdAsZero() {
+        id = 0;
     }
 }
