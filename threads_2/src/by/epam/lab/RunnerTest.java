@@ -2,8 +2,8 @@ package by.epam.lab;
 
 import by.epam.lab.bean.User;
 import by.epam.lab.service.UserService;
-import by.epam.lab.service.impl.ListImpl;
-import by.epam.lab.service.impl.MapImpl;
+import by.epam.lab.service.impl.ListImplService;
+import by.epam.lab.service.impl.MapImplService;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -18,18 +18,16 @@ import static org.junit.Assert.*;
 
 public class RunnerTest {
 
-//    List<User> usersList = new CopyOnWriteArrayList<>();
-//    UserService userService = new ListImpl(usersList);
+    List<User> usersList = new CopyOnWriteArrayList<>();
+    UserService userService = new ListImplService(usersList);
 
-    // comment above two rows and uncomment below two rows to change List implementation to Map
+//     comment above two rows and uncomment below two rows to change List implementation to Map
 
-    Map<Integer, String> usersList = new ConcurrentHashMap<>();
-    UserService userService = new MapImpl(usersList);
+//    Map<Integer, String> usersList = new ConcurrentHashMap<>();
+//    UserService userService = new MapImplService(usersList);
 
     @Test
     public void registerTwoDifferentUsersInEmptyContainer() {
-        userService.setStartingIdAsZero();
-
         String[] usersSource = {
                 "Vlad",
                 "Hleb"
@@ -57,7 +55,6 @@ public class RunnerTest {
     @Test
     public void registerTwoDifferentUsersInNotEmptyContainer() {
         usersList.clear();
-        userService.setStartingIdAsZero();
         userService.register("Kate");
         userService.register("Denis");
         String[] usersSource = {
@@ -87,7 +84,6 @@ public class RunnerTest {
     @Test
     public void registerTwoSameUsersInNotEmptyContainer() {
         usersList.clear();
-        userService.setStartingIdAsZero();
         userService.register("Kate");
         userService.register("Denis");
         String[] usersSource = {
@@ -117,7 +113,6 @@ public class RunnerTest {
     @Test
     public void registerTwoSameUsersInEmptyContainer() {
         usersList.clear();
-        userService.setStartingIdAsZero();
         String[] usersSource = {
                 "Vlad",
                 "Vlad"
@@ -144,9 +139,7 @@ public class RunnerTest {
 
     @Test
     public void registerTenDifferentUsersInEmptyContainer() {
-        System.out.println(REGISTER_TEN_DIFF_USERS);
         usersList.clear();
-        userService.setStartingIdAsZero();
         String[] usersSource = {
                 "Vlad",
                 "Hleb",
@@ -166,7 +159,7 @@ public class RunnerTest {
                 .forEach(u -> new Thread(() -> {
                     userService.register(u);
                     Optional<User> user = randomGetUserById();
-                    user.ifPresent(System.out::println);
+                    user.ifPresent(getUser -> System.out.println(FOUND_USER + getUser));
                     latch.countDown();
                 }).start());
 
@@ -182,9 +175,7 @@ public class RunnerTest {
 
     @Test
     public void registerTenSimilarUsersInEmptyContainer() {
-        System.out.println(REGISTER_TEN_SIMILAR_USERS);
         usersList.clear();
-        userService.setStartingIdAsZero();
         String[] usersSource = {
                 "Vlad",
                 "Vlad",
@@ -204,7 +195,7 @@ public class RunnerTest {
                 .forEach(u -> new Thread(() -> {
                     userService.register(u);
                     Optional<User> user = randomGetUserById();
-                    user.ifPresent(System.out::println);
+                    user.ifPresent(getUser -> System.out.println(FOUND_USER + getUser));
                     latch.countDown();
                 }).start());
 
@@ -220,9 +211,7 @@ public class RunnerTest {
 
     @Test
     public void registerFiveUniqueUsersInEmptyContainer() {
-        System.out.println(REGISTER_FIVE_UNIQUE_USERS);
         usersList.clear();
-        userService.setStartingIdAsZero();
         String[] usersSource = {
                 "Vlad",
                 "Hleb",
@@ -242,7 +231,7 @@ public class RunnerTest {
                 .forEach(u -> new Thread(() -> {
                     userService.register(u);
                     Optional<User> user = randomGetUserById();
-                    user.ifPresent(System.out::println);
+                    user.ifPresent(getUser -> System.out.println(FOUND_USER + getUser));
                     latch.countDown();
                 }).start());
 

@@ -10,5 +10,4 @@ public interface UserService {
 
     Optional<User> register(String user);
 
-    void setStartingIdAsZero();
 }
