@@ -21,12 +21,12 @@ public class RunnerTest {
     ReentrantLock lock = new ReentrantLock();
 
     List<User> usersList = new CopyOnWriteArrayList<>();
-    UserService userService = new ListImplService(usersList, lock);
+    UserService userService = new ListImplService(lock, usersList);
 
 //     comment above two rows and uncomment below two rows to change List implementation to Map
 
-//    Map<Integer, String> usersList = new ConcurrentHashMap<>();
-//    UserService userService = new MapImplService(usersList, lock);
+//    Map<Integer, User> usersList = new ConcurrentHashMap<>();
+//    UserService userService = new MapImplService(lock, usersList);
 
     @Test
     public void registerTwoDifferentUsersInEmptyContainer() {
