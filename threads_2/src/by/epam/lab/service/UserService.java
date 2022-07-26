@@ -8,6 +8,6 @@ public interface UserService {
 
     Optional<User> getUser(int id);
 
-    Optional<User> register(String user);
+    Optional<User> register(String account);
 
 }

@@ -4,10 +4,14 @@ import static by.epam.lab.utils.Constants.*;
 
 public class User {
     private final String account;
-    private final int id;
+    private int id;
+
+    public User(String account){
+        this.account = account;
+    }
 
     public User(String account, int id) {
-        this.account = account;
+        this(account);
         this.id = id;
     }
 

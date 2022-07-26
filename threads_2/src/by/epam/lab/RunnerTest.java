@@ -11,20 +11,22 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.*;
+import java.util.concurrent.locks.ReentrantLock;
 
 import static by.epam.lab.utils.Constants.*;
 
 import static org.junit.Assert.*;
 
 public class RunnerTest {
+    ReentrantLock lock = new ReentrantLock();
 
     List<User> usersList = new CopyOnWriteArrayList<>();
-    UserService userService = new ListImplService(usersList);
+    UserService userService = new ListImplService(usersList, lock);
 
 //     comment above two rows and uncomment below two rows to change List implementation to Map
 
 //    Map<Integer, String> usersList = new ConcurrentHashMap<>();
-//    UserService userService = new MapImplService(usersList);
+//    UserService userService = new MapImplService(usersList, lock);
 
     @Test
     public void registerTwoDifferentUsersInEmptyContainer() {
@@ -53,8 +55,63 @@ public class RunnerTest {
     }
 
     @Test
+    public void registerTwoDifferentUsersInNotEmptyContainerWithOneExistUser() {
+        userService.register("Kate");
+        userService.register("Vlad");
+        String[] usersSource = {
+                "Vlad",
+                "Hleb"
+        };
+
+        CountDownLatch latch = new CountDownLatch(usersSource.length);
+
+        Arrays.stream(usersSource)
+                .forEach(u -> new Thread(() -> {
+                    userService.register(u);
+                    sleep();
+                    latch.countDown();
+                }).start());
+
+        try {
+            latch.await();
+        } catch (InterruptedException e) {
+            System.err.println(INTERRUPTED_EXCEPTION + e.getMessage());
+        }
+
+        final int EXPECTED_USERS_NUM = 3;
+        assertEquals(EXPECTED_USERS_NUM, usersList.size());
+    }
+
+    @Test
+    public void registerTwoDifferentUsersInNotEmptyContainerWithTwoExistUser() {
+        userService.register("Kate");
+        userService.register("Vlad");
+        String[] usersSource = {
+                "Vlad",
+                "Kate"
+        };
+
+        CountDownLatch latch = new CountDownLatch(usersSource.length);
+
+        Arrays.stream(usersSource)
+                .forEach(u -> new Thread(() -> {
+                    userService.register(u);
+                    sleep();
+                    latch.countDown();
+                }).start());
+
+        try {
+            latch.await();
+        } catch (InterruptedException e) {
+            System.err.println(INTERRUPTED_EXCEPTION + e.getMessage());
+        }
+
+        final int EXPECTED_USERS_NUM = 2;
+        assertEquals(EXPECTED_USERS_NUM, usersList.size());
+    }
+
+    @Test
     public void registerTwoDifferentUsersInNotEmptyContainer() {
-        usersList.clear();
         userService.register("Kate");
         userService.register("Denis");
         String[] usersSource = {
@@ -83,7 +140,6 @@ public class RunnerTest {
 
     @Test
     public void registerTwoSameUsersInNotEmptyContainer() {
-        usersList.clear();
         userService.register("Kate");
         userService.register("Denis");
         String[] usersSource = {
@@ -112,7 +168,6 @@ public class RunnerTest {
 
     @Test
     public void registerTwoSameUsersInEmptyContainer() {
-        usersList.clear();
         String[] usersSource = {
                 "Vlad",
                 "Vlad"
@@ -139,7 +194,6 @@ public class RunnerTest {
 
     @Test
     public void registerTenDifferentUsersInEmptyContainer() {
-        usersList.clear();
         String[] usersSource = {
                 "Vlad",
                 "Hleb",
@@ -175,7 +229,6 @@ public class RunnerTest {
 
     @Test
     public void registerTenSimilarUsersInEmptyContainer() {
-        usersList.clear();
         String[] usersSource = {
                 "Vlad",
                 "Vlad",
@@ -211,7 +264,6 @@ public class RunnerTest {
 
     @Test
     public void registerFiveUniqueUsersInEmptyContainer() {
-        usersList.clear();
         String[] usersSource = {
                 "Vlad",
                 "Hleb",

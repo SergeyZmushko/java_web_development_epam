@@ -9,46 +9,40 @@ import java.util.Optional;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.IntStream;
 
-
 public class ListImplService implements UserService {
     private final List<User> users;
-    private final ReentrantLock lock = new ReentrantLock();
+    private final ReentrantLock lock;
 
-    public ListImplService(List<User> users) {
+    public ListImplService(List<User> users, ReentrantLock lock) {
         this.users = users;
+        this.lock = lock;
     }
 
     @Override
     public Optional<User> getUser(int id) {
-        Optional<User> resultUser = Optional.empty();
         Optional<User> user = IntStream.of(id)
                 .filter(ind -> ind >= 0 && ind < users.size())
                 .mapToObj(users::get)
-                .findAny()
-                .or(Optional::empty);
-        if (user.isEmpty()) {
+                .findAny();
+        if (user.isEmpty()){
             System.out.println(Constants.NOT_EXIST_USER + id);
-        } else {
-            resultUser = user;
         }
-        return resultUser;
+        return user;
     }
 
     @Override
-    public Optional<User> register(String userName) {
+    public Optional<User> register(String account) {
         lock.lock();
         try {
-            Optional<User> resultUser = Optional.empty();
             Optional<User> user = users.stream()
-                    .filter(u -> userName.equals(u.getAccount()))
+                    .filter(u -> account.equals(u.getAccount()))
                     .findAny();
             if (user.isEmpty()) {
-                resultUser = Optional.of(new User(userName, users.size() + 1));
-                users.add(resultUser.get());
+                users.add(Optional.of(new User(account, users.size() + 1)).get());
             } else {
                 System.out.println(Constants.REGISTERED_USER + user.get());
             }
-            return resultUser;
+            return user;
         } finally {
             lock.unlock();
         }

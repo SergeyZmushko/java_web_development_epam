@@ -10,44 +10,41 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class MapImplService implements UserService {
     private final Map<Integer, String> users;
-    private final ReentrantLock lock = new ReentrantLock();
+    private final ReentrantLock lock;
 
-    public MapImplService(Map<Integer, String> users) {
+    public MapImplService(Map<Integer, String> users, ReentrantLock lock) {
         this.users = users;
+        this.lock = lock;
     }
 
     @Override
     public Optional<User> getUser(int id) {
-        Optional<User> resultUser = Optional.empty();
-        Optional<User> user = users.entrySet().stream()
+        Optional<User> user = users.entrySet()
+                .stream()
                 .filter(k -> id == k.getKey())
                 .map(a -> new User(a.getValue(), a.getKey()))
-                .findAny()
-                .or(Optional::empty);
-        if (user.isEmpty()) {
+                .findAny();
+        if (user.isEmpty()){
             System.out.println(Constants.NOT_EXIST_USER + id);
-        } else {
-            resultUser = user;
         }
-        return resultUser;
+        return user;
     }
 
     @Override
-    public Optional<User> register(String userName) {
+    public Optional<User> register(String account) {
         lock.lock();
         try {
-            Optional<User> resultUser = Optional.empty();
             Optional<User> user = users.entrySet().stream()
-                    .filter(u -> users.containsValue(userName))
+                    .filter(u -> users.containsValue(account))
                     .map(u -> new User(u.getValue(), u.getKey()))
                     .findAny();
             if (user.isEmpty()) {
-                resultUser = Optional.of(new User(userName, users.size() + 1));
-                users.put(resultUser.get().getId(), resultUser.get().getAccount());
+                user = Optional.of(new User(account, users.size() + 1));
+                users.put(user.get().getId(), user.get().getAccount());
             } else {
                 System.out.println(Constants.REGISTERED_USER + user.get());
             }
-            return resultUser;
+            return user;
         } finally {
             lock.unlock();
         }
