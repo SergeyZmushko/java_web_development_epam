@@ -5,14 +5,13 @@ import by.epam.lab.utils.Constants;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.IntStream;
 
 public class ListImplService extends AbstractService {
     private final List<User> users;
 
-    public ListImplService(ReentrantLock lock, List<User> users) {
-        super(lock);
+    public ListImplService(List<User> users) {
+        super();
         this.users = users;
     }
 

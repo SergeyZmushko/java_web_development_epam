@@ -11,22 +11,21 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.*;
-import java.util.concurrent.locks.ReentrantLock;
 
 import static by.epam.lab.utils.Constants.*;
 
 import static org.junit.Assert.*;
 
 public class RunnerTest {
-    ReentrantLock lock = new ReentrantLock();
+
 
     List<User> usersList = new CopyOnWriteArrayList<>();
-    UserService userService = new ListImplService(lock, usersList);
+    UserService userService = new ListImplService(usersList);
 
 //     comment above two rows and uncomment below two rows to change List implementation to Map
 
 //    Map<Integer, User> usersList = new ConcurrentHashMap<>();
-//    UserService userService = new MapImplService(lock, usersList);
+//    UserService userService = new MapImplService(usersList);
 
     @Test
     public void registerTwoDifferentUsersInEmptyContainer() {

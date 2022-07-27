@@ -3,15 +3,15 @@ package by.epam.lab.service.impl;
 import by.epam.lab.bean.User;
 import by.epam.lab.service.UserService;
 
-import java.util.List;
+import java.util.Collection;
 import java.util.Optional;
 import java.util.concurrent.locks.ReentrantLock;
 
 public abstract class AbstractService implements UserService {
     private final ReentrantLock lock;
 
-    public AbstractService(ReentrantLock lock) {
-        this.lock = lock;
+    public AbstractService() {
+        this.lock = new ReentrantLock();
     }
 
     public Optional<User> register(String account) {
@@ -30,7 +30,7 @@ public abstract class AbstractService implements UserService {
         }
     }
 
-    protected abstract List<User> getModelForSearch();
+    protected abstract Collection<User> getModelForSearch();
 
     protected abstract void addUserToModel(User user);
 }

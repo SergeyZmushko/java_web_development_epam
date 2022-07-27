@@ -3,27 +3,19 @@ package by.epam.lab.service.impl;
 import by.epam.lab.bean.User;
 import by.epam.lab.utils.Constants;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.concurrent.locks.ReentrantLock;
+import java.util.*;
 
 public class MapImplService extends AbstractService {
     private final Map<Integer, User> users;
 
-    public MapImplService(ReentrantLock lock, Map<Integer, User> users) {
-        super(lock);
+    public MapImplService(Map<Integer, User> users) {
+        super();
         this.users = users;
     }
 
     @Override
     public Optional<User> getUser(int id) {
-        Optional<User> user = users.entrySet()
-                .stream()
-                .filter(k -> k.getKey() == id)
-                .map(Map.Entry::getValue)
-                .findAny();
+        Optional<User> user = Optional.ofNullable(users.get(id));
         if (user.isEmpty()) {
             System.out.println(Constants.NOT_EXIST_USER + id);
         }
@@ -31,8 +23,8 @@ public class MapImplService extends AbstractService {
     }
 
     @Override
-    protected List<User> getModelForSearch() {
-        return new ArrayList<>(users.values());
+    protected Collection<User> getModelForSearch() {
+        return users.values();
     }
 
     @Override
