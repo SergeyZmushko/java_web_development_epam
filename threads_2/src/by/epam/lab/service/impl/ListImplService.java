@@ -3,6 +3,7 @@ package by.epam.lab.service.impl;
 import by.epam.lab.bean.User;
 import by.epam.lab.utils.Constants;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.IntStream;
@@ -11,7 +12,6 @@ public class ListImplService extends AbstractService {
     private final List<User> users;
 
     public ListImplService(List<User> users) {
-        super();
         this.users = users;
     }
 
@@ -28,7 +28,7 @@ public class ListImplService extends AbstractService {
     }
 
     @Override
-    protected List<User> getModelForSearch() {
+    protected Collection<User> getModelForSearch() {
         return users;
     }
 

@@ -9,7 +9,6 @@ public class MapImplService extends AbstractService {
     private final Map<Integer, User> users;
 
     public MapImplService(Map<Integer, User> users) {
-        super();
         this.users = users;
     }
 
