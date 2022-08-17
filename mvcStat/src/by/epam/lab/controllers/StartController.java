@@ -18,16 +18,10 @@ public class StartController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		String refferer = request.getHeader(HEADER_NAME);
-		if (refferer == null) {
-			response.sendRedirect(request.getContextPath());
-			return;
-		}
-
-		String number = request.getParameter(NUMBER_NAME);
-		request.setAttribute(NUMBER_NAME, Integer.parseInt(number) - 1);
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String strNumber = request.getParameter(NUMBER_NAME);
+		int number = Integer.parseInt(strNumber);
+		request.setAttribute(NUMBER_NAME, number);
 
 		RequestDispatcher rd = getServletContext().getRequestDispatcher(START_PAGE_URL);
 		rd.forward(request, response);

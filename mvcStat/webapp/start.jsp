@@ -1,6 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,7 +27,7 @@
 <p/>
 <form name="result" action="<c:url value = "/result"/>" onsubmit="return false">
 
-<c:forEach var="i" begin="0" end="${number}">
+<c:forEach var="i" begin="0" end="${number - 1}">
 	${i}: <input name="stats" type="number" value="0" min="-1000" max="1000"/>
 	<br/><br/>
 </c:forEach>
@@ -41,6 +40,6 @@
 	<a href="JavaScript:sendForm('avg')">avg</a>
 </form>
 <br/>
-<a href="index.html">Back</a>
+<a href = "<c:url value ="index.jsp"/>">Back</a>
 </body>
 </html>

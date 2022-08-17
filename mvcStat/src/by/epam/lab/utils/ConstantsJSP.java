@@ -6,7 +6,7 @@ public class ConstantsJSP {
 	public final static String NUMBER_NAME = "number";
 	public final static String RESULT_NAME = "result";
 	public final static String NUMBERS_NAME = "numbers";
-	public final static String HEADER_NAME = "referer";
+	public final static String REFERER_HEADER = "referer";
 
 	public final static String START_PAGE_URL = "/start.jsp";
 	public final static String RESULT_PAGE_URL = "/result.jsp";

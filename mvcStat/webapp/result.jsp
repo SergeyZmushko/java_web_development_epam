@@ -11,7 +11,7 @@
 
 <c:out value="${operation}("/>
 
-<c:forEach var = "number" items = "${numbers}" varStatus="loop">
+<c:forEach var = "number" items = "${stats}" varStatus="loop">
 	${number}
 	<c:if test="${!loop.last}">, </c:if>
 </c:forEach>
