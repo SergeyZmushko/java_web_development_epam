@@ -8,16 +8,16 @@
 <title>Result page</title>
 </head>
 <body>
-
-<c:out value="${operation}("/>
-
-<c:forEach var = "number" items = "${stats}" varStatus="loop">
-	${number}
-	<c:if test="${!loop.last}">, </c:if>
+${operation}(
+<c:forEach var = "stat" items = "${stats}" varStatus="status">
+	${stat}
+	<c:if test="${not status.last}">
+		, 
+	</c:if>
 </c:forEach>
+) is ${result}
 
-<c:out value=") is ${result}"/>
 	<br />
-	<a href="/mvcStat/">Main</a>
+	<a href="<c:url value='/'/>">Main</a>
 </body>
 </html>

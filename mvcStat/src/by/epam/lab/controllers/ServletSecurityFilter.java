@@ -30,5 +30,11 @@ public class ServletSecurityFilter implements Filter {
 		}
 		chain.doFilter(httpRequest, httpResponse);
 	}
+	
+	public void init(Filter fConfig) throws ServletException{
+	}
+	
+	public void destroy() {
+	}
 
 }

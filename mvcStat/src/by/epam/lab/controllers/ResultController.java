@@ -32,7 +32,7 @@ public class ResultController extends HttpServlet {
 		double result = operation.result(stat);
 
 		request.setAttribute(RESULT_NAME, result);
-		request.setAttribute(OPERATION_NAME, operation);
+		request.setAttribute(OPERATION_NAME, operatName);
 		request.setAttribute(STAT_NAME, stat);
 
 		RequestDispatcher rd = getServletContext().getRequestDispatcher(RESULT_PAGE_URL);
