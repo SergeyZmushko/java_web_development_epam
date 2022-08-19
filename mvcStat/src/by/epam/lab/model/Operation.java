@@ -1,27 +1,23 @@
 package by.epam.lab.model;
 
-import static by.epam.lab.utils.ConstantsOperation.*;
 
 import java.util.Arrays;
-import java.util.function.DoubleBinaryOperator;
+import java.util.DoubleSummaryStatistics;
+import java.util.function.Function;
 
 public enum Operation {
-	SUM(SYMBOL_SUM, Double::sum),
-	MAX(SYMBOL_MAX, Double::max),
-	MIN(SYMBOL_MIN, Double::min),
-	AVG(SYMBOL_AVG, Double::sum);
+	SUM(DoubleSummaryStatistics::getSum),
+	MAX(DoubleSummaryStatistics::getMax),
+	MIN(DoubleSummaryStatistics::getMin),
+	AVG(DoubleSummaryStatistics::getAverage);
 
-	private final DoubleBinaryOperator doubleBinaryOperator;
+	private final Function<DoubleSummaryStatistics, Double> terminalOperation;
 
-	Operation(String value, final DoubleBinaryOperator doubleBinaryOperator) {
-		this.doubleBinaryOperator = doubleBinaryOperator;
+	Operation(final Function<DoubleSummaryStatistics, Double> terminalOperation) {
+		this.terminalOperation = terminalOperation;
 	}
 
-	public double result(double... n) {
-		double result = Arrays.stream(n).reduce(doubleBinaryOperator).getAsDouble();
-		if (this == AVG) {
-			result /= n.length;
-		}
-		return result;
+	public double result(double[] numbers) {
+		return terminalOperation.apply(Arrays.stream(numbers).summaryStatistics());
 	}
 }

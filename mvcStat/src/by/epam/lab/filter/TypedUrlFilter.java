@@ -1,4 +1,4 @@
-package by.epam.lab.controllers;
+package by.epam.lab.filter;
 
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
@@ -17,7 +17,7 @@ import by.epam.lab.utils.ConstantsJSP;
  * Servlet Filter implementation class ServletSecurityFilter
  */
 @WebFilter({ "/result", "/start" })
-public class ServletSecurityFilter implements Filter {
+public class TypedUrlFilter implements Filter {
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 
