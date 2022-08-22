@@ -24,11 +24,11 @@ public class ResultController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String operatName = request.getParameter(OPERATION_NAME);
-		String numbersSize = (String) getServletContext().getAttribute(NUMBER_NAME);
-//		String numbersSize = request.getParameter(NUMBER_NAME);
+//		String numbersSize = (String) getServletContext().getAttribute(NUMBER_NAME);
+		String numbersSize = (String) request.getAttribute(NUMBER_NAME);
 		String[] strId = request.getParameterValues(STAT_NAME);
 //		String[] strNumbers = (String[]) getServletContext().getAttribute(NUMBERS_NAME);
-		String[] strNumbers = request.getParameterValues(NUMBERS_NAME);
+		String[] strNumbers = (String[]) request.getAttribute(NUMBERS_NAME);
 		System.out.println(numbersSize);
 		int[] id = Arrays.stream(strId)
 				.mapToInt(Integer::parseInt)
