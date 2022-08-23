@@ -15,7 +15,7 @@
 		      return;
 		    }
 		    if(isOut(num)) {
-		      err.innerHTML = "box "+ i +": index must be less than " + ${maxValue};
+		      err.innerHTML = "box "+ i +": index must be more than -1 and less than " + ${maxValue};
 		      return;
 		    }
 		}

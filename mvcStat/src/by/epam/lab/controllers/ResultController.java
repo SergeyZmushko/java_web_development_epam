@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.IntStream;
 
 import by.epam.lab.controllers.dao.NumberDAO;
 import by.epam.lab.model.Operation;
@@ -24,33 +25,26 @@ public class ResultController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String operatName = request.getParameter(OPERATION_NAME);
-//		String numbersSize = (String) getServletContext().getAttribute(NUMBER_NAME);
-		String numbersSize = (String) request.getAttribute(NUMBER_NAME);
 		String[] strId = request.getParameterValues(STAT_NAME);
-//		String[] strNumbers = (String[]) getServletContext().getAttribute(NUMBERS_NAME);
-		String[] strNumbers = (String[]) request.getAttribute(NUMBERS_NAME);
-		System.out.println(numbersSize);
+		
+		int numbersSize = (int) request.getServletContext().getAttribute(MAX_VALUE_NAME);
+		List<Double> numbers = (List<Double>) request.getServletContext().getAttribute(NUMBERS_NAME);
+		
 		int[] id = Arrays.stream(strId)
 				.mapToInt(Integer::parseInt)
 				.toArray();
-		double[] stat = Arrays.stream(strNumbers)
-				.mapToDouble(Double::parseDouble)
-				.toArray();
 		
-		double[] res = new double [Integer.parseInt(numbersSize)];
-		int x = 0;
-		for(Integer i : id) {
-			res[x] = stat[i];
-			x++;
-		}
+		double[] stats = IntStream.of(id)
+				.mapToDouble(numbers::get)
+				.toArray();
 
 		Operation operation = Operation.valueOf(operatName.toUpperCase());
 
-		double result = operation.result(res);
+		double result = operation.result(stats);
 
 		request.setAttribute(RESULT_NAME, result);
 		request.setAttribute(OPERATION_NAME, operation.name().toLowerCase());
-		request.setAttribute(STAT_NAME, stat);
+		request.setAttribute(STAT_NAME, stats);
 
 		RequestDispatcher rd = getServletContext().getRequestDispatcher(RESULT_PAGE_URL);
 		rd.forward(request, response);

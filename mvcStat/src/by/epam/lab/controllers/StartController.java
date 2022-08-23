@@ -9,7 +9,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 
 import by.epam.lab.controllers.dao.NumberDAO;
@@ -38,12 +37,10 @@ public class StartController extends HttpServlet {
 			NumberDAO numberDAO = NumberFactory.getClassFromFactory();
 			List<Double> numbers = numberDAO.getNumbers();
 			if(numbers.size() < MIN_SIZE) {
-				throw new InitException("Few numbers found ");
+				throw new InitException("Few numbers found " + numbers.size());
 			}
 			getServletContext().setAttribute(NUMBERS_NAME, numbers);
 			getServletContext().setAttribute(MAX_VALUE_NAME, numbers.size());
-			System.out.println(numbers);
-			System.out.println(numbers.size());
 		}catch(InitException e) {
 			throw new ServletException(e);
 		}
@@ -58,5 +55,4 @@ public class StartController extends HttpServlet {
 		RequestDispatcher rd = getServletContext().getRequestDispatcher(START_PAGE_URL);
 		rd.forward(request, response);
 	}
-
 }
