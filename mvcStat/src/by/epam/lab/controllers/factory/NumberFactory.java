@@ -6,7 +6,7 @@ import by.epam.lab.controllers.dao.impl.NumberDb;
 import by.epam.lab.controllers.dao.impl.NumberMemory;
 
 public class NumberFactory {
-	private static String kind;
+	private static String[] kind;
 	
 	private enum NumberKind{
 		MEMORY{
@@ -16,12 +16,12 @@ public class NumberFactory {
 		},
 		CSV{
 			protected NumberDAO getNumberKind() {
-				return new NumberCsv();
+				return new NumberCsv(kind);
 			}
 		},
 		DB{
 			protected NumberDAO getNumberKind() {
-				return new NumberDb();
+				return new NumberDb(kind);
 			}
 		};
 		
@@ -29,12 +29,12 @@ public class NumberFactory {
 	}
 	
 	private static NumberKind getNumberVar() {
-		return NumberKind.valueOf(kind.toUpperCase());
+		return NumberKind.valueOf(kind[0].toUpperCase());
 	}
 	
 	public static void init (String initParam) {
 		String[] param = initParam.split(";");
-		kind = param[0];
+		kind = param;
 	}
 	
 	public static NumberDAO getClassFromFactory() {

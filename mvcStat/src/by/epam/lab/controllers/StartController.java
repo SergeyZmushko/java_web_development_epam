@@ -23,7 +23,7 @@ import static by.epam.lab.utils.ConstantsJSP.*;
 @WebServlet(urlPatterns = { "/start" }, 
 			initParams = { 
 					@WebInitParam(name = "min.size", value = "12"),
-					@WebInitParam(name = "factory.number", value = "memory") 
+					@WebInitParam(name = "factory.number", value = CSV_INITIALIZATION_PARAM) 
 			})
 public class StartController extends HttpServlet {
 
@@ -41,6 +41,7 @@ public class StartController extends HttpServlet {
 			}
 			getServletContext().setAttribute(NUMBERS_NAME, numbers);
 			getServletContext().setAttribute(MAX_VALUE_NAME, numbers.size());
+			System.out.println("Numbers " + numbers);
 		}catch(InitException e) {
 			throw new ServletException(e);
 		}
