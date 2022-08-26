@@ -20,10 +20,17 @@ import static by.epam.lab.utils.ConstantsJSP.*;
 /**
  * Servlet implementation class StartController
  */
+/*
+ * Change value of "factory.number" parameter to chose different implementation.
+ * "MEMORY_INITIALIZATION_PARAM" - for memory implementation;
+ * "DB_INITIALIZATION_PARAM" - for database implementation;
+ * "CSV_INITIALIZATION_PARAM" - for csv implementation;
+ * 
+ */
 @WebServlet(urlPatterns = { "/start" }, 
 			initParams = { 
 					@WebInitParam(name = "min.size", value = "12"),
-					@WebInitParam(name = "factory.number", value = CSV_INITIALIZATION_PARAM) 
+					@WebInitParam(name = "factory.number", value = MEMORY_INITIALIZATION_PARAM) 
 			})
 public class StartController extends HttpServlet {
 
@@ -37,11 +44,10 @@ public class StartController extends HttpServlet {
 			NumberDAO numberDAO = NumberFactory.getClassFromFactory();
 			List<Double> numbers = numberDAO.getNumbers();
 			if(numbers.size() < MIN_SIZE) {
-				throw new InitException("Few numbers found " + numbers.size());
+				throw new InitException(NUMBERS_FOUND + numbers.size());
 			}
 			getServletContext().setAttribute(NUMBERS_NAME, numbers);
 			getServletContext().setAttribute(MAX_VALUE_NAME, numbers.size());
-			System.out.println("Numbers " + numbers);
 		}catch(InitException e) {
 			throw new ServletException(e);
 		}
