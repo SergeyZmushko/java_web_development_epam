@@ -15,6 +15,8 @@ import by.epam.lab.controllers.dao.NumberDAO;
 import by.epam.lab.controllers.factory.NumberFactory;
 import by.epam.lab.exceptions.InitException;
 
+import static by.epam.lab.utils.ConstantsDAO.MAX_NUMBER;
+import static by.epam.lab.utils.ConstantsDAO.MIN_NUMBER;
 import static by.epam.lab.utils.ConstantsJSP.*;
 
 /**
@@ -27,32 +29,33 @@ import static by.epam.lab.utils.ConstantsJSP.*;
  * "CSV_INITIALIZATION_PARAM" - for csv implementation;
  * 
  */
-@WebServlet(urlPatterns = { "/start" }, 
-			initParams = { 
-					@WebInitParam(name = "min.size", value = "12"),
-					@WebInitParam(name = "factory.number", value = MEMORY_INITIALIZATION_PARAM) 
-			})
+@WebServlet(urlPatterns = { "/start" }, initParams = { @WebInitParam(name = MIN_SIZE_NUMBERS, value = MIN_SIZE_NUMBERS_VALUE),
+		@WebInitParam(name = FACTORY_NUMBER, value = CSV_INITIALIZATION_PARAM) })
 public class StartController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
-	public void init(ServletConfig sc) throws ServletException{
+	public void init(ServletConfig sc) throws ServletException {
 		super.init(sc);
 		try {
-			final int MIN_SIZE = Integer.parseInt(sc.getInitParameter("min.size"));
-			NumberFactory.init(sc.getInitParameter("factory.number"));
+			final int MIN_SIZE = Integer.parseInt(sc.getInitParameter(MIN_SIZE_NUMBERS));
+			NumberFactory.init(sc.getInitParameter(FACTORY_NUMBER));
 			NumberDAO numberDAO = NumberFactory.getClassFromFactory();
-			List<Double> numbers = numberDAO.getNumbers();
-			if(numbers.size() < MIN_SIZE) {
+			List<Double> numbers = numberDAO.getNumbers().stream()
+					.filter(i -> i <= MAX_NUMBER && i >= MIN_NUMBER)
+					.toList();
+			
+			if (numbers.size() < MIN_SIZE) {
 				throw new InitException(NUMBERS_FOUND + numbers.size());
 			}
 			getServletContext().setAttribute(NUMBERS_NAME, numbers);
 			getServletContext().setAttribute(MAX_VALUE_NAME, numbers.size());
-		}catch(InitException e) {
+			System.out.println("Numbers " + numbers);
+		} catch (InitException e) {
 			throw new ServletException(e);
 		}
 	}
-	
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String strNumber = request.getParameter(NUMBER_NAME);

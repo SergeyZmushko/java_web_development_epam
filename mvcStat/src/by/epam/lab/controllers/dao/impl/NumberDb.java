@@ -9,37 +9,38 @@ import java.util.ArrayList;
 import java.util.List;
 
 import by.epam.lab.controllers.dao.NumberDAO;
-import static by.epam.lab.utils.ConstantsJSP.*;
+import by.epam.lab.exceptions.InitException;
+
+import static by.epam.lab.utils.ConstantsDAO.*;
 
 public class NumberDb implements NumberDAO {
-	private final String[] strParam;
+	private final String url;
+	private final String user;
+	private final String password;
 
-	public NumberDb(String[] param) {
-		this.strParam = param;
+	public NumberDb(String dbName, String user, String password) {
+		this.url = DB_URL + dbName;
+		this.user = user;
+		this.password = password;
 	}
 
 	@Override
-	public List<Double> getNumbers() {
-		List<Double> result = new ArrayList<>();
+	public List<Double> getNumbers() throws InitException {
 		try {
 			Class.forName(CLASS_NAME);
-			try (Connection cn = DriverManager.getConnection(DB_URL + strParam[DB_NAME_IND],
-					strParam[USER_IND], strParam[PASSWORD_IND]); 
-					Statement st = cn.createStatement()) {
-				ResultSet rs = st.executeQuery(SQL_SELECT_NUMBERS);
+			try (Connection cn = DriverManager.getConnection(url, user, password);
+					Statement st = cn.createStatement();
+					ResultSet rs = st.executeQuery(SQL_SELECT_NUMBERS)) {
+				List<Double> result = new ArrayList<>();
 				while (rs.next()) {
-					double currentNumber = rs.getDouble(SQL_PARAM_VALUE);
-					if (currentNumber >= MIN_NUMBER && currentNumber <= MAX_NUMBER) {
-						result.add(currentNumber);
-					}
+					result.add(rs.getDouble(SQL_PARAM_VALUE));
 				}
+				return result;
 			} catch (SQLException e) {
-				System.err.println(DATA_BASE_ERROR);
+				throw new InitException(DATA_BASE_ERROR);
 			}
 		} catch (ClassNotFoundException e) {
-			System.err.println(LOAD_CONNECTOR_ERROR);
+			throw new InitException(LOAD_CONNECTOR_ERROR);
 		}
-		return result;
 	}
-
 }

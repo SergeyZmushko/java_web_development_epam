@@ -3,38 +3,37 @@ package by.epam.lab.controllers.dao.impl;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Stream;
 
 import by.epam.lab.controllers.dao.NumberDAO;
-import static by.epam.lab.utils.ConstantsJSP.*;
+import by.epam.lab.exceptions.InitException;
+
+import static by.epam.lab.utils.ConstantsDAO.*;
 
 public class NumberCsv implements NumberDAO {
-	private final String[] param;
+	private final String path;
 
-	public NumberCsv(String[] param) {
-		this.param = param;
+	public NumberCsv(String path) {
+		this.path = path;
 	}
 
 	@Override
-	public List<Double> getNumbers() {
-		List<Double> numbers = new ArrayList<>();
-		try {
-			Scanner sc = new Scanner(new File(param[FILE_NAME_IND]));
+	public List<Double> getNumbers() throws InitException {
+		try (Scanner sc = new Scanner(new File(path))) {
+			List<Double> numbers = new ArrayList<>();
 			while (sc.hasNext()) {
 				String line = sc.next();
 				String[] values = line.split(DELIMITER);
-				numbers.addAll(Stream.of(values)
+				numbers.addAll(Arrays.stream(values)
 						.mapToDouble(Double::parseDouble)
-						.filter(i -> i <= MAX_NUMBER && i >= MIN_NUMBER)
 						.boxed()
 						.toList());
 			}
-			sc.close();
-		} catch (FileNotFoundException e) {
-			System.err.println(FILE_NOT_FOUND);
+			return numbers;
+		} catch (FileNotFoundException | NumberFormatException e) {
+			throw new InitException(LOAD_NUMBERS_ERROR);
 		}
-		return numbers;
 	}
 }

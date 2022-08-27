@@ -4,7 +4,7 @@ import by.epam.lab.controllers.dao.NumberDAO;
 import by.epam.lab.controllers.dao.impl.NumberCsv;
 import by.epam.lab.controllers.dao.impl.NumberDb;
 import by.epam.lab.controllers.dao.impl.NumberMemory;
-import static by.epam.lab.utils.ConstantsJSP.*;
+import static by.epam.lab.utils.ConstantsDAO.*;
 
 public class NumberFactory {
 	private static String[] params;
@@ -17,12 +17,12 @@ public class NumberFactory {
 		},
 		CSV {
 			protected NumberDAO getNumberKind() {
-				return new NumberCsv(params);
+				return new NumberCsv(params[FILE_NAME_IND]);
 			}
 		},
 		DB {
 			protected NumberDAO getNumberKind() {
-				return new NumberDb(params);
+				return new NumberDb(params[DB_NAME_IND], params[USER_IND], params[PASSWORD_IND]);
 			}
 		};
 

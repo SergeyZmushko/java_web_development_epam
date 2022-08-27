@@ -9,9 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.IntStream;
 
-import by.epam.lab.controllers.dao.NumberDAO;
 import by.epam.lab.model.Operation;
 
 import static by.epam.lab.utils.ConstantsJSP.*;
@@ -27,14 +25,13 @@ public class ResultController extends HttpServlet {
 		String operatName = request.getParameter(OPERATION_NAME);
 		String[] strId = request.getParameterValues(STAT_NAME);
 		
-		int numbersSize = (int) request.getServletContext().getAttribute(MAX_VALUE_NAME);
 		List<Double> numbers = (List<Double>) request.getServletContext().getAttribute(NUMBERS_NAME);
 		
 		int[] id = Arrays.stream(strId)
 				.mapToInt(Integer::parseInt)
 				.toArray();
 		
-		double[] stats = IntStream.of(id)
+		double[] stats = Arrays.stream(id)
 				.mapToDouble(numbers::get)
 				.toArray();
 

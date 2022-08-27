@@ -3,7 +3,6 @@ package by.epam.lab.controllers.dao.impl;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import static by.epam.lab.utils.ConstantsJSP.*;
 
 import by.epam.lab.controllers.dao.NumberDAO;
 
@@ -15,7 +14,6 @@ public class NumberMemory implements NumberDAO {
 	@Override
 	public List<Double> getNumbers() {
 		return numbers.stream()
-				.filter(i -> i <= MAX_NUMBER && i >= MIN_NUMBER)
 				.toList();
 	}
 
