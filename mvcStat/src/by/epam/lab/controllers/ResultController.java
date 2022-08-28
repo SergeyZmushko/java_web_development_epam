@@ -27,11 +27,8 @@ public class ResultController extends HttpServlet {
 		
 		List<Double> numbers = (List<Double>) request.getServletContext().getAttribute(NUMBERS_NAME);
 		
-		int[] id = Arrays.stream(strId)
+		double[] stats = Arrays.stream(strId)
 				.mapToInt(Integer::parseInt)
-				.toArray();
-		
-		double[] stats = Arrays.stream(id)
 				.mapToDouble(numbers::get)
 				.toArray();
 

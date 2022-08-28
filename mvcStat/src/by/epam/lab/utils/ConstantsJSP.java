@@ -17,7 +17,8 @@ public class ConstantsJSP {
 	public final static String MIN_SIZE_NUMBERS_VALUE = "12";
 	
 	public final static String MEMORY_INITIALIZATION_PARAM = "memory";
-	public final static String CSV_INITIALIZATION_PARAM = "csv;E:/java_web_development_epam/mvcStat/webapp/WEB-INF/resources/numbers.csv";
+	public final static String CSV_INITIALIZATION_PARAM = "csv;/resources/numbers.csv";
 	public final static String DB_INITIALIZATION_PARAM = "db;mvcStat2;epamlab;111";
 	public final static String NUMBERS_FOUND = "Few numbers found ";
+	public final static String LOAD_DB_DRIVER_ERROR = "Load database driver error";
 }
