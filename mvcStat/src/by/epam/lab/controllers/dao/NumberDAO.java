@@ -6,5 +6,4 @@ import by.epam.lab.exceptions.InitException;
 
 public interface NumberDAO {
 	List<Double> getNumbers() throws InitException;
-
 }

@@ -1,7 +1,7 @@
 package by.epam.lab.controllers.dao.impl;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -12,10 +12,10 @@ import jakarta.servlet.ServletConfig;
 
 import static by.epam.lab.utils.ConstantsDAO.*;
 
-public class NumberImplCsv implements NumberDAO {
+public class NumberCsv implements NumberDAO {
 	private final String csvName;
 
-	public NumberImplCsv(String csvName, ServletConfig sc) {
+	public NumberCsv(String csvName, ServletConfig sc) {
 		this.csvName = sc.getServletContext().getRealPath(REAL_PATH) + csvName;
 	}
 
@@ -26,7 +26,7 @@ public class NumberImplCsv implements NumberDAO {
 			return Arrays.stream(csvLine.split(DELIMITER))
 					.map(Double::parseDouble)
 					.toList();
-		} catch (IOException | NumberFormatException e) {
+		} catch (FileNotFoundException | NumberFormatException e) {
 			throw new InitException(LOAD_NUMBERS_ERROR + csvName);
 		}
 	}

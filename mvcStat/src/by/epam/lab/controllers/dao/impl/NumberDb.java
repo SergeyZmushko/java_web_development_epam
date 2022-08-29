@@ -17,7 +17,7 @@ import jakarta.servlet.ServletConfig;
 
 import static by.epam.lab.utils.ConstantsDAO.*;
 
-public class NumberImplDb implements NumberDAO {
+public class NumberDb implements NumberDAO {
 	private final String url;
 	private final String user;
 	private final String password;
@@ -29,7 +29,7 @@ public class NumberImplDb implements NumberDAO {
 		}
 	}
 
-	public NumberImplDb(String params, ServletConfig sc) {
+	public NumberDb(String params, ServletConfig sc) {
 		String[] param = params.split(DELIMITER);
 		this.url = DB_URL + param[DB_NAME_IND];
 		this.user = param[USER_IND];

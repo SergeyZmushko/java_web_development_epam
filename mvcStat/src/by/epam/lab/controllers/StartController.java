@@ -12,12 +12,11 @@ import java.io.IOException;
 import java.util.List;
 
 import by.epam.lab.controllers.dao.NumberDAO;
-import by.epam.lab.controllers.factory.impl.NumberFactory;
+import by.epam.lab.controllers.factory.NumberFactory;
 import by.epam.lab.exceptions.InitException;
 import by.epam.lab.exceptions.InitRuntimeException;
 
-import static by.epam.lab.utils.ConstantsDAO.MAX_NUMBER;
-import static by.epam.lab.utils.ConstantsDAO.MIN_NUMBER;
+import static by.epam.lab.utils.ConstantsDAO.*;
 import static by.epam.lab.utils.ConstantsJSP.*;
 
 /**
@@ -41,14 +40,11 @@ public class StartController extends HttpServlet {
 		super.init(sc);
 		try {
 			final int MIN_SIZE = Integer.parseInt(sc.getInitParameter(MIN_SIZE_NUMBERS));
-			try {
-				NumberFactory.init(sc);
-			} catch (InitRuntimeException e) {
-				throw new InitException(LOAD_DB_DRIVER_ERROR);
-			}
-			
+			NumberFactory.init(sc);
+
 			NumberDAO numberDAO = NumberFactory.getClassFromFactory();
-			List<Double> numbers = numberDAO.getNumbers().stream()
+			List<Double> numbers = numberDAO.getNumbers()
+					.stream()
 					.filter(i -> i <= MAX_NUMBER && i >= MIN_NUMBER)
 					.toList();
 
@@ -57,7 +53,7 @@ public class StartController extends HttpServlet {
 			}
 			getServletContext().setAttribute(NUMBERS_NAME, numbers);
 			getServletContext().setAttribute(MAX_VALUE_NAME, numbers.size());
-		} catch (InitException e) {
+		} catch (InitException | InitRuntimeException e) {
 			throw new ServletException(e);
 		}
 	}
