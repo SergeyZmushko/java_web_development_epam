@@ -23,7 +23,7 @@ import static by.epam.lab.utils.ConstantsJSP.*;
  * Servlet implementation class StartController
  */
 /*
- * Change value of "factory.number" parameter to chose different implementation.
+ * Change the value of "factory.number" parameter to select different implementation.
  * "MEMORY_INITIALIZATION_PARAM" - for memory implementation;
  * "DB_INITIALIZATION_PARAM" - for database implementation;
  * "CSV_INITIALIZATION_PARAM" - for csv implementation;
